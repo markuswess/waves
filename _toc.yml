@@ -1,0 +1,18 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+#parts:
+#- caption: Mathematical modelling of waves
+#  numbered: true
+#  chapters:
+#  - file: modelling/time-domain
+#
+#
+#- caption: Conforming methods
+#  numbered: true
+#  chapters:
+#    - file: conforming/acoustic
+#  #- file: notebooks
+#  #- file: markdown-notebooks:
