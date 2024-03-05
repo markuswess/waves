@@ -57,6 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/time-domain';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -176,7 +178,10 @@
                 </a>
             </li>
         </ul>
-        
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -370,7 +375,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acoustic-waves">Acoustic waves</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary conditions</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -384,8 +392,108 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="time-domain">
 <h1>Time-domain<a class="headerlink" href="#time-domain" title="Link to this heading">#</a></h1>
-<section id="id1">
-<h2><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>We derive examples of linear wave models.</p>
+<section id="acoustic-waves">
+<h2>Acoustic waves<a class="headerlink" href="#acoustic-waves" title="Link to this heading">#</a></h2>
+<p>We consider the propagation of sound waves of small amplitude in a homogeneous
+isotropic medium viewed as an inviscid fluid.</p>
+<ul class="simple">
+<li><p><strong>Geometry:</strong> A given open domain <span class="math notranslate nohighlight">\(\Omega\subset\mathbb R^3\)</span>, and time interval <span class="math notranslate nohighlight">\([0,T], T&gt;0\)</span></p></li>
+<li><p><strong>Constituents:</strong> The (vectorial) velocity field (unit <span class="math notranslate nohighlight">\(m/s\)</span>), the pressure (<span class="math notranslate nohighlight">\(kg/(ms^2)\)</span>) and the density (<span class="math notranslate nohighlight">\(kg/m^3\)</span>) of the fluid given as functions <span class="math notranslate nohighlight">\(v:\Omega\times [0,T]\to\mathbb R^d\)</span>, <span class="math notranslate nohighlight">\(p,\rho:\Omega\times [0,T]\to\mathbb R\)</span> which are assumed to be small perturbations of the static state <span class="math notranslate nohighlight">\(v_0=0,p_0,\rho_0=const.\)</span></p></li>
+<li><p><strong>Balance relations:</strong>
+We impose the linearized Euler equation of momentum</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\rho_0\partial_t v+\nabla p = 0,
+\end{align*}\]</div>
+<p>and the equation of continuity</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\partial_t\rho+\rho_0\nabla\cdot v=0.
+\end{align*}\]</div>
+<p>For our model we choose <span class="math notranslate nohighlight">\(p,v\)</span> to be the primal quantities.</p>
+<p>To close our system of equations we need another equation which is provided by the</p>
+<ul class="simple">
+<li><p><strong>Material law,</strong> a linearized equation of state, relating <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(\rho\)</span>:</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\frac{1}{c^2}\partial_t p = \partial_t \rho,
+\end{align*}\]</div>
+<p>where the <strong>parameter</strong> <span class="math notranslate nohighlight">\(c:=\sqrt{\frac{\kappa}{\rho_0}}\)</span> is the speed of sound in the respective medium (unit <span class="math notranslate nohighlight">\(m/s\)</span>).</p>
+<p>Combining the balance relations and material laws above yields the first order (mixed) form of the acoustic wave equation</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\rho_0\partial_tv+\nabla p &amp;= 0,&amp;\text{in }&amp;\Omega,\\
+\frac{1}{c^2}\partial_t p+\rho_0 \nabla\cdot v &amp;=f,&amp;\text{in }&amp;\Omega,\\
+v(0)&amp;=v_0\\
+p(0)&amp;=p_0\\
+p(t)&amp;=0,&amp;\text{on }&amp;\partial\Omega,\\
+\end{align*}\]</div>
+</div>
+</div>
+<p>where we collect all <strong>external forces</strong> as the right-hand-side term <span class="math notranslate nohighlight">\(f\)</span> and added homogeneous Dirichlet boundary conditions, and initial data to close the system.</p>
+<p>Defining a velocity potential <span class="math notranslate nohighlight">\(\phi\)</span> we obtain</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\partial_t \phi &amp;= -p\\
+\rho_0 v &amp;= \nabla \phi
+\end{align*}\]</div>
+<p>and thus the scalar wave equation for <span class="math notranslate nohighlight">\(\phi\)</span></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="amsmath math notranslate nohighlight" id="equation-51987535-8bbf-4bec-983a-3f7bc60c8f76">
+<span class="eqno">()<a class="headerlink" href="#equation-51987535-8bbf-4bec-983a-3f7bc60c8f76" title="Permalink to this equation">#</a></span>\[\begin{align}
+  \frac{1}{c^2}
+\partial_t^2\phi&amp;=\Delta\phi-f\\
+&amp;+\text{i.c., b.c.}
+\end{align}\]</div>
+</div>
+</div>
+<p>For <span class="math notranslate nohighlight">\(f=0\)</span> the pressure <span class="math notranslate nohighlight">\(p\)</span> fulfills the scalar wave equation as well i.e.,</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+  \frac{1}{c^2}
+\partial_t^2 p&amp;=\Delta p\\
+&amp;+\text{i.c., b.c.}
+\end{align*}\]</div>
+</div>
+</div>
+<section id="boundary-conditions">
+<h3>Boundary conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading">#</a></h3>
+<p>The homogeneous Dirichlet boundary conditions used above corresponds to a sound-soft boundary, the pressure of the total wave vanishes at the boundary. Alternatively one could use sound-hard boundary conditions which are in the acoustic case modeled by the Neumann boundary condition</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\partial_n p &amp;= 0,&amp;\text{on }\partial\Omega.
+\end{align*}\]</div>
+<p>Another important type of boundary conditions for acoustic problems are so-called <em>impedance boundary conditions</em>
+given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\partial_n p &amp;= \lambda \partial_t p,&amp;\text{on }\partial\Omega.
+\end{align*}\]</div>
+<p>for a suitable function <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text">Example</p>
+</div>
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+first order absorbing boundary condition</div>
+<p class="sd-card-text">An important example of impedance boundary conditions are first order absorbing boundary conditions which can be motivated as follows:
+D’Alembert’s solution of the one-dimensional wave-equation with initial data <span class="math notranslate nohighlight">\(p(0)=p_0, v(0)=v_0\)</span> is given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(t,x) = \frac{1}{2}\left(p_0(x-ct)+p_0(x+ct)+\frac{1}{c}\right)
+\end{align*}\]</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -435,7 +543,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acoustic-waves">Acoustic waves</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary conditions</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
