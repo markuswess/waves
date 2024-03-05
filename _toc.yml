@@ -3,12 +3,16 @@
 
 format: jb-book
 root: intro
-#parts:
-#- caption: Mathematical modelling of waves
-#  numbered: true
-#  chapters:
-#  - file: modelling/time-domain
-#
+options: 
+  numbered: 2
+chapters: 
+  - file: modelling
+    #  sections:
+    #- file: modelling/time-domain
+    #- file: modelling/frequency-domain
+      #  - file: getting_started/ngsolve
+      #    sections: 
+      #    - file: getting_started/geometry
 #
 #- caption: Conforming methods
 #  numbered: true

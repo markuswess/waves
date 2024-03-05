@@ -1,4 +1,4 @@
-DEPENDS=intro.md modelling.md _config.yml _toc.yml
+DEPENDS=intro.md modelling/time-domain.md _config.yml _toc.yml
 .PHONY: clean
 
 _build: $(DEPENDS)
