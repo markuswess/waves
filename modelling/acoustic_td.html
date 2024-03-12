@@ -60,9 +60,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/time-domain';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/acoustic_td';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.2. Elastic waves" href="elastic_td.html" />
     <link rel="prev" title="1. Mathematical modeling of wave phenomena" href="../modelling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,6 +182,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1. Acoustic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elastic_td.html">1.2. Elastic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
 </ul>
 </li>
 </ul>
@@ -254,7 +257,7 @@
       
       
       
-      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fmodelling/time-domain.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fmodelling/acoustic_td.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -284,7 +287,7 @@
       
       
       
-      <li><a href="../_sources/modelling/time-domain.md" target="_blank"
+      <li><a href="../_sources/modelling/acoustic_td.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -379,8 +382,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">1.1.1. Boundary conditions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elastic-waves">1.1.2. Elastic waves</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#electromagnetic-waves">1.1.3. Electromagnetic waves</a></li>
 </ul>
             </nav>
         </div>
@@ -393,7 +394,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="acoustic-waves">
-<h1><span class="section-number">1.1. </span>Acoustic waves<a class="headerlink" href="#acoustic-waves" title="Link to this heading">#</a></h1>
+<span id="acoustic-td"></span><h1><span class="section-number">1.1. </span>Acoustic waves<a class="headerlink" href="#acoustic-waves" title="Link to this heading">#</a></h1>
 <p>We consider the propagation of sound waves in a homogeneous
 isotropic medium viewed as an inviscid fluid.</p>
 <ul class="simple">
@@ -408,7 +409,8 @@ We impose the Euler equation of momentum</p></li>
 <div class="math notranslate nohighlight" id="equation-continuity">
 <span class="eqno">(1.2)<a class="headerlink" href="#equation-continuity" title="Link to this equation">#</a></span>\[\partial_t\rho+\nabla\cdot (\rho v)=0,\]</div>
 <p>where <span class="math notranslate nohighlight">\(\partial_t\)</span> denotes the time-derivative and <span class="math notranslate nohighlight">\(\nabla\cdot\)</span> the divergence.
-For our model we choose <span class="math notranslate nohighlight">\(p,v\)</span> to be the primal quantities.</p>
+Note that these balance relations ad-hoc hold only in integral form (integration over each volume and time) and can be stated pointwise only for sufficiently regular functions.</p>
+<p>For our model we choose <span class="math notranslate nohighlight">\(p,v\)</span> to be the primal quantities.</p>
 <p>To close our system of equations we need another equation which is provided by the</p>
 <ul class="simple">
 <li><p><strong>Material law,</strong> an  equation of state, relating <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(\rho\)</span>:</p></li>
@@ -443,11 +445,11 @@ Thus the linearized conservation of mass and momentum become</p>
 <div class="sd-card-body docutils">
 <div class="math notranslate nohighlight" id="equation-wave-eq-1o">
 <span class="eqno">(1.7)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
-\partial_tv+\frac{1}{\rho_0}\nabla p &amp;= f,&amp;\text{in }&amp;\Omega,\\
-\partial_t p+\kappa_0\nabla\cdot v &amp;=0,&amp;\text{in }&amp;\Omega,\\
-v(0)&amp;=v_0\\
-p(0)&amp;=p_0\\
-p(t)&amp;=0,&amp;\text{on }&amp;\partial\Omega,\\
+\partial_tv+\frac{1}{\rho_0}\nabla p &amp;= f,&amp;\text{in }&amp;[0,T]\times \Omega,\\
+\partial_t p+\kappa_0\nabla\cdot v &amp;=0,&amp;\text{in }&amp;[0,T]\times \Omega,\\
+v(0,\cdot)&amp;=v_0,&amp;\text{in }&amp;\Omega,\\
+p(0,\cdot)&amp;=p_0,&amp;\text{in }&amp;\Omega,\\
+p&amp;=0,&amp;\text{in }&amp;[0,T]\times \partial\Omega,\\
 \end{aligned}\end{split}\]</div>
 <p class="sd-card-text">where we also add an <strong>external force</strong> as the right-hand-side term (acceleration, unit <span class="math notranslate nohighlight">\(m/s^2\)</span>) <span class="math notranslate nohighlight">\(f\)</span>, in the vectorial equation and added homogeneous Dirichlet boundary conditions, and initial data to close the system.</p>
 </div>
@@ -458,7 +460,7 @@ p(t)&amp;=0,&amp;\text{on }&amp;\partial\Omega,\\
 <p>For non-constant material-parameters <span class="math notranslate nohighlight">\(\rho_0,\kappa_0\)</span> the constitutive relation <a class="reference internal" href="#equation-constitutive">(1.3)</a> needs to be replaced by</p>
 <div class="math notranslate nohighlight">
 \[p = f(\rho,s)\]</div>
-<p>where <span class="math notranslate nohighlight">\(s\)</span> is the entropy (unit <span class="math notranslate nohighlight">\(kg\,m^2/(s^2\,K)\)</span>) which satisfies the conservation law (adiabatic hypethesis)</p>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the entropy (unit <span class="math notranslate nohighlight">\(kg\,m^2/(s^2\,K)\)</span>) which satisfies the conservation law (adiabatic hypothesis)</p>
 <div class="math notranslate nohighlight">
 \[\partial_t s +v\cdot\nabla s = 0.\]</div>
 <p>A similar reasoning as above then leads to <a class="reference internal" href="#equation-wave-eq-1o">(1.7)</a> with variable in space <span class="math notranslate nohighlight">\(\rho_0,\kappa_0\)</span> (but still uniform initial pressure <span class="math notranslate nohighlight">\(p_0\)</span>).</p>
@@ -468,10 +470,10 @@ p(t)&amp;=0,&amp;\text{on }&amp;\partial\Omega,\\
 <div class="sd-card-body docutils">
 <div class="math notranslate nohighlight" id="equation-wave-eq-1o">
 <span class="eqno">(1.7)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
-\partial_t^2 p-\kappa_0\nabla\cdot\frac{1}{\rho_0}\nabla p &amp;= -\kappa_0 \nabla\cdot f,&amp;\text{in }&amp;\Omega,\\
-p(0)&amp;=p_0\\
-\partial_t p(0)&amp;=-\kappa_0\nabla\cdot v_0\\
-p(t)&amp;=0,&amp;\text{on }&amp;\partial\Omega,\\
+\partial_t^2 p-\kappa_0\nabla\cdot\frac{1}{\rho_0}\nabla p &amp;= -\kappa_0 \nabla\cdot f,&amp;\text{in }&amp;[0,t]\times \Omega,\\
+p(0,\cdot)&amp;=p_0,&amp;\text{in }&amp;\Omega,\\
+\partial_t p(0,\cdot)&amp;=-\kappa_0\nabla\cdot v_0,&amp;\text{in }&amp;\Omega,\\
+p&amp;=0,&amp;\text{on }&amp;[0,t]\times \partial\Omega,\\
 \end{aligned}\end{split}\]</div>
 </div>
 </div>
@@ -484,8 +486,8 @@ v &amp;= \nabla \phi
 <p>and thus the scalar wave equation for <span class="math notranslate nohighlight">\(\phi\)</span></p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
-<div class="amsmath math notranslate nohighlight" id="equation-811fb5c4-8ec6-4e53-bbf2-2c2537d8ba20">
-<span class="eqno">(1.8)<a class="headerlink" href="#equation-811fb5c4-8ec6-4e53-bbf2-2c2537d8ba20" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-23fe491b-a427-4e13-9583-3e3c2b42921d">
+<span class="eqno">(1.8)<a class="headerlink" href="#equation-23fe491b-a427-4e13-9583-3e3c2b42921d" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{1}{c^2}
 \partial_t^2\phi&amp;=\Delta\phi-f\\
 &amp;+\text{i.c., b.c.}
@@ -500,6 +502,7 @@ v &amp;= \nabla \phi
 \[\begin{align*}
 \partial_n p &amp;= 0,&amp;\text{on }\partial\Omega.
 \end{align*}\]</div>
+<p>Also a mix of boundary conditions is possible.</p>
 <p>Another important type of boundary conditions for acoustic problems are so-called <em>impedance boundary conditions</em>
 given by</p>
 <div class="amsmath math notranslate nohighlight">
@@ -531,15 +534,6 @@ Thus, if we assume compactly supported initial data on a finite interval <span c
 The condition <a class="reference internal" href="#equation-1st-order-xd">(1.11)</a> can be interpreted as a prescribed impedance at the interface <span class="math notranslate nohighlight">\(\partial\Omega\)</span> or, alternativly as a rough approximation to the exact absorbing boundary conditions.</p>
 </section>
 </div></section>
-<section id="elastic-waves">
-<h2><span class="section-number">1.1.2. </span>Elastic waves<a class="headerlink" href="#elastic-waves" title="Link to this heading">#</a></h2>
-<p>Similar to before the
-<strong>geometry</strong> is a  given open domain <span class="math notranslate nohighlight">\(\Omega\subset\mathbb R^3\)</span>, and time interval <span class="math notranslate nohighlight">\([0,T], T&gt;0\)</span></p>
-<p>The <strong>constituents</strong> are the displacement <span class="math notranslate nohighlight">\(u:[0,T]\times\Omega\to\mathbb R^3\)</span>, the particle velocity <span class="math notranslate nohighlight">\(v=\partial_t u\)</span>, the stress</p>
-</section>
-<section id="electromagnetic-waves">
-<h2><span class="section-number">1.1.3. </span>Electromagnetic waves<a class="headerlink" href="#electromagnetic-waves" title="Link to this heading">#</a></h2>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -581,6 +575,15 @@ The condition <a class="reference internal" href="#equation-1st-order-xd">(1.11)
         <p class="prev-next-title"><span class="section-number">1. </span>Mathematical modeling of wave phenomena</p>
       </div>
     </a>
+    <a class="right-next"
+       href="elastic_td.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.2. </span>Elastic waves</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -598,8 +601,6 @@ The condition <a class="reference internal" href="#equation-1st-order-xd">(1.11)
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">1.1.1. Boundary conditions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elastic-waves">1.1.2. Elastic waves</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#electromagnetic-waves">1.1.3. Electromagnetic waves</a></li>
 </ul>
   </nav></div>
 

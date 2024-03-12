@@ -1,4 +1,6 @@
+(acoustic_td)=
 # Acoustic waves
+
 
 We consider the propagation of sound waves in a homogeneous
 isotropic medium viewed as an inviscid fluid.
@@ -19,6 +21,9 @@ and the equation of continuity
 \partial_t\rho+\nabla\cdot (\rho v)=0,
 ```
 where $\partial_t$ denotes the time-derivative and $\nabla\cdot$ the divergence.
+Note that these balance relations ad-hoc hold only in integral form (integration over each volume and time) and can be stated pointwise only for sufficiently regular functions.
+
+
 For our model we choose $p,v$ to be the primal quantities.
 
 To close our system of equations we need another equation which is provided by the 
@@ -65,11 +70,11 @@ Combining the balance relations and material laws above, and ommiting the index 
 ```{math}
 :label: wave_eq_1o
 \begin{aligned}
-\partial_tv+\frac{1}{\rho_0}\nabla p &= f,&\text{in }&\Omega,\\
-\partial_t p+\kappa_0\nabla\cdot v &=0,&\text{in }&\Omega,\\
-v(0)&=v_0\\
-p(0)&=p_0\\
-p(t)&=0,&\text{on }&\partial\Omega,\\
+\partial_tv+\frac{1}{\rho_0}\nabla p &= f,&\text{in }&[0,T]\times \Omega,\\
+\partial_t p+\kappa_0\nabla\cdot v &=0,&\text{in }&[0,T]\times \Omega,\\
+v(0,\cdot)&=v_0,&\text{in }&\Omega,\\
+p(0,\cdot)&=p_0,&\text{in }&\Omega,\\
+p&=0,&\text{in }&[0,T]\times \partial\Omega,\\
 \end{aligned}
 ```
 
@@ -81,7 +86,7 @@ For non-constant material-parameters $\rho_0,\kappa_0$ the constitutive relation
 ```{math}
 p = f(\rho,s)
 ``` 
-where $s$ is the entropy (unit $kg\,m^2/(s^2\,K)$) which satisfies the conservation law (adiabatic hypethesis)
+where $s$ is the entropy (unit $kg\,m^2/(s^2\,K)$) which satisfies the conservation law (adiabatic hypothesis)
 ```{math}
 \partial_t s +v\cdot\nabla s = 0.
 ```
@@ -93,10 +98,10 @@ The well-known second order form of the acoustic wave equation is then obtained 
 ```{math}
 :label: wave_eq_1o
 \begin{aligned}
-\partial_t^2 p-\kappa_0\nabla\cdot\frac{1}{\rho_0}\nabla p &= -\kappa_0 \nabla\cdot f,&\text{in }&\Omega,\\
-p(0)&=p_0\\
-\partial_t p(0)&=-\kappa_0\nabla\cdot v_0\\
-p(t)&=0,&\text{on }&\partial\Omega,\\
+\partial_t^2 p-\kappa_0\nabla\cdot\frac{1}{\rho_0}\nabla p &= -\kappa_0 \nabla\cdot f,&\text{in }&[0,t]\times \Omega,\\
+p(0,\cdot)&=p_0,&\text{in }&\Omega,\\
+\partial_t p(0,\cdot)&=-\kappa_0\nabla\cdot v_0,&\text{in }&\Omega,\\
+p&=0,&\text{on }&[0,t]\times \partial\Omega,\\
 \end{aligned}
 ```
 ````
@@ -119,6 +124,7 @@ The homogeneous Dirichlet boundary conditions used above corresponds to a sound-
 \begin{align*}
 \partial_n p &= 0,&\text{on }\partial\Omega.
 \end{align*}
+Also a mix of boundary conditions is possible.
 
 Another important type of boundary conditions for acoustic problems are so-called *impedance boundary conditions*
 given by 
@@ -157,13 +163,3 @@ The condition {eq}`1st_order_xd` can be interpreted as a prescribed impedance at
 
 ````
 
-
-## Elastic waves
-
-Similar to before the 
-**geometry** is a  given open domain $\Omega\subset\mathbb R^3$, and time interval $[0,T], T>0$
-
-The **constituents** are the displacement $u:[0,T]\times\Omega\to\mathbb R^3$, the particle velocity $v=\partial_t u$, the stress
-
-
-## Electromagnetic waves
