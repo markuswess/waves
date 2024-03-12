@@ -77,9 +77,8 @@ p(0,\cdot)&=p_0,&\text{in }&\Omega,\\
 p&=0,&\text{in }&[0,T]\times \partial\Omega,\\
 \end{aligned}
 ```
-
-where we also add an **external force** as the right-hand-side term (acceleration, unit $m/s^2$) $f$, in the vectorial equation and added homogeneous Dirichlet boundary conditions, and initial data to close the system.
 ````
+where we also add an **external force** as the right-hand-side term (acceleration, unit $m/s^2$) $f$, in the vectorial equation and added homogeneous Dirichlet boundary conditions, and initial data to close the system.
 
 ````{prf:Remark} Variable materials
 For non-constant material-parameters $\rho_0,\kappa_0$ the constitutive relation {eq}`constitutive` needs to be replaced by

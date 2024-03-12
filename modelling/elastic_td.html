@@ -390,17 +390,30 @@ document.write(`
 <p>The <strong>constituents</strong> are the displacement <span class="math notranslate nohighlight">\(u:[0,T]\times\Omega\to\mathbb R^3\)</span> (unit <span class="math notranslate nohighlight">\(m\)</span>), the particle velocity <span class="math notranslate nohighlight">\(v=\partial_t u\)</span> (unit <span class="math notranslate nohighlight">\(m/s\)</span>), the strain tensor</p>
 <div class="math notranslate nohighlight">
 \[\varepsilon(u) = \frac{1}{2}\left(\nabla u+ (\nabla u)^\top\right)\]</div>
-<p>the stress tensor <span class="math notranslate nohighlight">\(\sigma:[0,T]\times\Omega\to \mathbb R^{3\times 3}_{sym},\)</span> (unit <span class="math notranslate nohighlight">\(kg/(ms^2)\)</span>) where <span class="math notranslate nohighlight">\(\mathbb R^{3\times 3}_{sym}\)</span> denotes the space of symmetric, real three-by-three matrices.</p>
+<p>(unit <span class="math notranslate nohighlight">\(1\)</span>)
+the stress tensor <span class="math notranslate nohighlight">\(\sigma:[0,T]\times\Omega\to \mathbb R^{3\times 3}_{sym},\)</span> (unit <span class="math notranslate nohighlight">\(kg/(ms^2)\)</span>) where <span class="math notranslate nohighlight">\(\mathbb R^{3\times 3}_{sym}\)</span> denotes the space of symmetric, real three-by-three matrices.</p>
 <p>We either choose <span class="math notranslate nohighlight">\(u\)</span> or <span class="math notranslate nohighlight">\(v,\sigma\)</span> as our primal unknowns.</p>
-<p><strong>Material parameters</strong> here are the mass density <span class="math notranslate nohighlight">\(\rho:\Omega\to (0,\infty)\)</span> and the material stiffness given by Hooke’s tensor (also known as elastic tensor) <span class="math notranslate nohighlight">\(C:\Omega\to \mathcal L(\mathbb R^{3\times 3}_{sym},\mathbb R^{3\times 3}_{sym})\)</span> (unit <span class="math notranslate nohighlight">\(kg/(ms^2)). Note that here, different from linear acoustics we already assumed that the density \)</span>\rho$ is uniform in time.</p>
+<p><strong>Material parameters</strong> here are the mass density <span class="math notranslate nohighlight">\(\rho:\Omega\to (0,\infty)\)</span> (unit <span class="math notranslate nohighlight">\(kg/m^3\)</span>) and the material stiffness given by Hooke’s tensor (also known as elastic tensor) <span class="math notranslate nohighlight">\(C:\Omega\to \mathcal L(\mathbb R^{3\times 3}_{sym},\mathbb R^{3\times 3}_{sym})\)</span> (unit <span class="math notranslate nohighlight">\(kg/(ms^2)\)</span>). Note that here, differing from linear acoustics, we already assumed that the density <span class="math notranslate nohighlight">\(\rho\)</span> is uniform in time.</p>
 <p>As <strong>balancing law</strong> we impose linear conservation of momentum</p>
 <div class="math notranslate nohighlight" id="equation-momentum-el">
 <span class="eqno">(1.12)<a class="headerlink" href="#equation-momentum-el" title="Link to this equation">#</a></span>\[\rho \partial_t v = \nabla\cdot \sigma\]</div>
-<p>where the divergence <span class="math notranslate nohighlight">\(\nabla\cdot\sigma\)</span> has to be understood row wise, i.e. <span class="math notranslate nohighlight">\((\nabla\cdot\sigma)_i=\sum_j \partial_{x_j}\sigma_{i,j}\)</span>.
+<p>where the divergence <span class="math notranslate nohighlight">\(\nabla\cdot\sigma\)</span> has to be understood column wise, i.e. <span class="math notranslate nohighlight">\((\nabla\cdot\sigma)_i=\sum_j \partial_{x_j}\sigma_{j,i}\)</span>.
 The <strong>material law</strong> to link stress and strain is Hooke’s law given by</p>
 <div class="math notranslate nohighlight" id="equation-hooke">
 <span class="eqno">(1.13)<a class="headerlink" href="#equation-hooke" title="Link to this equation">#</a></span>\[\sigma = C(\varepsilon(u))\]</div>
 <p>Provided boundary and initial data this leads to the following first and second order formulation.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\rho\partial_tv-\nabla\cdot \sigma &amp;= f,&amp;\text{on }&amp; (0,T)\times\Omega,\\
+\partial_t \sigma-C(\varepsilon(v))&amp;=0,&amp;\text{on }&amp; (0,T)\times\Omega,\\
+v(0)&amp;=v_0,&amp;\text{on }&amp; \Omega,\\
+\sigma(0)&amp;=C\varepsilon(u_0),&amp;\text{on }&amp; \Omega,\\
+v(t) &amp;= \partial_t u_V(t),&amp;\text{on }&amp; \partial\Omega,
+\end{aligned}\end{split}\]</div>
+</div>
+</div>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
 <div class="math notranslate nohighlight">
@@ -412,18 +425,6 @@ u(0,\cdot)&amp;=u_0,&amp;\text{on }&amp; (0,T)\times\Omega,
 \partial_t u(0,\cdot)&amp;=v_0,&amp;\text{on }&amp; \Omega,
 \\
 u &amp;= u_V,&amp;\text{on }&amp;\partial \Omega,
-\end{aligned}\end{split}\]</div>
-</div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-\rho\partial_tv-\nabla\cdot \sigma &amp;= f,&amp;\text{on }&amp; (0,T)\times\Omega,\\
-\partial_t \sigma-C(\varepsilon(v))&amp;=0,&amp;\text{on }&amp; (0,T)\times\Omega,\\
-v(0)&amp;=v_0,&amp;\text{on }&amp; \Omega,\\
-\sigma(0)&amp;=C\varepsilon(u_0),&amp;\text{on }&amp; \Omega,\\
-v(t) &amp;= \partial_t u_V(t),&amp;\text{on }&amp; \partial\Omega,
 \end{aligned}\end{split}\]</div>
 </div>
 </div>
