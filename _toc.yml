@@ -4,12 +4,16 @@
 format: jb-book
 root: intro
 options: 
-  numbered: 2
+  numbered: 4
+  maxdepth: 4
 chapters: 
   - file: modelling
-    #  sections:
-    #- file: modelling/time-domain
-    #- file: modelling/frequency-domain
+    sections:
+      - file: modelling/acoustic_td
+      - file: modelling/elastic_td
+        #- file: modelling/electromagnetic_td
+        #- file: modelling/
+        #- file: modelling/frequency-domain
       #  - file: getting_started/ngsolve
       #    sections: 
       #    - file: getting_started/geometry

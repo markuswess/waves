@@ -13,6 +13,7 @@ As general as this sounds this definition already dictates the following necessa
 - **Material laws:** *How* relations between the physical quantities are determined by the specific materials?
 - **Parameters:** *Which* material data are required for the model?
 - **External forces, boundary and initial data:** *How* is the initial configuration and *which* external forces and conditions on the domain boundaries drive the model?
+- **Simplifying assumptions:** Assumptions on the balance relations and material laws to derive meaningful, "simple" equations
 
 In the following we will specify everything stated above to derive the governing partial differential equations (PDEs) of some wave models.
 

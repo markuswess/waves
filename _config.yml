@@ -37,3 +37,6 @@ parse:
     # including those that are enabled by default!
     - amsmath
     - dollarmath
+sphinx:
+  extra_extensions:
+    - sphinx_proof
