@@ -1,5 +1,10 @@
 # Exercises
 
+helpful files for the exercises
+[2d geometries](https://markuswess.github.io/waves/_sources/first_numerics/2d_geometries.ipynb)
+[3d geometries](https://markuswess.github.io/waves/_sources/first_numerics/2d_geometries.ipynb)
+[wave equation](https://markuswess.github.io/waves/_sources/first_numerics/wave_eq.ipynb)
+
 ## Exercise 0
 
 Draw a `unit_cube` using the `webgui` of NGSolve utilizing one of the methods to run NGSolve described [here](first_numerics)

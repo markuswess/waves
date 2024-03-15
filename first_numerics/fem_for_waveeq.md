@@ -12,7 +12,7 @@ kernelspec:
 (basic_fe_wave)=
 # A basic FE method for the acoustic wave equation
 
-[download as jupyter notebook](https://markuswess.github.io/waves)
+[download as jupyter notebook](https://markuswess.github.io/waves/_sources/first_numerics/wave_eq.ipynb)
 
 We follow the [method of lines](mol) approach for Galerkin methods to discretize the second order wave equation {eq}`wave_2o` on a spacial domain $\Omega:=(0,1)\times(0,1)$.
 
