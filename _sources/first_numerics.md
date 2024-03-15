@@ -48,6 +48,12 @@ virtual environments, or add the flag `--break-system-packages` to the pip comma
 
 If local installation does not work, there are alternatives:
 
+- run NGSolve online within jupyter-lite:
+
+  [https://markuswess.github.io/waves-lite](https://markuswess.github.io/waves_lite/lab?path=index.ipynb)
+
+  The first time it might take a few minutes to start, and then again to import ngsolve.
+
 - login to a jupyter server from your browser:
 
   [jupyterhub.cerbsim.com](https://jupyterhub.cerbsim.com) <br>
@@ -57,8 +63,3 @@ If local installation does not work, there are alternatives:
 
   
 
-- run NGSolve online within jupyter-lite:
-
-  [https://markuswess.github.io/waves-lite](https://markuswess.github.io/waves_lite)
-
-  The first time it might take a few minutes to start, and then again to import ngsolve.
