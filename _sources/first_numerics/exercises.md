@@ -27,7 +27,7 @@ Create a geometry (two or three-dimensional) and mesh where you would expect int
 Simulate the wave problem on your geometry/mesh. 
 
 
-## Exercise 3
+## Exercise 4
 
 Verify that the implementation of the Newmark time-stepping scheme in {numref}`basic_fe_wave` is actually consistent with the formulae presented above.
 How does it have to be modified if $B\neq 0$ or $r\neq 0$?
@@ -36,7 +36,7 @@ Change your code to do the following
   - Add time-harmonic source term of the form $f(t,x)=\cos(\omega t) f_0(x)$ for some $\omega>0$ and $f_0:\Omega\to \mathbb R$ with small support.
   - Add a first order absorbing boundary condition to (at least) one of the boundaries.
 
-## Exercise 4
+## Exercise 5
 
 Derive a weak formulation for the 2nd order time domain Maxwell system {eq}`maxwell_2o`. What are the natural, homogeneous boundary conditions for this system?
 Look at the basis functions of the space `HCurl` (instead of `H1`). Use the option `vectors = True` in the `Draw` command. How do you think these basis functions are constructed?

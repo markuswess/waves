@@ -50,7 +50,7 @@ If local installation does not work, there are alternatives:
 
 - run NGSolve online within jupyter-lite:
 
-  [https://markuswess.github.io/waves-lite](https://markuswess.github.io/waves_lite/lab?path=index.ipynb)
+  [https://markuswess.github.io/waves-lite](https://markuswess.github.io/waves_lite/)
 
   The first time it might take a few minutes to start, and then again to import ngsolve.
 
