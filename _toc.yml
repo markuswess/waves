@@ -4,19 +4,20 @@
 format: jb-book
 root: intro
 options: 
-  numbered: 4
-  maxdepth: 4
+  numbered: 2
+  maxdepth: 2
 chapters: 
   - file: modelling
     sections:
       - file: modelling/acoustic_td
       - file: modelling/elastic_td
-        #- file: modelling/electromagnetic_td
-        #- file: modelling/
+      - file: modelling/electromagnetic_td
         #- file: modelling/frequency-domain
-      #  - file: getting_started/ngsolve
-      #    sections: 
-      #    - file: getting_started/geometry
+  - file: first_numerics
+    sections:
+      - file: first_numerics/method_of_lines
+      - file: first_numerics/fem_for_waveeq
+      - file: first_numerics/exercises
 #
 #- caption: Conforming methods
 #  numbered: true

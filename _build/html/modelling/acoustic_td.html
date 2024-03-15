@@ -186,6 +186,12 @@
 <li class="toctree-l2"><a class="reference internal" href="electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -381,7 +387,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">1.1.1. Boundary conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary conditions</a></li>
 </ul>
             </nav>
         </div>
@@ -486,8 +492,8 @@ v &amp;= \nabla \phi
 <p>and thus the scalar wave equation for <span class="math notranslate nohighlight">\(\phi\)</span></p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
-<div class="amsmath math notranslate nohighlight" id="equation-cebf7c4a-ab2c-4ada-b7fc-b05f0af1b212">
-<span class="eqno">(1.8)<a class="headerlink" href="#equation-cebf7c4a-ab2c-4ada-b7fc-b05f0af1b212" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-99c9c4b2-2d53-4b37-a0f5-6b511630137a">
+<span class="eqno">(1.8)<a class="headerlink" href="#equation-99c9c4b2-2d53-4b37-a0f5-6b511630137a" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{1}{c^2}
 \partial_t^2\phi&amp;=\Delta\phi-f\\
 &amp;+\text{i.c., b.c.}
@@ -496,7 +502,7 @@ v &amp;= \nabla \phi
 </div>
 <p>In the mathematical treatment of the acoustic wave equation the physical meaning of the modeled quantities is often neglected and the letter <span class="math notranslate nohighlight">\(u\)</span> is used for the scalar unknown.</p>
 <section id="boundary-conditions">
-<h2><span class="section-number">1.1.1. </span>Boundary conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading">#</a></h2>
+<h2>Boundary conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading">#</a></h2>
 <p>The homogeneous Dirichlet boundary conditions used above corresponds to a sound-soft boundary, the pressure of the total wave vanishes at the boundary. Alternatively one could use sound-hard boundary conditions which are in the acoustic case modeled by the Neumann boundary condition</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -510,7 +516,7 @@ given by</p>
 \partial_n p &amp;= \lambda \partial_t p,&amp;\text{on }\partial\Omega.
 \end{align*}\]</div>
 <p>for a suitable function <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
-<div class="proof example admonition" id="example-1">
+<div class="proof example admonition" id="first_order">
 <p class="admonition-title"><span class="caption-number">Example 1.1 </span> (First order absorbing boundary condition)</p>
 <section class="example-content" id="proof-content">
 <p>An important example of impedance boundary conditions are first order absorbing boundary conditions which can be motivated as follows:
@@ -600,7 +606,7 @@ The condition <a class="reference internal" href="#equation-1st-order-xd">(1.11)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">1.1.1. Boundary conditions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary conditions</a></li>
 </ul>
   </nav></div>
 
@@ -625,7 +631,7 @@ By M. Wess
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>

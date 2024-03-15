@@ -133,6 +133,7 @@ given by
 for a suitable function $\lambda$.
 
 ````{prf:Example} First order absorbing boundary condition
+:label: first_order
 An important example of impedance boundary conditions are first order absorbing boundary conditions which can be motivated as follows:
 D'Alembert's solution of the one-dimensional (homogeneous) wave-equation with initial data $p(0)=p_0, v(0)=v_0$ is given by
 ```{math}

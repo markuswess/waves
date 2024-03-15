@@ -1,3 +1,4 @@
+(modelling)=
 # Mathematical modeling of wave phenomena
 
 Waves are everywhere – from the ripples in your coffee cup to the way your favorite song travels through the air. But what exactly is a wave? It turns out, putting a finger on it is trickier than one might think. 
