@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Conforming finite elements for acoustic waves &#8212; Numerical methods for wave-type equations</title>
+    <title>2.4. Exercises &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -58,9 +58,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'conforming/acoustic';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'first_numerics/exercises';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="2.3. A basic FE method for the acoustic wave equation" href="fem_for_waveeq.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +125,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -177,17 +178,17 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.4. Exercises</a></li>
 </ul>
 </li>
 </ul>
@@ -261,7 +262,7 @@
       
       
       
-      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fconforming/acoustic.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Ffirst_numerics/exercises.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -291,7 +292,7 @@
       
       
       
-      <li><a href="../_sources/conforming/acoustic.md" target="_blank"
+      <li><a href="../_sources/first_numerics/exercises.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -362,7 +363,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -373,11 +376,24 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Conforming finite elements for acoustic waves</h1>
+    <h1>Exercises</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-0">Exercise 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -387,8 +403,47 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="conforming-finite-elements-for-acoustic-waves">
-<h1>Conforming finite elements for acoustic waves<a class="headerlink" href="#conforming-finite-elements-for-acoustic-waves" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1><span class="section-number">2.4. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
+<section id="exercise-0">
+<h2>Exercise 0<a class="headerlink" href="#exercise-0" title="Link to this heading">#</a></h2>
+<p>Draw a <code class="docutils literal notranslate"><span class="pre">unit_cube</span></code> using the <code class="docutils literal notranslate"><span class="pre">webgui</span></code> of NGSolve utilizing one of the methods to run NGSolve described <a class="reference internal" href="../first_numerics.html#first-numerics"><span class="std std-ref">here</span></a></p>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
+<p>Read <a class="reference internal" href="method_of_lines.html#mol"><span class="std std-numref">Section 2.2</span></a> and <a class="reference internal" href="fem_for_waveeq.html#basic-fe-wave"><span class="std std-numref">Section 2.3</span></a> (more information can be found in the <a class="reference external" href="https://jschoeberl.github.io/iFEM">iFEM</a> tutorial (especially <a class="reference external" href="https://jschoeberl.github.io/iFEM/primal/first_example.html">the basic example</a> )) and answer the following:</p>
+<ul class="simple">
+<li><p>For a given strong formulation of a time-domain wave problem (e.g., <a class="reference internal" href="method_of_lines.html#equation-wave-2o">(2.1)</a>, describe in at least 6 steps how one approximates the solution of said problem using a method of lines approach with finite elements (assuming you have a finite element code like NGSolve readily available).</p></li>
+<li><p>Which of these steps are inherent to the fact that we treat a time-domain problem using the method of lines (compared to finite elements for stationary problems)?</p></li>
+<li><p>Which of these steps are inherent to the fact that we specifically use a finite element method (compared to a general Galerkin method)?</p></li>
+<li><p>Which choices do you have to make in each step?</p></li>
+</ul>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
+<p>Add a parameter <code class="docutils literal notranslate"><span class="pre">order</span> <span class="pre">=</span> <span class="pre">n</span></code> for <span class="math notranslate nohighlight">\(n\in\mathbb N\)</span> in the initialization of the <code class="docutils literal notranslate"><span class="pre">H1</span></code> finite element space and look at the resulting basis functions (default <code class="docutils literal notranslate"><span class="pre">order</span> <span class="pre">=</span> <span class="pre">1</span></code> if the parameter is ommited). Write down at least 4 characterizing properties of the basis functions. Indicate which of this properties characterize the space <span class="math notranslate nohighlight">\(V\)</span> and which specifically the choice of the basis.</p>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
+<p>Create a geometry (two or three-dimensional) and mesh where you would expect interesting acoustic effects (e.g., some (very simplified) musical instrument, …).
+Simulate the wave problem on your geometry/mesh.</p>
+</section>
+<section id="id1">
+<h2>Exercise 3<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Verify that the implementation of the Newmark time-stepping scheme in <a class="reference internal" href="fem_for_waveeq.html#basic-fe-wave"><span class="std std-numref">Section 2.3</span></a> is actually consistent with the formulae presented above.
+How does it have to be modified if <span class="math notranslate nohighlight">\(B\neq 0\)</span> or <span class="math notranslate nohighlight">\(r\neq 0\)</span>?</p>
+<p>Change your code to do the following</p>
+<ul class="simple">
+<li><p>Add time-harmonic source term of the form <span class="math notranslate nohighlight">\(f(t,x)=\cos(\omega t) f_0(x)\)</span> for some <span class="math notranslate nohighlight">\(\omega&gt;0\)</span> and <span class="math notranslate nohighlight">\(f_0:\Omega\to \mathbb R\)</span> with small support.</p></li>
+<li><p>Add a first order absorbing boundary condition to (at least) one of the boundaries.</p></li>
+</ul>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
+<p>Derive a weak formulation for the 2nd order time domain Maxwell system <a class="reference internal" href="../modelling/electromagnetic_td.html#equation-maxwell-2o">(1.14)</a>. What are the natural, homogeneous boundary conditions for this system?
+Look at the basis functions of the space <code class="docutils literal notranslate"><span class="pre">HCurl</span></code> (instead of <code class="docutils literal notranslate"><span class="pre">H1</span></code>). Use the option <code class="docutils literal notranslate"><span class="pre">vectors</span> <span class="pre">=</span> <span class="pre">True</span></code> in the <code class="docutils literal notranslate"><span class="pre">Draw</span></code> command. How do you think these basis functions are constructed?
+Simulate a time-domain electromagnetic wave on the  <code class="docutils literal notranslate"><span class="pre">unit_cube</span></code> with initial data of your choice and zero right hand side and homogeneous natural boundary conditions.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -404,7 +459,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./conforming"
+            path: "./first_numerics"
         },
         predefinedOutput: true
     }
@@ -421,6 +476,15 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="fem_for_waveeq.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>A basic FE method for the acoustic wave equation</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -428,7 +492,25 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-0">Exercise 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

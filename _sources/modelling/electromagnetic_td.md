@@ -48,7 +48,8 @@ Similar to acoustic and elastic waves for constant $\mu,\varepsilon$ we also may
 
 ````{card}
 ```{math}
-\partial_t^2 E-c^2\nabla\times\nabla\times E = 0,
+:label: maxwell_2o
+\partial_t^2 E+c^2\nabla\times\nabla\times E = 0,
 ```
 ````
 where we assumed the absence of electric currents and charges and defined the speed of light by $c^2=\frac{1}{\varepsilon\mu}$.

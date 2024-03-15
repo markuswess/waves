@@ -63,6 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/electromagnetic_td';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Basic numerical methods for time-domain waves" href="../first_numerics.html" />
     <link rel="prev" title="1.2. Elastic waves" href="elastic_td.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,6 +184,12 @@
 <li class="toctree-l2"><a class="reference internal" href="acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic_td.html">1.2. Elastic waves</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3. Electromagnetic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
 </ul>
 </li>
 </ul>
@@ -423,8 +430,8 @@ E\times n = 0\end{split}\]</div>
 <p>Similar to acoustic and elastic waves for constant <span class="math notranslate nohighlight">\(\mu,\varepsilon\)</span> we also may obtain the second order equation for <span class="math notranslate nohighlight">\(E\)</span></p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
-<div class="math notranslate nohighlight">
-\[\partial_t^2 E-c^2\nabla\times\nabla\times E = 0,\]</div>
+<div class="math notranslate nohighlight" id="equation-maxwell-2o">
+<span class="eqno">(1.14)<a class="headerlink" href="#equation-maxwell-2o" title="Link to this equation">#</a></span>\[\partial_t^2 E+c^2\nabla\times\nabla\times E = 0,\]</div>
 </div>
 </div>
 <p>where we assumed the absence of electric currents and charges and defined the speed of light by <span class="math notranslate nohighlight">\(c^2=\frac{1}{\varepsilon\mu}\)</span>.</p>
@@ -469,6 +476,15 @@ E\times n = 0\end{split}\]</div>
         <p class="prev-next-title"><span class="section-number">1.2. </span>Elastic waves</p>
       </div>
     </a>
+    <a class="right-next"
+       href="../first_numerics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Basic numerical methods for time-domain waves</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -497,7 +513,7 @@ By M. Wess
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>
