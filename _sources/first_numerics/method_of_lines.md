@@ -45,7 +45,7 @@ Inserting {eq}`disc_sol` and replacing $u'$ by each basis function $b_j$ respect
 \sum_{j=0}^N\frac{d^2}{dt^2} \tilde u_j(t)
 \int_\Omega  b_j(x)b_i(x) dx+\sum_{j=0}^N\tilde u_j(t)\int_\Omega\nabla b_j(x) \cdot\nabla b_i(x)=0,\quad i=0,\ldots,N.
 ```
-If $u_0$ is not by chance an element of $V$ the initial condition $u(0,\cdot)=u_0$ cannot be satisfied by our approximate solution $\tilde u$ thus we have to use an approximate initial condition $\tilde u(0,\cdot) = \tilde u_0\in V$ where $\tilde u_0=\sum_{j=0}^{N}\tilde u^0_j b_j\approx u_0$ is usually chosen as an orthogonal projection or interpolation.
+If $u_0$ is not by chance an element of $V$ the initial condition $u(0,\cdot)=u_0$ cannot be satisfied by our approximate solution $\tilde u$ thus we have to use an approximate initial condition $\tilde u(0,\cdot) = \tilde u^0\in V$ where $\tilde u^0=\sum_{j=0}^{N}\tilde u^0_j b_j\approx u_0$ is usually chosen as an orthogonal projection or interpolation.
 
 Using the vectors $\mathbf u=(\tilde u_0,\ldots, \tilde u_{N})^\top$ and $\mathbf u_0=(\tilde u^0_0,\ldots, \tilde u^0_{N})^\top$ and the matrices $\mathbf M, \mathbf S$
 defined by
