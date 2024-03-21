@@ -72,8 +72,7 @@ Combining the balance relations and material laws above, and ommiting the index 
 \begin{aligned}
 \partial_tv+\frac{1}{\rho_0}\nabla p &= f,&\text{in }&[0,T]\times \Omega,\\
 \partial_t p+\kappa_0\nabla\cdot v &=0,&\text{in }&[0,T]\times \Omega,\\
-v(0,\cdot)&=v_0,&\text{in }&\Omega,\\
-p(0,\cdot)&=p_0,&\text{in }&\Omega,\\
+p(0,\cdot)&=0,&\text{in }&\Omega,\\
 p&=0,&\text{in }&[0,T]\times \partial\Omega,\\
 \end{aligned}
 ```
@@ -90,6 +89,25 @@ where $s$ is the entropy (unit $kg\,m^2/(s^2\,K)$) which satisfies the conservat
 \partial_t s +v\cdot\nabla s = 0.
 ```
 A similar reasoning as above then leads to {eq}`wave_eq_1o` with variable in space $\rho_0,\kappa_0$ (but still uniform initial pressure $p_0$).
+````
+
+````{prf:Remark} Energy conservation
+:label: energy_conservation
+Multiplying the first and second equation of {eq}`wave_eq_1o` with $f=0$ by $\rho_0 v$ and $\frac{p}{\kappa_0}$ respectively yields
+
+```{math}
+\frac{1}{2}\left(\rho_0\partial_t|v|^2+\frac{1}{\kappa_0}\partial_t |p|^2\right)+\nabla\cdot(pv)=0.
+```
+Integration over $\Omega$ and applying the Gauss theorem yields
+```{math}
+\partial_t\frac{1}{2}\int_\Omega \rho_0|v|^2+\frac{1}{\kappa_0}|p|^2 = \int_{\partial\Omega}pv\cdot n = 0
+```
+due to the homogeneous boundary conditions.
+Thus the energy 
+```{math}
+E(t):=\frac{1}{2}\int_\Omega \rho_0|v|^2+\frac{1}{\kappa_0}|p|^2,
+```
+is conserved over time. The two terms can be interpreted as kinetiv and potential energy respectively.
 ````
 
 The well-known second order form of the acoustic wave equation is then obtained by taking the time-derivative of the scalar equation and inserting the vectorial equation to obtain
@@ -162,4 +180,7 @@ for all $x\in\partial\Omega$ and times $t>0$, where $n$ is the outward normal ve
 The condition {eq}`1st_order_xd` can be interpreted as a prescribed impedance at the interface $\partial\Omega$ or, alternativly as a rough approximation to the exact absorbing boundary conditions.
 
 ````
+
+
+
 

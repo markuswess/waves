@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/electromagnetic_td';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. Basic numerical methods for time-domain waves" href="../first_numerics.html" />
+    <link rel="next" title="1.4. Time-harmonic waves" href="frequency-domain.html" />
     <link rel="prev" title="1.2. Elastic waves" href="elastic_td.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,12 +184,19 @@
 <li class="toctree-l2"><a class="reference internal" href="acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic_td.html">1.2. Elastic waves</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frequency-domain.html">1.4. Time-harmonic waves</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
 </ul>
 </li>
 </ul>
@@ -390,7 +397,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="electromagnetic-waves">
-<h1><span class="section-number">1.3. </span>Electromagnetic waves<a class="headerlink" href="#electromagnetic-waves" title="Link to this heading">#</a></h1>
+<span id="electromagnetic-td"></span><h1><span class="section-number">1.3. </span>Electromagnetic waves<a class="headerlink" href="#electromagnetic-waves" title="Link to this heading">#</a></h1>
 <p>Similar to <a class="reference internal" href="acoustic_td.html#acoustic-td"><span class="std std-numref">Section 1.1</span></a> and <a class="reference internal" href="elastic_td.html#elastic-td"><span class="std std-numref">Section 1.2</span></a> the
 <strong>geometry</strong> is a  given open domain <span class="math notranslate nohighlight">\(\Omega\subset\mathbb R^3\)</span>, and time interval <span class="math notranslate nohighlight">\([0,T], T&gt;0\)</span>.</p>
 <p>The <strong>constituents</strong> are the electric field <span class="math notranslate nohighlight">\(E:[0,T]\times \Omega\to\mathbb R^3\)</span> (unit <span class="math notranslate nohighlight">\(m\,kg/(s^3A)\)</span>) and the magnetic field intensity <span class="math notranslate nohighlight">\(H:[0,T]\times \Omega\to\mathbb R^3\)</span> (unit <span class="math notranslate nohighlight">\(A/m\)</span>), as well as the electric flux density <span class="math notranslate nohighlight">\(D:[0,T]\times \Omega\to\mathbb R^3\)</span> (also called electric displacement field, unit <span class="math notranslate nohighlight">\(As/m^2\)</span>) and the magnetic induction <span class="math notranslate nohighlight">\(B:[0,T]\times \Omega\to\mathbb R^3\)</span> (also called magnetic flux density unit <span class="math notranslate nohighlight">\(kg/(s^2 A)\)</span>). Further  quantities, which act as <strong>forcings</strong> are the electric current density <span class="math notranslate nohighlight">\(J:[0,T]\times \Omega\to\mathbb R^3\)</span> (unit <span class="math notranslate nohighlight">\(A/m^2\)</span>) and the electric charge density <span class="math notranslate nohighlight">\(\rho:[0,T]\times\Omega\to\mathbb R\)</span> (unit <span class="math notranslate nohighlight">\(As/m^3\)</span>).</p>
@@ -477,11 +484,11 @@ E\times n = 0\end{split}\]</div>
       </div>
     </a>
     <a class="right-next"
-       href="../first_numerics.html"
+       href="frequency-domain.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>Basic numerical methods for time-domain waves</p>
+        <p class="prev-next-title"><span class="section-number">1.4. </span>Time-harmonic waves</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

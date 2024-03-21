@@ -12,12 +12,17 @@ chapters:
       - file: modelling/acoustic_td
       - file: modelling/elastic_td
       - file: modelling/electromagnetic_td
-        #- file: modelling/frequency-domain
+      - file: modelling/frequency-domain
   - file: first_numerics
     sections:
       - file: first_numerics/method_of_lines
       - file: first_numerics/fem_for_waveeq
       - file: first_numerics/exercises
+  - file: second_numerics
+    sections:
+      - file: second_numerics/scattering_problems
+      - file: second_numerics/resonance_problems
+      - file: second_numerics/exercises
 #
 #- caption: Conforming methods
 #  numbered: true

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Time-harmonic waves &#8212; Numerical methods for wave-type equations</title>
+    <title>1.4. Time-harmonic waves &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -58,9 +58,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/frequency-domain';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Basic numerical methods for time-domain waves" href="../first_numerics.html" />
+    <link rel="prev" title="1.3. Electromagnetic waves" href="electromagnetic_td.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +126,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -177,17 +179,24 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elastic_td.html">1.2. Elastic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.4. Time-harmonic waves</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
 </ul>
 </li>
 </ul>
@@ -362,7 +371,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -378,6 +389,21 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-locality">(Non)-locality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sommerfeld-radiation-condition">Sommerfeld radiation condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scattering-by-an-obstacle">Scattering by an obstacle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resonance-problem">The resonance problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resonances-on-bounded-domains">Resonances on bounded domains</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resonances-on-unbounded-domains">Resonances on unbounded domains</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -388,8 +414,152 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="time-harmonic-waves">
-<h1>Time-harmonic waves<a class="headerlink" href="#time-harmonic-waves" title="Link to this heading">#</a></h1>
-<p>asdf</p>
+<span id="frequency-domain"></span><h1><span class="section-number">1.4. </span>Time-harmonic waves<a class="headerlink" href="#time-harmonic-waves" title="Link to this heading">#</a></h1>
+<div class="proof example admonition" id="example_1d">
+<p class="admonition-title"><span class="caption-number">Example 1.2 </span></p>
+<section class="example-content" id="proof-content">
+<p>Consider the following simple one-dimensional wave example to find <span class="math notranslate nohighlight">\(u:[0,T]\times[0,\infty)\to\mathbb R\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-example-1d-td">
+<span class="eqno">(1.15)<a class="headerlink" href="#equation-example-1d-td" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\partial_t^2 u-c^2\partial_x^2 u &amp;= 0,&amp;&amp; \text{in }(0,T)\times (0,\infty),\\
+u(\cdot,0) &amp;= a,&amp;&amp;\text{in } (0,T],\\
+u(0,\cdot ) &amp;=0,&amp;&amp;\text{in } (0,\infty),\\
+\partial_t u(0,\cdot ) &amp;=0,&amp;&amp;\text{in } (0,\infty),
+\end{aligned}\end{split}\]</div>
+<p>for a smooth function <span class="math notranslate nohighlight">\(a:[0,\infty)\to\mathbb R\)</span> with <span class="math notranslate nohighlight">\(a(0)=a'(0)=a''(0)=0\)</span>. Then the (unique, strong) solution is given by</p>
+<div class="math notranslate nohighlight" id="equation-example-1d-sol">
+<span class="eqno">(1.16)<a class="headerlink" href="#equation-example-1d-sol" title="Link to this equation">#</a></span>\[\begin{split}u(t,x) = \begin{cases}a(t-x/c),&amp;ct&gt; x,\\ 0,&amp;ct\leq x\end{cases}.\end{split}\]</div>
+<p>More specifically consider <span class="math notranslate nohighlight">\(a\)</span> to be a “smoothened” cosine, such that
+<span class="math notranslate nohighlight">\(a(t) = \cos(-\omega t)\)</span> for <span class="math notranslate nohighlight">\(t&gt;\varepsilon\)</span>  and some <span class="math notranslate nohighlight">\(\omega&gt;0\)</span> and <span class="math notranslate nohighlight">\(a(0)=a'(0)=a''(0)=0\)</span>. Then for any bounded interval <span class="math notranslate nohighlight">\([0,b]\)</span> for some <span class="math notranslate nohighlight">\(b&gt;0\)</span> we have that for <span class="math notranslate nohighlight">\(t&gt;b/c+\varepsilon\)</span> the solution <span class="math notranslate nohighlight">\(u\)</span> can be written as</p>
+<div class="math notranslate nohighlight">
+\[u(t,x) = \cos(-\omega(t-x/c))=\Re(\exp(-i\omega t)\exp(i\omega/c x))\]</div>
+</section>
+</div><p>In applications often scenarios are of interest where the solutions are (approximately) time-harmonic waves, i.e., are(approximately) of the form</p>
+<div class="math notranslate nohighlight" id="equation-time-harm-wave">
+<span class="eqno">(1.17)<a class="headerlink" href="#equation-time-harm-wave" title="Link to this equation">#</a></span>\[u(t,x) = \Re\left(\exp(-i\omega t) \hat u(x)\right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega &gt;0\)</span> is a given angular frequency and <span class="math notranslate nohighlight">\(u(x)\)</span> the amplitude as function in space.</p>
+<p>Thus it is not necessary to simulate the full time-domain systems from <a class="reference internal" href="acoustic_td.html#acoustic-td"><span class="std std-numref">Section 1.1</span></a> <a class="reference internal" href="elastic_td.html#elastic-td"><span class="std std-numref">Section 1.2</span></a> <a class="reference internal" href="electromagnetic_td.html#electromagnetic-td"><span class="std std-numref">Section 1.3</span></a> which in their second-order form can all be stated as</p>
+<div class="math notranslate nohighlight" id="equation-gen-second-order-wave">
+<span class="eqno">(1.18)<a class="headerlink" href="#equation-gen-second-order-wave" title="Link to this equation">#</a></span>\[\begin{aligned}
+\frac{1}{c^2}\partial_t^2 u-Du &amp;= f
+\end{aligned}\]</div>
+<p>where <span class="math notranslate nohighlight">\(D\)</span> is one of the second-order differential operators in space from the previous sections. For simplicity we assume homogeneous boundary conditions.
+Inserting the time harmonic wave <a class="reference internal" href="#equation-time-harm-wave">(1.17)</a> into <a class="reference internal" href="#equation-gen-second-order-wave">(1.18)</a> for a time harmonic right hand side</p>
+<div class="math notranslate nohighlight">
+\[f(t,x)=\exp(-i\omega t)\hat f(x)\]</div>
+<p>leads to the equation</p>
+<div class="math notranslate nohighlight" id="equation-gen-helmholtz">
+<span class="eqno">(1.19)<a class="headerlink" href="#equation-gen-helmholtz" title="Link to this equation">#</a></span>\[-\frac{\omega^2}{c^2} \hat u-D\hat u = \hat f,\]</div>
+<div class="proof remark admonition" id="remark-1">
+<p class="admonition-title"><span class="caption-number">Remark 1.3 </span></p>
+<section class="remark-content" id="proof-content">
+<p>again with homogeneous boundary conditions.
+Note that we neglected the initial conditions which are necessary to close the time-domain system <a class="reference internal" href="#equation-gen-second-order-wave">(1.18)</a>. They have to be chosen fitting to a time-harmonic solution.</p>
+</section>
+</div><p>In the case of acoustic waves (i.e., <span class="math notranslate nohighlight">\(D=\Delta\)</span>) with a constant wave speed <span class="math notranslate nohighlight">\(c\)</span> this leads to the inhomogenous Helmholtz equation</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="math notranslate nohighlight" id="equation-helmholtz">
+<span class="eqno">(1.20)<a class="headerlink" href="#equation-helmholtz" title="Link to this equation">#</a></span>\[-k^2\hat u-\Delta\hat u = \hat f,\]</div>
+</div>
+</div>
+<p>where the <em>wave number</em> <span class="math notranslate nohighlight">\(k&gt;\)</span> is defined by <span class="math notranslate nohighlight">\(k=\omega/c\)</span>.
+When exclusively the time-harmonic regime is of interest the <span class="math notranslate nohighlight">\(\hat\cdot\)</span> is usually ommitted.</p>
+<div class="proof remark admonition" id="remark-2">
+<p class="admonition-title"><span class="caption-number">Remark 1.4 </span></p>
+<section class="remark-content" id="proof-content">
+<p>A more general way to derive the time-harmonic counterparts to the time-domain equations is to introduce the Fourier transform of a function <span class="math notranslate nohighlight">\(h\in L^1(\mathbb R)\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[\hat h(\omega) = \int_{-\infty}^\infty h(t)\exp(-i\omega t) dt,\]</div>
+<p>and apply it to the space-time solutions of the time-domain wave problems (with respect to the time variable).</p>
+</section>
+</div><div class="proof remark admonition" id="remark-3">
+<p class="admonition-title"><span class="caption-number">Remark 1.5 </span></p>
+<section class="remark-content" id="proof-content">
+<p>Note that the sign convention to use <span class="math notranslate nohighlight">\(\exp(-i\omega t)\)</span> in the Fourier transform and the time harmonic ansatz <a class="reference internal" href="#equation-time-harm-wave">(1.17)</a> is arbitrary. Flipping the sign does <strong>not</strong> change the resulting time-harmonic equation. However, it corresponds to a time-reversal, thus whenever time-domain solutions, first-order time derivatives or (non-squared) factors <span class="math notranslate nohighlight">\(\omega\)</span> are used in any reasoning this has to be taken into account.</p>
+</section>
+</div><section id="non-locality">
+<h2>(Non)-locality<a class="headerlink" href="#non-locality" title="Link to this heading">#</a></h2>
+<div class="proof example admonition" id="example-4">
+<p class="admonition-title"><span class="caption-number">Example 1.3 </span> (ctd.)</p>
+<section class="example-content" id="proof-content">
+<p>Considering again the one-dimensional example <a class="reference internal" href="#example_1d">Example 1.2</a> we immediately obtain from <a class="reference internal" href="#equation-example-1d-sol">(1.16)</a> that for fixed <span class="math notranslate nohighlight">\(t_0&gt;0\)</span> we have <span class="math notranslate nohighlight">\(\mathrm{supp}(u(t_0,\cdot)) \subset [0,ct_0)\)</span>.</p>
+</section>
+</div><p>Looking e.g., at D’Alembert’s solution for the one-dimensional wave equation or the example above it is comprehensible that time-domain waves have a finite speed of propagation, e.g., for initial conditions with local support inside of a compact set <span class="math notranslate nohighlight">\(\Omega\)</span> in space and a finite time interval <span class="math notranslate nohighlight">\([0,T]\)</span> there exists another compact set <span class="math notranslate nohighlight">\(\Omega'\)</span> in space such that for every <span class="math notranslate nohighlight">\(t\in [0,T]\)</span> the support of the solution is contained in <span class="math notranslate nohighlight">\(\Omega'\)</span>.</p>
+<p>This can be made mathematically rigorous by looking at fundamental solutions of the respective time-domain wave equations. Similar properties hold for a compactly supported (in space) forcing term.</p>
+<p>Thus, mathematically, the problem of solving the wave-equation in the free space for finite times can always be re-stated as solving the wave-equation on a large enough bounded domain with homogeneous boundary conditions. This heuristic argument already points out that for mathematical formulations (and numerical approximations) of time-domain waves one can always avoid the difficulties that unbounded domains cause (see example below).</p>
+<div class="proof example admonition" id="example_1d_fqd">
+<p class="admonition-title"><span class="caption-number">Example 1.4 </span> (ctd.)</p>
+<section class="example-content" id="proof-content">
+<p>The time-harmonic counterpart to <a class="reference internal" href="#equation-example-1d-td">(1.15)</a> can be stated as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}-\omega^2/c^2 u-u'' &amp;= 0,&amp;&amp;\text{in }(0,\infty),\\
+u(0)&amp;=1,\end{split}\]</div>
+<p>However, although this equation is solved by <span class="math notranslate nohighlight">\(u(x)=\exp(i\omega/c x)\)</span> the solution is not unique since also <span class="math notranslate nohighlight">\(u_-(x)=\exp(-i\omega/c x)\)</span> (and every linear combination of <span class="math notranslate nohighlight">\(u,u_-\)</span>) is also a solution. Thus the time-harmonic equation needs to be supplied with another (boundary) condition to obtain well-posedness.</p>
+<p>Transferring the solution <span class="math notranslate nohighlight">\(u_-\)</span> back to time-domain, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\Re(\exp(-i\omega t)u_-(x))=\Re(\exp(-i\omega(t+x/c)))=\cos(\omega(t+x/c))\]</div>
+<p>shows that <span class="math notranslate nohighlight">\(u_-\)</span> corresponds to a time-harmonic wave travelling from right to left.</p>
+</section>
+</div></section>
+<section id="sommerfeld-radiation-condition">
+<h2>Sommerfeld radiation condition<a class="headerlink" href="#sommerfeld-radiation-condition" title="Link to this heading">#</a></h2>
+<p>To obtain unique solvability of the time-harmonic equations stated above we need to pose an additional condition. As motivated in <a class="reference internal" href="#example_1d">Example 1.2</a> and <a class="reference internal" href="#example_1d_fqd">Example 1.4</a> this condition should separate incoming from outgoing waves.</p>
+<p>The sought condition is the so-called Sommerfeld radiation condition named after Arnold Sommerfeld which is given by</p>
+<div class="math notranslate nohighlight" id="equation-sommerfeld">
+<span class="eqno">(1.21)<a class="headerlink" href="#equation-sommerfeld" title="Link to this equation">#</a></span>\[\lim_{|x|\to\infty} |x|^{(d-1)/2}\left(\frac{\partial u}{\partial|x|}-iku\right) = 0\]</div>
+<p>where <span class="math notranslate nohighlight">\(d\)</span> is the spacial dimension.</p>
+<p>In two or three dimensions it can be motivated similar to the one-dimensional case by looking at an explicit representation of the solution.</p>
+</section>
+<section id="scattering-by-an-obstacle">
+<h2>Scattering by an obstacle<a class="headerlink" href="#scattering-by-an-obstacle" title="Link to this heading">#</a></h2>
+<p>A typical application of <a class="reference internal" href="#equation-helmholtz">(1.20)</a> on an unbounded domain is the so-called <em>scattering problem</em>. Thereby an incident field <span class="math notranslate nohighlight">\(u^i\)</span> on <span class="math notranslate nohighlight">\(\mathbb R^d\)</span> which can be e.g. a plane wave</p>
+<div class="math notranslate nohighlight">
+\[u^i(t,x) = \exp(ik e\cdot x-\omega t)\]</div>
+<p>for a given vector <span class="math notranslate nohighlight">\(e\in\mathbb R^d\)</span> with <span class="math notranslate nohighlight">\(|e|=1\)</span> and an angular frequency <span class="math notranslate nohighlight">\(\omega&gt;0\)</span> and a compactly supported obstacle <span class="math notranslate nohighlight">\(\Omega\subset\mathbb R^d\)</span> is given. The <em>total field</em> <span class="math notranslate nohighlight">\(u:\mathbb R^d\setminus \Omega\)</span> can be decomposed into the incident field <span class="math notranslate nohighlight">\(u^i\)</span> and a scattered field <span class="math notranslate nohighlight">\(u^s\)</span> and should satisfy</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+-k^2 u-\Delta u&amp;=0,&amp;\text{on }&amp;\mathbb R^d\setminus\bar\Omega,\\
+u &amp;= u^i+u^s,&amp;\text{on }&amp;\mathbb R^d\setminus\bar\Omega,\\
+u&amp;=0,&amp;\text{on }&amp;\partial\Omega,\\
+\lim_{|x|\to\infty} |x|^{(d-1)/2}\left(\frac{\partial u^s}{\partial|x|}-iku^s\right) &amp;= 0.
+\end{aligned}\end{split}\]</div>
+<p>By linearity it is clear that the scattered field also satisfies the Helmholtz equation with inhomogeneous Dirichlet boundary conditions on <span class="math notranslate nohighlight">\(\partial\Omega\)</span> and the Sommerfeld radiation condition for <span class="math notranslate nohighlight">\(|x|\to\infty\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+-k^2 u^s-\Delta u^s&amp;=0,&amp;&amp;\text{on }&amp;\mathbb R^d\setminus\bar\Omega,\\
+u^s&amp;=-u^i,&amp;&amp;\text{on }&amp;\partial\Omega,\\
+\lim_{|x|\to\infty} |x|^{(d-1)/2}\left(\frac{\partial u^s}{\partial|x|}-iku^s\right) &amp;= 0.
+\end{aligned}\end{split}\]</div>
+</section>
+<section id="the-resonance-problem">
+<h2>The resonance problem<a class="headerlink" href="#the-resonance-problem" title="Link to this heading">#</a></h2>
+<p>Resonance problems in general are problems where not only the function <span class="math notranslate nohighlight">\(u\)</span> but also the frequency <span class="math notranslate nohighlight">\(\omega\)</span> is unknown. This usually lead to eigenvalue problems.</p>
+<section id="resonances-on-bounded-domains">
+<h3>Resonances on bounded domains<a class="headerlink" href="#resonances-on-bounded-domains" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\Omega\subset \mathbb R^d\)</span> be a bounded convex Lipschitz domain.
+Then it is well-known that the spectrum of the negative Laplacian (as operator on <span class="math notranslate nohighlight">\(L^2\)</span>) consists of a countable set of positive real numbers <span class="math notranslate nohighlight">\(\lambda_j\)</span> and the according eigenvectors <span class="math notranslate nohighlight">\(u_j\)</span> form a complete orthonormal system of <span class="math notranslate nohighlight">\(L^2(\Omega)\)</span> (we assume that <span class="math notranslate nohighlight">\(u_j\)</span> are normalized).
+Thus we may expand the solution <span class="math notranslate nohighlight">\(\hat u\)</span> of the Helmholtz problem <a class="reference internal" href="#equation-helmholtz">(1.20)</a> and the right-hand side <span class="math notranslate nohighlight">\(\hat f\)</span> with respect to <span class="math notranslate nohighlight">\(u_j\)</span> to obtain</p>
+<div class="math notranslate nohighlight" id="equation-helmholtz-expanded">
+<span class="eqno">(1.22)<a class="headerlink" href="#equation-helmholtz-expanded" title="Link to this equation">#</a></span>\[-k^2\sum_{j=0}^\infty c_j u_j+\lambda_j u_j = \sum_{j=0}^\infty d_j u_j\]</div>
+<p>where the coefficients are given by</p>
+<div class="math notranslate nohighlight">
+\[c_j = (u,u_j)_{L^2(\Omega)},\quad d_j = (f, u_j)_{L^2(\Omega)}.\]</div>
+<p>Testing <a class="reference internal" href="#equation-helmholtz-expanded">(1.22)</a> with <span class="math notranslate nohighlight">\(u_l\)</span> yields due to the orthonormality that</p>
+<div class="math notranslate nohighlight">
+\[c_l = \frac{d_l }{\lambda_l-k^2} = \frac{(f,u_l)_{L^2(\Omega)}}{(\lambda_l-k^2}\]</div>
+<p>and thus</p>
+<div class="math notranslate nohighlight">
+\[\hat u = \sum_{j=0}^\infty  \frac{(f,u_j)_{L^2(\Omega)}}{(\lambda_j-k^2}u_j.\]</div>
+<p>If we now choose <span class="math notranslate nohighlight">\(k^2\approx \lambda_j\)</span> for some <span class="math notranslate nohighlight">\(j\)</span> we obtain that <span class="math notranslate nohighlight">\(\hat u\)</span> is dominated by the eigenfunction <span class="math notranslate nohighlight">\(u_j\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight" id="equation-approx">
+<span class="eqno">(1.23)<a class="headerlink" href="#equation-approx" title="Link to this equation">#</a></span>\[\hat u \approx \frac{(f,u_j)_{L^2(\Omega)}}{(\lambda_j-k^2}u_j.\]</div>
+</section>
+<section id="resonances-on-unbounded-domains">
+<h3>Resonances on unbounded domains<a class="headerlink" href="#resonances-on-unbounded-domains" title="Link to this heading">#</a></h3>
+<p>If we modify the Helmholtz resonance problem by posing it on an unbounded domain, the negative Laplacian is in general no self-adjoint, compact operator any more, hence we cannot use the same reasoning as above. However, if there exists an eigenvalue close to the given wavenumber <span class="math notranslate nohighlight">\(k^2\)</span> the approximation <a class="reference internal" href="#equation-approx">(1.23)</a> still remains valid. Thus, it is an interesting problem to look for acoustic resonances on unbounded domains. The most interesting ones are usually the ones that are close to or lie on the real axis.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -422,6 +592,24 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="electromagnetic_td.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.3. </span>Electromagnetic waves</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../first_numerics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Basic numerical methods for time-domain waves</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -429,7 +617,27 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-locality">(Non)-locality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sommerfeld-radiation-condition">Sommerfeld radiation condition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scattering-by-an-obstacle">Scattering by an obstacle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resonance-problem">The resonance problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resonances-on-bounded-domains">Resonances on bounded domains</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resonances-on-unbounded-domains">Resonances on unbounded domains</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
