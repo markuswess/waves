@@ -1,3 +1,4 @@
+(frequency_domain)=
 # Time-harmonic waves
 
 ````{prf:Example} 
@@ -119,10 +120,15 @@ The sought condition is the so-called Sommerfeld radiation condition named after
 ```
 where $d$ is the spacial dimension.
 
+In two or three dimensions it can be motivated similar to the one-dimensional case by looking at an explicit representation of the solution. 
+% However, to rigorously show that this is the physically correct condition one has to look at the energy flux as follows:
+
+
+
 
 ## Scattering by an obstacle
 
-A typical application of {eq}`helmholtz` on an unbounded domain is the so-called *scattering problem*. Thereby incident field $u^i$ on $\mathbb R^d$ which can be e.g. a plane wave
+A typical application of {eq}`helmholtz` on an unbounded domain is the so-called *scattering problem*. Thereby an incident field $u^i$ on $\mathbb R^d$ which can be e.g. a plane wave
 ```{math}
 u^i(t,x) = \exp(ik e\cdot x-\omega t)
 ```
@@ -140,18 +146,44 @@ By linearity it is clear that the scattered field also satisfies the Helmholtz e
 ```{math}
 \begin{aligned}
 -k^2 u^s-\Delta u^s&=0,&&\text{on }&\mathbb R^d\setminus\bar\Omega,\\
-u&=u^i,&&\text{on }&\partial\Omega,\\
+u^s&=-u^i,&&\text{on }&\partial\Omega,\\
 \lim_{|x|\to\infty} |x|^{(d-1)/2}\left(\frac{\partial u^s}{\partial|x|}-iku^s\right) &= 0.
 \end{aligned}
 ```
 
-% ## The resonance problem
+## The resonance problem
 
-% Resonance problems in general are problems where not only the function $u$ but also the frequency $\omega$ is unknown. The usually lead to eigenvalue problems.
+Resonance problems in general are problems where not only the function $u$ but also the frequency $\omega$ is unknown. This usually lead to eigenvalue problems.
 
-% ### Resonances on bounded domains
+### Resonances on bounded domains
 
-% Let $\Omega\subset \mathbb R^d$ be a bounded convex Lipschitz domain. Then it is well known that the 
+Let $\Omega\subset \mathbb R^d$ be a bounded convex Lipschitz domain.
+Then it is well-known that the spectrum of the negative Laplacian (as operator on $L^2$) consists of a countable set of positive real numbers $\lambda_j$ and the according eigenvectors $u_j$ form a complete orthonormal system of $L^2(\Omega)$ (we assume that $u_j$ are normalized).
+Thus we may expand the solution $\hat u$ of the Helmholtz problem {eq}`helmholtz` and the right-hand side $\hat f$ with respect to $u_j$ to obtain
 
+```{math}
+:label: helmholtz_expanded
+-k^2\sum_{j=0}^\infty c_j u_j+\lambda_j u_j = \sum_{j=0}^\infty d_j u_j
+```
+where the coefficients are given by
+```{math}
+c_j = (u,u_j)_{L^2(\Omega)},\quad d_j = (f, u_j)_{L^2(\Omega)}.
+```
+Testing {eq}`helmholtz_expanded` with $u_l$ yields due to the orthonormality that
 
-% ### Resonances on unbounded domains
+```{math}
+c_l = \frac{d_l }{\lambda_l-k^2} = \frac{(f,u_l)_{L^2(\Omega)}}{(\lambda_l-k^2}
+```
+ and thus 
+```{math}
+\hat u = \sum_{j=0}^\infty  \frac{(f,u_j)_{L^2(\Omega)}}{(\lambda_j-k^2}u_j.
+```
+If we now choose $k^2\approx \lambda_j$ for some $j$ we obtain that $\hat u$ is dominated by the eigenfunction $u_j$, i.e.,
+```{math}
+:label: approx
+\hat u \approx \frac{(f,u_j)_{L^2(\Omega)}}{(\lambda_j-k^2}u_j.
+```
+
+### Resonances on unbounded domains
+
+If we modify the Helmholtz resonance problem by posing it on an unbounded domain, the negative Laplacian is in general no self-adjoint, compact operator any more, hence we cannot use the same reasoning as above. However, if there exists an eigenvalue close to the given wavenumber $k^2$ the approximation {eq}`approx` still remains valid. Thus, it is an interesting problem to look for acoustic resonances on unbounded domains. The most interesting ones are usually the ones that are close to or lie on the real axis.
