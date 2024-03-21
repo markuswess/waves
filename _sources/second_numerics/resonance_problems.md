@@ -35,7 +35,7 @@ By expanding the solution $u_h$ into a suitable basis we obtain the linear (in $
 ```{math}
 \omega^2\mathbf M \mathbf u = \mathbf S\mathbf u
 ```
-In `NGSOlve` we assemble the matrices as usual:
+In `NGSolve` we assemble the matrices as usual:
 
 ```{code-cell} ipython
 from ngsolve import *
