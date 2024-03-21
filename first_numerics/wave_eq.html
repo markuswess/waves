@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Numerical methods for wave-type equations</title>
+    <title>boundary conditions &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -182,12 +182,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/frequency-domain.html">1.4. Time-harmonic waves</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
 </ul>
 </li>
 </ul>
@@ -362,9 +369,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -375,19 +380,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>boundary conditions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -409,7 +406,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "afed507b36f14b0b802e6b5d831a9e57"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c48083156f5447adaac598e6256d2ac6"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -422,7 +419,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "05982910574c4c058aaccc3448072490"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "8b1dc129f166425eb9849562cb1bdad1"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -433,7 +430,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "27902a668801490ba3165de9caa87eac"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "21c73bbeed4f4d76a0b17538f174d21d"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3442,6 +3439,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span> <span class="o">=</span> <span class="n">Draw</span> <span class="p">(</span><span class="n">gfu</span><span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -3453,7 +3451,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "79b9b2c53ce247e298ab2610a7811b9f"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "5441b8da8980421baa3ffdeec245d618"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -6470,7 +6468,7 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "4582a00504ed4e27a8c56d6ffec5c1eb"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c8899aaf7530436585d8ae83007302d8"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -6497,7 +6495,7 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d4544fb9bce045fb987da52973e36191"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "48819fc1b7484b04aeb8afea1cdf13fd"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 7&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">udot</span><span class="o">.</span><span class="n">data</span> <span class="o">-=</span> <span class="n">tau</span> <span class="o">*</span> <span class="n">mstarinv</span><span class="o">*</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">mat</span><span class="o">*</span><span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="p">)</span>
@@ -6514,33 +6512,168 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
 <span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span>
 <span class="ne">--&gt; </span><span class="mi">175</span>     <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetData</span><span class="p">(</span><span class="n">set_minmax</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="nn">File ~/bin/ngsolve/lib/python3.10/dist-packages/netgen/webgui.py:241,</span> in <span class="ni">WebGLScene.GetData</span><span class="nt">(self, set_minmax)</span>
-<span class="g g-Whitespace">    </span><span class="mi">239</span> <span class="n">d</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">240</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">_registered_draw_types</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">241</span>     <span class="n">d</span> <span class="o">=</span> <span class="n">_registered_draw_types</span><span class="p">[</span><span class="n">typ</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">242</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">243</span>     <span class="kn">import</span> <span class="nn">inspect</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/traitlets/traitlets.py:715,</span> in <span class="ni">TraitType.__set__</span><span class="nt">(self, obj, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span>     <span class="k">raise</span> <span class="n">TraitError</span><span class="p">(</span><span class="s1">&#39;The &quot;</span><span class="si">%s</span><span class="s1">&quot; trait is read-only.&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">714</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">715</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File ~/bin/ngsolve/lib/python3.10/dist-packages/ngsolve/webgui.py:82,</span> in <span class="ni">GetData</span><span class="nt">(obj, args, kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">if</span> <span class="s1">&#39;intpoints&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">81</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;intpoints&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">---&gt; </span><span class="mi">82</span> <span class="n">d</span> <span class="o">=</span> <span class="n">BuildRenderData</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span> <span class="n">draw_surf</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;draw_surf&#39;</span><span class="p">],</span> <span class="n">draw_vol</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;draw_vol&#39;</span><span class="p">],</span> <span class="n">intpoints</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;intpoints&#39;</span><span class="p">],</span> <span class="n">deformation</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;deformation&#39;</span><span class="p">],</span> <span class="n">regions</span><span class="o">=</span><span class="n">regions</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;objects&#39;</span><span class="p">],</span> <span class="n">nodal_p1</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;nodal_p1&#39;</span><span class="p">],</span> <span class="n">settings</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;settings&#39;</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cf</span><span class="p">,</span> <span class="n">ngs</span><span class="o">.</span><span class="n">GridFunction</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">vecs</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="c1"># multidim gridfunction - generate data for each component</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">gf</span> <span class="o">=</span> <span class="n">ngs</span><span class="o">.</span><span class="n">GridFunction</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">space</span><span class="p">)</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/traitlets/traitlets.py:704,</span> in <span class="ni">TraitType.set</span><span class="nt">(self, obj, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">700</span>     <span class="n">silent</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">701</span> <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span>     <span class="c1"># we explicitly compare silent to True just in case the equality</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span>     <span class="c1"># comparison above returns something other than True/False</span>
+<span class="ne">--&gt; </span><span class="mi">704</span>     <span class="n">obj</span><span class="o">.</span><span class="n">_notify_trait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span>
 
-<span class="nn">File ~/bin/ngsolve/lib/python3.10/dist-packages/ngsolve/webgui.py:302,</span> in <span class="ni">BuildRenderData</span><span class="nt">(mesh, func, order, draw_surf, draw_vol, intpoints, deformation, regions, objects, nodal_p1, encoding, settings)</span>
-<span class="g g-Whitespace">    </span><span class="mi">300</span> <span class="n">pts</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">MapToAllElements</span><span class="p">({</span><span class="n">ngs</span><span class="o">.</span><span class="n">ET</span><span class="o">.</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">ir_trig</span><span class="p">,</span> <span class="n">ngs</span><span class="o">.</span><span class="n">ET</span><span class="o">.</span><span class="n">QUAD</span><span class="p">:</span> <span class="n">ir_quad</span><span class="p">},</span> <span class="n">reg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">301</span> <span class="n">timer2map</span><span class="o">.</span><span class="n">Stop</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">302</span> <span class="n">pmat</span> <span class="o">=</span> <span class="n">cf</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="n">pmima</span> <span class="o">=</span> <span class="n">updatePMinMax</span><span class="p">(</span><span class="n">pmat</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span> <span class="n">timermult</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+<span class="nn">File ~/.local/lib/python3.10/site-packages/traitlets/traitlets.py:1374,</span> in <span class="ni">HasTraits._notify_trait</span><span class="nt">(self, name, old_value, new_value)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1373</span> <span class="k">def</span> <span class="nf">_notify_trait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1374</span>     <span class="bp">self</span><span class="o">.</span><span class="n">notify_change</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1375</span>         <span class="n">Bunch</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span>             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1377</span>             <span class="n">old</span><span class="o">=</span><span class="n">old_value</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1378</span>             <span class="n">new</span><span class="o">=</span><span class="n">new_value</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1379</span>             <span class="n">owner</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1380</span>             <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;change&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1381</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1382</span>     <span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:685,</span> in <span class="ni">Widget.notify_change</span><span class="nt">(self, change)</span>
+<span class="g g-Whitespace">    </span><span class="mi">681</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">682</span>     <span class="c1"># Make sure this isn&#39;t information that the front-end just sent us.</span>
+<span class="g g-Whitespace">    </span><span class="mi">683</span>     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_send_property</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">684</span>         <span class="c1"># Send new state to front-end</span>
+<span class="ne">--&gt; </span><span class="mi">685</span>         <span class="bp">self</span><span class="o">.</span><span class="n">send_state</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">686</span> <span class="nb">super</span><span class="p">(</span><span class="n">Widget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">notify_change</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:554,</span> in <span class="ni">Widget.send_state</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span> <span class="n">state</span><span class="p">,</span> <span class="n">buffer_paths</span><span class="p">,</span> <span class="n">buffers</span> <span class="o">=</span> <span class="n">_remove_buffers</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span> <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span> <span class="s1">&#39;buffer_paths&#39;</span><span class="p">:</span> <span class="n">buffer_paths</span><span class="p">}</span>
+<span class="ne">--&gt; </span><span class="mi">554</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">buffers</span><span class="o">=</span><span class="n">buffers</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:817,</span> in <span class="ni">Widget._send</span><span class="nt">(self, msg, buffers)</span>
+<span class="g g-Whitespace">    </span><span class="mi">815</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Sends a message to the model in the front-end.&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">816</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">buffers</span><span class="o">=</span><span class="n">buffers</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/ipykernel/comm/comm.py:137,</span> in <span class="ni">Comm.send</span><span class="nt">(self, data, metadata, buffers)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">buffers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Send a message to the frontend-side version of this comm&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_publish_msg</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="s2">&quot;comm_msg&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>         <span class="n">buffers</span><span class="o">=</span><span class="n">buffers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/ipykernel/comm/comm.py:71,</span> in <span class="ni">Comm._publish_msg</span><span class="nt">(self, msg_type, data, metadata, buffers, **keys)</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span> <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">metadata</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span> <span class="n">content</span> <span class="o">=</span> <span class="n">json_clean</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">comm_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comm_id</span><span class="p">,</span> <span class="o">**</span><span class="n">keys</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">71</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">send</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">iopub_socket</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span>     <span class="n">msg_type</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span>     <span class="n">content</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="n">metadata</span><span class="o">=</span><span class="n">json_clean</span><span class="p">(</span><span class="n">metadata</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>     <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="s2">&quot;shell&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span>     <span class="n">ident</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>     <span class="n">buffers</span><span class="o">=</span><span class="n">buffers</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/jupyter_client/session.py:844,</span> in <span class="ni">Session.send</span><span class="nt">(self, stream, msg_or_type, content, parent, ident, buffers, track, header, metadata)</span>
+<span class="g g-Whitespace">    </span><span class="mi">842</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapt_version</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">843</span>     <span class="n">msg</span> <span class="o">=</span> <span class="n">adapt</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapt_version</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">844</span> <span class="n">to_send</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ident</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">845</span> <span class="n">to_send</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">buffers</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">846</span> <span class="n">longest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">to_send</span><span class="p">])</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/jupyter_client/session.py:718,</span> in <span class="ni">Session.serialize</span><span class="nt">(self, msg, ident)</span>
+<span class="g g-Whitespace">    </span><span class="mi">716</span>     <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">none</span>
+<span class="g g-Whitespace">    </span><span class="mi">717</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">718</span>     <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">719</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">720</span>     <span class="c1"># content is already packed, as in a relayed message</span>
+<span class="g g-Whitespace">    </span><span class="mi">721</span>     <span class="k">pass</span>
+
+<span class="nn">File ~/.local/lib/python3.10/site-packages/jupyter_client/session.py:99,</span> in <span class="ni">json_packer</span><span class="nt">(obj)</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="k">def</span> <span class="nf">json_packer</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">99</span>         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>             <span class="n">obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span>             <span class="n">default</span><span class="o">=</span><span class="n">json_default</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span>             <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span>             <span class="n">allow_nan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span>         <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;surrogateescape&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>         <span class="c1"># Fallback to trying to clean the json before serializing</span>
+<span class="g g-Whitespace">    </span><span class="mi">107</span>         <span class="n">packed</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span>             <span class="n">json_clean</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span>             <span class="n">default</span><span class="o">=</span><span class="n">json_default</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span>             <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span>             <span class="n">allow_nan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span>         <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;surrogateescape&quot;</span><span class="p">)</span>
+
+<span class="nn">File /usr/lib/python3.10/json/__init__.py:238,</span> in <span class="ni">dumps</span><span class="nt">(obj, skipkeys, ensure_ascii, check_circular, allow_nan, cls, indent, separators, default, sort_keys, **kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span> <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="bp">cls</span> <span class="o">=</span> <span class="n">JSONEncoder</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span> <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span>     <span class="n">skipkeys</span><span class="o">=</span><span class="n">skipkeys</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="n">ensure_ascii</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">236</span>     <span class="n">check_circular</span><span class="o">=</span><span class="n">check_circular</span><span class="p">,</span> <span class="n">allow_nan</span><span class="o">=</span><span class="n">allow_nan</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">237</span>     <span class="n">separators</span><span class="o">=</span><span class="n">separators</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">238</span>     <span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+<span class="nn">File /usr/lib/python3.10/json/encoder.py:199,</span> in <span class="ni">JSONEncoder.encode</span><span class="nt">(self, o)</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="k">return</span> <span class="n">encode_basestring</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span> <span class="c1"># This doesn&#39;t pass the iterator directly to &#39;&#39;.join() because the</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span> <span class="c1"># exceptions aren&#39;t as detailed.  The list call should be roughly</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span> <span class="c1"># equivalent to the PySequence_Fast that &#39;&#39;.join() would do.</span>
+<span class="ne">--&gt; </span><span class="mi">199</span> <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterencode</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">_one_shot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="n">chunks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
+
+<span class="nn">File /usr/lib/python3.10/json/encoder.py:257,</span> in <span class="ni">JSONEncoder.iterencode</span><span class="nt">(self, o, _one_shot)</span>
+<span class="g g-Whitespace">    </span><span class="mi">252</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span>     <span class="n">_iterencode</span> <span class="o">=</span> <span class="n">_make_iterencode</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">254</span>         <span class="n">markers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">_encoder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indent</span><span class="p">,</span> <span class="n">floatstr</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span>         <span class="bp">self</span><span class="o">.</span><span class="n">key_separator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_separator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort_keys</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>         <span class="bp">self</span><span class="o">.</span><span class="n">skipkeys</span><span class="p">,</span> <span class="n">_one_shot</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">257</span> <span class="k">return</span> <span class="n">_iterencode</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
 </div>
+<section id="boundary-conditions">
+<h1>boundary conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">LinearForm</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">u_</span><span class="o">*</span><span class="n">ds</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">Assemble</span><span class="p">()</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">ft</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">omega</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">&lt;</span><span class="n">T0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">udot</span> <span class="o">=</span> <span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="o">.</span><span class="n">CreateVector</span><span class="p">()</span>
+<span class="n">udot</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.</span>
+
+
+<span class="n">scene</span> <span class="o">=</span> <span class="n">Draw</span><span class="p">(</span><span class="n">gfu</span><span class="p">,</span> <span class="n">deformation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">T</span><span class="o">/</span><span class="n">tau</span><span class="p">)):</span>
+    <span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">tau</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">udot</span>
+    <span class="n">udot</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">tau</span> <span class="o">*</span> <span class="n">mstarinv</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">ft</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span><span class="o">+</span><span class="n">ft</span><span class="p">((</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">tau</span><span class="p">))</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">vec</span><span class="o">-</span><span class="n">S</span><span class="o">.</span><span class="n">mat</span><span class="o">*</span><span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="p">)</span>
+    <span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">tau</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">udot</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">Redraw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8c279b536d354196933774daa0632b6d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -6579,20 +6712,7 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>
