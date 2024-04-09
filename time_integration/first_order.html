@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.2. Elastic waves &#8212; Numerical methods for wave-type equations</title>
+    <title>4.2. Time-integration for the first order system &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -58,13 +58,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'modelling/elastic_td';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/first_order';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.3. Electromagnetic waves" href="electromagnetic_td.html" />
-    <link rel="prev" title="1.1. Acoustic waves" href="acoustic_td.html" />
+    <link rel="prev" title="4.1. Time-integration for the second order systems" href="second_order.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,11 +177,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="acoustic_td.html">1.1. Acoustic waves</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.2. Elastic waves</a></li>
-<li class="toctree-l2"><a class="reference internal" href="electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
-<li class="toctree-l2"><a class="reference internal" href="frequency-domain.html">1.4. Time-harmonic waves</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/frequency-domain.html">1.4. Time-harmonic waves</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -199,8 +196,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../time_integration/second_order.html">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="second_order.html">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. Time-integration for the first order system</a></li>
 </ul>
 </li>
 </ul>
@@ -274,7 +272,7 @@
       
       
       
-      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fmodelling/elastic_td.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Ftime_integration/first_order.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -304,7 +302,7 @@
       
       
       
-      <li><a href="../_sources/modelling/elastic_td.md" target="_blank"
+      <li><a href="../_sources/time_integration/first_order.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -386,7 +384,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Elastic waves</h1>
+    <h1>Time-integration for the first order system</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -400,64 +398,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="elastic-waves">
-<span id="elastic-td"></span><h1><span class="section-number">1.2. </span>Elastic waves<a class="headerlink" href="#elastic-waves" title="Link to this heading">#</a></h1>
-<p>Similar to <a class="reference internal" href="acoustic_td.html#acoustic-td"><span class="std std-numref">Section 1.1</span></a> the
-<strong>geometry</strong> is a  given open domain <span class="math notranslate nohighlight">\(\Omega\subset\mathbb R^3\)</span>, and time interval <span class="math notranslate nohighlight">\([0,T], T&gt;0\)</span></p>
-<p>The <strong>constituents</strong> are the displacement <span class="math notranslate nohighlight">\(u:[0,T]\times\Omega\to\mathbb R^3\)</span> (unit <span class="math notranslate nohighlight">\(m\)</span>), the particle velocity <span class="math notranslate nohighlight">\(v=\partial_t u\)</span> (unit <span class="math notranslate nohighlight">\(m/s\)</span>), the strain tensor</p>
-<div class="math notranslate nohighlight">
-\[\varepsilon(u) = \frac{1}{2}\left(\nabla u+ (\nabla u)^\top\right)\]</div>
-<p>(unit <span class="math notranslate nohighlight">\(1\)</span>)
-the stress tensor <span class="math notranslate nohighlight">\(\sigma:[0,T]\times\Omega\to \mathbb R^{3\times 3}_{sym},\)</span> (unit <span class="math notranslate nohighlight">\(kg/(ms^2)\)</span>) where <span class="math notranslate nohighlight">\(\mathbb R^{3\times 3}_{sym}\)</span> denotes the space of symmetric, real three-by-three matrices.</p>
-<p>We either choose <span class="math notranslate nohighlight">\(u\)</span> or <span class="math notranslate nohighlight">\(v,\sigma\)</span> as our primal unknowns.</p>
-<p><strong>Material parameters</strong> here are the mass density <span class="math notranslate nohighlight">\(\rho:\Omega\to (0,\infty)\)</span> (unit <span class="math notranslate nohighlight">\(kg/m^3\)</span>) and the material stiffness given by Hooke’s tensor (also known as elastic tensor) <span class="math notranslate nohighlight">\(C:\Omega\to \mathcal L(\mathbb R^{3\times 3}_{sym},\mathbb R^{3\times 3}_{sym})\)</span> (unit <span class="math notranslate nohighlight">\(kg/(ms^2)\)</span>). Note that here, differing from linear acoustics, we already assumed that the density <span class="math notranslate nohighlight">\(\rho\)</span> is uniform in time.</p>
-<p>As <strong>balancing law</strong> we impose linear conservation of momentum</p>
-<div class="math notranslate nohighlight" id="equation-momentum-el">
-<span class="eqno">(1.12)<a class="headerlink" href="#equation-momentum-el" title="Link to this equation">#</a></span>\[\rho \partial_t v = \nabla\cdot \sigma\]</div>
-<p>where the divergence <span class="math notranslate nohighlight">\(\nabla\cdot\sigma\)</span> has to be understood column wise, i.e. <span class="math notranslate nohighlight">\((\nabla\cdot\sigma)_i=\sum_j \partial_{x_j}\sigma_{j,i}\)</span>.
-The <strong>material law</strong> to link stress and strain is Hooke’s law given by</p>
-<div class="math notranslate nohighlight" id="equation-hooke">
-<span class="eqno">(1.13)<a class="headerlink" href="#equation-hooke" title="Link to this equation">#</a></span>\[\sigma = C(\varepsilon(u))\]</div>
-<p>Provided boundary and initial data this leads to the following first and second order formulation.</p>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-\rho\partial_tv-\nabla\cdot \sigma &amp;= f,&amp;\text{on }&amp; (0,T)\times\Omega,\\
-\partial_t \sigma-C(\varepsilon(v))&amp;=0,&amp;\text{on }&amp; (0,T)\times\Omega,\\
-v(0)&amp;=v_0,&amp;\text{on }&amp; \Omega,\\
-\sigma(0)&amp;=C\varepsilon(u_0),&amp;\text{on }&amp; \Omega,\\
-v(t) &amp;= \partial_t u_V(t),&amp;\text{on }&amp; \partial\Omega,
-\end{aligned}\end{split}\]</div>
-</div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-\rho\partial_t^2 u-\nabla\cdot C(\varepsilon(u))&amp;=f,&amp;\text{on }&amp; (0,T)\times \Omega,
-\\
-u(0,\cdot)&amp;=u_0,&amp;\text{on }&amp; (0,T)\times\Omega,
-\\
-\partial_t u(0,\cdot)&amp;=v_0,&amp;\text{on }&amp; \Omega,
-\\
-u &amp;= u_V,&amp;\text{on }&amp;\partial \Omega,
-\end{aligned}\end{split}\]</div>
-</div>
-</div>
-<p>where we assumed dynamic boundary conditions. Alternatively one may assume static boundary conditions, namely conditions on the normal component of <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
-<p>Hooke’s tensor <span class="math notranslate nohighlight">\(C\)</span>, also called the 4-index elastic tensor has 81 components. In <em>isotropic elasitcity</em> it is given by only two parameters, namely the so-called <em>Lamé parameters</em> <span class="math notranslate nohighlight">\(\mu,\lambda\)</span></p>
-<div class="math notranslate nohighlight">
-\[C(\varepsilon) = 2\mu\varepsilon+\lambda\mathrm{tr}(\varepsilon)I=2\mu(\varepsilon-\frac{1}{3}\mathrm{tr}(\varepsilon I))+\kappa\mathrm{tr}(\varepsilon)I.\]</div>
-<p>Here the two parameters <span class="math notranslate nohighlight">\(\mu,\lambda\)</span> correspond to the decomposition of waves into shear waves, depending on the shear modulus <span class="math notranslate nohighlight">\(\mu\)</span> and compressional waves (pressure waves) depending on the compression modulus <span class="math notranslate nohighlight">\(\kappa=\frac{2}{3}+\lambda\)</span>.
-Then the linear second order elastic wave equation in isotropic and homogeneous media takes the form</p>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="math notranslate nohighlight">
-\[\rho\partial_t^2 u+\mu \nabla\times\nabla\times u-3\kappa\nabla(\nabla\cdot u)=f\]</div>
-</div>
-</div>
-<p>Assuming a vanishing shear modulus <span class="math notranslate nohighlight">\(\mu\to 0\)</span> leads to compressional waves only, and thus to the linear acoustic wave equation for the hydrostatic pressure <span class="math notranslate nohighlight">\(p=\frac{1}{3}\mathrm{tr}\sigma\)</span> already introduced in  <a class="reference internal" href="acoustic_td.html#acoustic-td"><span class="std std-numref">Section 1.1</span></a>. Note however, that historically the sign conventions for pressure and stress are flipped in fluid and solid mechanics.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="time-integration-for-the-first-order-system">
+<span id="time-integration-fo"></span><h1><span class="section-number">4.2. </span>Time-integration for the first order system<a class="headerlink" href="#time-integration-for-the-first-order-system" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -473,7 +415,7 @@ Then the linear second order elastic wave equation in isotropic and homogeneous 
         },
         kernelOptions: {
             name: "python3",
-            path: "./modelling"
+            path: "./time_integration"
         },
         predefinedOutput: true
     }
@@ -491,22 +433,13 @@ Then the linear second order elastic wave equation in isotropic and homogeneous 
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="acoustic_td.html"
+       href="second_order.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">1.1. </span>Acoustic waves</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>Time-integration for the second order systems</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="electromagnetic_td.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1.3. </span>Electromagnetic waves</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
