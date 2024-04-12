@@ -63,6 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/second_order';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. Exercises for time-stepping schemes" href="exercises.html" />
     <link rel="prev" title="4. Time-integration" href="../time_integration.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -200,6 +201,7 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">4.2. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
 </ul>
@@ -398,7 +400,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-conservation">Energy conservation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability-of-the-newmark-method">Stability of the Newmark method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-method-beta-0-gamma-geq-1-2">The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -478,12 +484,98 @@ document.write(`
 <span class="eqno">(4.4)<a class="headerlink" href="#equation-newmark-init" title="Link to this equation">#</a></span>\[\mathbf u_0 = \mathbf u^0,\quad 
 \dot{\mathbf u}_0 = \mathbf v^0,\quad 
 \mathbf M\ddot{\mathbf u}_0 = \mathbf f_0-\mathbf C\mathbf v^0-\mathbf K\mathbf u^0.\]</div>
-<div class="proof remark admonition" id="remark-2">
-<p class="admonition-title"><span class="caption-number">Remark 4.2 </span></p>
-<section class="remark-content" id="proof-content">
-<p>The Newmark <span class="math notranslate nohighlight">\(\beta\)</span>-method is well-defined by the discrete approximations <a class="reference internal" href="#equation-newmark-approx">(4.2)</a>, the underlying system of ODE’s for each time step <a class="reference internal" href="#equation-newmark-state">(4.3)</a> and the initial conditions <a class="reference internal" href="#equation-newmark-init">(4.4)</a>. In this general form a <span class="math notranslate nohighlight">\(3N\times 3N\)</span> system would have to be solved in each time-step. In practice this is never done explicitely since there exist various ways to equivalently rewrite it.</p>
+<p>The Newmark <span class="math notranslate nohighlight">\(\beta\)</span>-method is well-defined by the discrete approximations <a class="reference internal" href="#equation-newmark-approx">(4.2)</a>, the underlying system of ODE’s for each time step <a class="reference internal" href="#equation-newmark-state">(4.3)</a> and the initial conditions <a class="reference internal" href="#equation-newmark-init">(4.4)</a>. In this general form a <span class="math notranslate nohighlight">\(3N\times 3N\)</span> system would have to be solved in each time-step. In practice this is never done explicitely since there exist various ways to equivalently rewrite it. In fact, the following Theorem gives one general way to compute the single steps.</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 4.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf M\)</span> be positive definite and <span class="math notranslate nohighlight">\(\mathbf C,\mathbf K\)</span> be positive semi-definite. Then the Newmark method is well defined for all <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>, <span class="math notranslate nohighlight">\(\alpha,2\beta\in[0,1]\)</span> and initial data <span class="math notranslate nohighlight">\(\mathbf u^0,\mathbf v^0\in\mathbb R^N\)</span>. Each step requires one application of the inverse of the matrix <span class="math notranslate nohighlight">\(\mathbf S:=\mathbf M+\tau\gamma\mathbf C+\tau^2\beta\mathbf K\)</span> and vector operations (additions, multiplications by scalars).</p>
 </section>
-</div></section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Inserting <a class="reference internal" href="#equation-newmark-approx">(4.2)</a> into <a class="reference internal" href="#equation-newmark-state">(4.3)</a> yields and collecting all terms containing <span class="math notranslate nohighlight">\(\ddot{\mathbf u}_{n+1}\)</span> on the left hand side yields</p>
+<div class="math notranslate nohighlight">
+\[(\mathbf M+\gamma\tau\mathbf C+\beta\tau^2\mathbf K)\ddot{\mathbf u}_{j+1}=\mathbf f_{j+1}-\mathbf C(\dot{\mathbf u}_j+(1-\gamma)\tau\ddot{\mathbf u}_j)-\mathbf K(\mathbf u_j+\tau\dot{\mathbf u}_j+(\frac{1}{2}-\beta)\tau^2\ddot{\mathbf u}_j). \]</div>
+<p>Now the method can be written in matrix form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal R
+\begin{pmatrix}
+\mathbf u_{j+1}\\
+\dot{\mathbf u}_{j+1}\\
+\ddot{\mathbf u}_{j+1}
+\end{pmatrix}
+=
+\mathcal L
+\begin{pmatrix}
+\mathbf u_{j}\\
+\dot{\mathbf u}_{j}\\
+\ddot{\mathbf u}_{j}
+\end{pmatrix}
++\begin{pmatrix}
+0\\0\\\mathbf f_{j+1}
+\end{pmatrix}.\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal R:=
+\begin{pmatrix}
+\mathbf I&amp;0&amp;-\tau^2\beta \mathbf I\\
+0&amp;\mathbf I&amp;-\tau\gamma \mathbf I\\
+0&amp;0&amp;\mathbf M+\tau\gamma\mathbf C+\tau^2\beta\mathbf K
+\end{pmatrix},\quad
+\mathcal L:=
+\begin{pmatrix}
+\mathbf I&amp;\tau&amp;\tau^2(\frac{1}{2}-\beta) \mathbf I\\
+0&amp;\mathbf I&amp;\tau(1-\gamma) \mathbf I\\
+-\mathbf K&amp;-\mathbf C-\tau\mathbf K&amp;-\tau(1-\gamma)\mathbf C-\tau^2(\frac{1}{2}-\beta)\mathbf K
+\end{pmatrix}\end{split}\]</div>
+<p>The system above can be solved by backwards elimination where merely in the process of computing <span class="math notranslate nohighlight">\(\ddot{\mathbf u}_{j+1}\)</span> the inverse of the matrix <span class="math notranslate nohighlight">\(\mathbf S:=\mathbf M+\tau\gamma\mathbf C+\tau^2\beta\mathbf K\)</span> has to be applied, all other operations are vector operations.
+Clearly the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</span> is positive definite for all parameters <span class="math notranslate nohighlight">\(\tau,\gamma,\beta\)</span> and thus regular.</p>
+</div>
+<section id="stability-of-the-newmark-method">
+<h3>Stability of the Newmark method<a class="headerlink" href="#stability-of-the-newmark-method" title="Link to this heading">#</a></h3>
+<div class="proof theorem admonition" id="newmark_energy">
+<p class="admonition-title"><span class="caption-number">Theorem 4.3 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u_j, \dot{\mathbf u}_j, \ddot{\mathbf u}_j\)</span> for <span class="math notranslate nohighlight">\(j=0,\ldots, M\)</span> be the discrete Newmark approximations for given <span class="math notranslate nohighlight">\(\tau,\alpha,\beta\)</span> and <span class="math notranslate nohighlight">\(\mathbf C = 0,\mathbf f=0\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[E^{\tau,\alpha,\beta}_{j+1}-E^{\tau,\alpha,\beta}_j=-(\gamma-\frac{1}{2})(\mathbf u_{j+1}-\mathbf u_j)^\top\mathbf K_{\tau,\alpha,\beta}(\mathbf u_{j+1}-\mathbf u_j)\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[E^{\tau,\alpha,\beta}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\alpha,\beta}{\mathbf u}_j\right),\quad
+\mathbf K_{\tau,\alpha,\beta}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.\]</div>
+</section>
+</div><p>The quantity <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> is always positive for non-zero <span class="math notranslate nohighlight">\(\mathbf u_j,\dot{\mathbf u}_j\)</span> if the matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is positive semi-definite.
+In this case we call <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> the discrete energy at timestep <span class="math notranslate nohighlight">\(j\)</span>. The matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is certainly positive semi-definite if <span class="math notranslate nohighlight">\(\beta\geq \gamma/2\)</span>, for any <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>.</p>
+<p><a class="reference internal" href="#newmark_energy">Theorem 4.3</a> shows that the discrete energy is preserved if <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>. Moreover, the discrete energy <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> coincides with the Energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span> iff <span class="math notranslate nohighlight">\(\beta=\gamma/2\)</span>.</p>
+<p>We discuss some specific choices of <span class="math notranslate nohighlight">\(\gamma,\beta\)</span> in more detail:</p>
+</section>
+<section id="the-explicit-method-beta-0-gamma-geq-1-2">
+<h3>The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span><a class="headerlink" href="#the-explicit-method-beta-0-gamma-geq-1-2" title="Link to this heading">#</a></h3>
+<p>for <span class="math notranslate nohighlight">\(\mathbf C=0\)</span> the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</span> which has to be inverted reduces to <span class="math notranslate nohighlight">\(\mathbf M\)</span>. Thus the method is called <strong>explicit</strong>.
+Moreover, let <span class="math notranslate nohighlight">\(\phi_n,\lambda_n\)</span> be the normalized eigenpairs of</p>
+<div class="math notranslate nohighlight" id="equation-disc-evp">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-disc-evp" title="Link to this equation">#</a></span>\[\mathbf K u=\lambda \mathbf M\]</div>
+<p>Then we have</p>
+<div class="math notranslate nohighlight">
+\[\phi_n^\top\mathbf M\phi_k=\delta_{n,k},\quad
+\phi_n^\top\mathbf K\phi_k=\lambda_n\delta_{n,k}.\]</div>
+<p>Expanding <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> with respect to the basis <span class="math notranslate nohighlight">\(\phi_n\)</span> leads to</p>
+<div class="math notranslate nohighlight">
+\[\mathbf u_j=\sum_{n=1}^N c_n\phi_n,\]</div>
+<p>and due to the orthogonality of the eigenvectors we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j&amp;= \mathbf u_j^\top\mathbf K\mathbf u_j-\frac{\gamma\tau^2}{2}\mathbf u_j^\top\mathbf K\mathbf M^{-1}\mathbf K\mathbf u_j\\
+&amp;=\sum_{n=1}^N\lambda_n\phi_n-\frac{\gamma\tau^2}{2}\lambda_n^2\phi_n.
+\end{aligned}\end{split}\]</div>
+<p>Thus</p>
+<div class="math notranslate nohighlight">
+\[\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j\geq 0\]</div>
+<p>for all <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> if</p>
+<div class="math notranslate nohighlight" id="equation-newmark-cfl">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-newmark-cfl" title="Link to this equation">#</a></span>\[\tau^2\leq \frac{2}{\gamma\lambda_{\mathrm {max}}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_{\mathrm {max}}\)</span> is the maximal eigenvalue of <a class="reference internal" href="#equation-disc-evp">(4.5)</a>.
+The condition <a class="reference internal" href="#equation-newmark-cfl">(4.6)</a> is called CFL condition and yields conditional stability of the explicit scheme, depending on the chosen time-step <span class="math notranslate nohighlight">\(\tau\)</span>.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -525,6 +617,15 @@ document.write(`
         <p class="prev-next-title"><span class="section-number">4. </span>Time-integration</p>
       </div>
     </a>
+    <a class="right-next"
+       href="exercises.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Exercises for time-stepping schemes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -542,7 +643,11 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-conservation">Energy conservation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability-of-the-newmark-method">Stability of the Newmark method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-method-beta-0-gamma-geq-1-2">The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

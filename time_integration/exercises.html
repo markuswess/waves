@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3.3. Exercises for time-harmonic waves &#8212; Numerical methods for wave-type equations</title>
+    <title>4.2. Exercises for time-stepping schemes &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -60,11 +60,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'second_numerics/exercises';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/exercises';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. Time-integration" href="../time_integration.html" />
-    <link rel="prev" title="3.2. FEM for resonance problems" href="resonance_problems.html" />
+    <link rel="prev" title="4.1. Time-integration for the second order systems" href="second_order.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -193,15 +192,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="scattering_problems.html">3.1. FEM for scattering problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resonance_problems.html">3.2. FEM for resonance problems</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.3. Exercises for time-harmonic waves</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../time_integration/second_order.html">4.1. Time-integration for the second order systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time_integration/exercises.html">4.2. Exercises for time-stepping schemes</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="second_order.html">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
 </ul>
@@ -275,7 +274,7 @@
       
       
       
-      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fsecond_numerics/exercises.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Ftime_integration/exercises.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -305,7 +304,7 @@
       
       
       
-      <li><a href="../_sources/second_numerics/exercises.md" target="_blank"
+      <li><a href="../_sources/time_integration/exercises.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -389,7 +388,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Exercises for time-harmonic waves</h1>
+    <h1>Exercises for time-stepping schemes</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -401,8 +400,6 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 </ul>
             </nav>
         </div>
@@ -414,27 +411,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="exercises-for-time-harmonic-waves">
-<span id="exercises-th"></span><h1><span class="section-number">3.3. </span>Exercises for time-harmonic waves<a class="headerlink" href="#exercises-for-time-harmonic-waves" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercises-for-time-stepping-schemes">
+<span id="exercises-th"></span><h1><span class="section-number">4.2. </span>Exercises for time-stepping schemes<a class="headerlink" href="#exercises-for-time-stepping-schemes" title="Link to this heading">#</a></h1>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Solve the scattering problem with a first order absorbing boundary condition on a domain <span class="math notranslate nohighlight">\([0,1]^2\setminus \bar\Omega_0\)</span> for a compact domain <span class="math notranslate nohighlight">\(\Omega_0\subset[0,1]^2\)</span> with a plane-wave incident field. Visualize the incident, scattered and total field.</p>
+<p>Implement the Newmark time-stepping for general <span class="math notranslate nohighlight">\(\alpha,\beta\)</span>. Choose the second order acoustic wave problem on the unit-square with initial data</p>
+<div class="math notranslate nohighlight">
+\[u_0 = \exp(-30(x-1/2)^2),\quad v_0=0\]</div>
+<p>and homogeneous Neumann boundary conditions. Argue that the exact solution for <span class="math notranslate nohighlight">\(t=1\)</span> is identical to the initial values. Compute the error at <span class="math notranslate nohighlight">\(t=1\)</span> in the <span class="math notranslate nohighlight">\(L^2\)</span> norm for <span class="math notranslate nohighlight">\(\beta = \gamma/2\)</span> and varying <span class="math notranslate nohighlight">\(\gamma\)</span>. What order of convergence with respect to <span class="math notranslate nohighlight">\(\tau\)</span> do you observe? (Pay particular interest to the case <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>.)</p>
 </section>
 <section id="exercise-2">
-<span id="exercise-2-2"></span><h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
-<p>Solve the Helmholtz problem on the geometry from <a class="reference external" href="https://markuswess.github.io/waves/_sources/second_numerics/square_inf.ipynb">square_inf.ipynb</a> for right hand side <span class="math notranslate nohighlight">\(\hat f(x)=\exp(-30(x^2+y^2))\)</span> with homogeneous Dirichlet boundary conditions on the boundary of the square-shaped scatterer and first-order absorbing boundary conditions on the outer boundary. Plot the <span class="math notranslate nohighlight">\(L^2\)</span>-norm of the solution depending on <span class="math notranslate nohighlight">\(k^2/\pi^2\in[0,11]\)</span>. How do you interpret the results? What happens if the right hand side is a Gaussian peak which is slightly off-centered?</p>
-</section>
-<section id="exercise-3">
-<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
-<p>Solve the time-domain problem corresponding to the Helmholtz equation from <a class="reference internal" href="#exercise-2-2"><span class="std std-ref">Exercise 2</span></a> for time harmonic right hand sides <span class="math notranslate nohighlight">\(f(t,x) = \cos(\omega t)\exp(-30((x-0.2)^2+y^2))\)</span> for <span class="math notranslate nohighlight">\(\omega=\sqrt 2\pi,\sqrt 3\pi,\sqrt {5}\pi\)</span>. Plot the <span class="math notranslate nohighlight">\(L^2\)</span>-norm of the solution with respect to time.</p>
-</section>
-<section id="exercise-4">
-<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
-<p>Argue that the discrete resonance problem corresponding to <a class="reference internal" href="#exercise-2-2"><span class="std std-ref">Exercise 2</span></a> is of the form: find <span class="math notranslate nohighlight">\(\mathbf x\in\mathbb C^N,\omega\in\mathbb C\)</span></p>
-<div class="math notranslate nohighlight" id="equation-quad-evp">
-<span class="eqno">(3.3)<a class="headerlink" href="#equation-quad-evp" title="Link to this equation">#</a></span>\[M_0 \mathbf x+\omega M_1\mathbf x+\omega^2 M_2\mathbf x = 0,\]</div>
-<p>for certain matrices <span class="math notranslate nohighlight">\(\mathbf M_j\)</span>.
-Rewrite <a class="reference internal" href="#equation-quad-evp">(3.3)</a> as a (twice as large) generalized linear eigenvalue problem in <span class="math notranslate nohighlight">\(\omega\)</span> by introducing <span class="math notranslate nohighlight">\(\mathbf y = \omega \mathbf x\)</span>. Solve the resulting linear generalized eigenvalue problem and plot the resulting eigenvalues and eigenfunctions.</p>
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
+<p>Use the example of the previous exercise to check conservation of energies <span class="math notranslate nohighlight">\(\mathbf E\)</span> and <span class="math notranslate nohighlight">\(E_j^{\tau,\alpha,\beta}\)</span> for the parameters <span class="math notranslate nohighlight">\(\gamma_0=1/2,\beta_0=1/4\)</span>, <span class="math notranslate nohighlight">\(\gamma_1=1/2,\beta_1 =0\)</span> and <span class="math notranslate nohighlight">\(\gamma_2 = 1/3, \beta_2 = 1/6\)</span></p>
 </section>
 </section>
 
@@ -451,7 +439,7 @@ Rewrite <a class="reference internal" href="#equation-quad-evp">(3.3)</a> as a (
         },
         kernelOptions: {
             name: "python3",
-            path: "./second_numerics"
+            path: "./time_integration"
         },
         predefinedOutput: true
     }
@@ -469,22 +457,13 @@ Rewrite <a class="reference internal" href="#equation-quad-evp">(3.3)</a> as a (
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="resonance_problems.html"
+       href="second_order.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3.2. </span>FEM for resonance problems</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>Time-integration for the second order systems</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="../time_integration.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>Time-integration</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -504,8 +483,6 @@ Rewrite <a class="reference internal" href="#equation-quad-evp">(3.3)</a> as a (
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 </ul>
   </nav></div>
 
