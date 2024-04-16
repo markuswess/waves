@@ -58,9 +58,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/first_order';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.3. Exercises for time-stepping schemes" href="exercises.html" />
     <link rel="prev" title="4.1. Time-integration for the second order systems" href="second_order.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -199,6 +202,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="second_order.html">4.1. Time-integration for the second order systems</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. Time-integration for the first order system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">4.3. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
 </ul>
@@ -373,7 +377,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -389,6 +395,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-crank-nicholson-time-stepping">The Crank Nicholson time stepping</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -400,6 +414,66 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="time-integration-for-the-first-order-system">
 <span id="time-integration-fo"></span><h1><span class="section-number">4.2. </span>Time-integration for the first order system<a class="headerlink" href="#time-integration-for-the-first-order-system" title="Link to this heading">#</a></h1>
+<p>Applying a method of lines approach described in <a class="reference internal" href="../first_numerics/method_of_lines.html#mol"><span class="std std-numref">Section 2.2</span></a> to the acoustic, elastic and electromagnetic time-domain wave problems (with possibly added damping or some variant of not entirely reflecting boundary) in first order form leads to a semi-discrete problem of the form (denoting the time derivative by a dot)</p>
+<div class="math notranslate nohighlight" id="equation-semi-disc-1o">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-semi-disc-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\mathbf M_u\dot{\mathbf u}&amp;=-\mathbf D_u{\mathbf u}+\mathbf B\mathbf v +\mathbf f,\\
+\mathbf M_v\dot{\mathbf v}&amp;=-\mathbf D_v{\mathbf v}-\mathbf B^\top\mathbf u,\\
+\mathbf u(0)&amp;=\mathbf u^0,\quad {\mathbf v}(0)=\mathbf v^0
+\end{aligned}\end{split}\]</div>
+<p>for some symmetric positive definite mass and damping matrices <span class="math notranslate nohighlight">\(\mathbf M_u, \mathbf D_u\in\mathbb R^{N_u\times N_u}\)</span>, <span class="math notranslate nohighlight">\(\mathbf M_v,\mathbf D_v\in\mathbb R^{N_v\times N_v}\)</span>, the discrete differential operator <span class="math notranslate nohighlight">\(\mathbf B\in\mathbb R^{N_u\times N_v}\)</span> and the unknown vector functions <span class="math notranslate nohighlight">\(\mathbf u\in C^1([0,T];\mathbb R^{N_u}),\mathbf v\in C^1([0,T];\mathbb R^{N_v})\)</span>.</p>
+<div class="proof remark admonition" id="remark-0">
+<p class="admonition-title"><span class="caption-number">Remark 4.2 </span></p>
+<section class="remark-content" id="proof-content">
+<p>The system <a class="reference internal" href="#equation-semi-disc-1o">(4.7)</a> can also be rewritten more compactly by</p>
+<div class="math notranslate nohighlight" id="equation-semi-disc-1o-compact">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-semi-disc-1o-compact" title="Link to this equation">#</a></span>\[\mathcal M \dot{\mathbf w} =-\mathcal D\mathbf w + \mathcal B\mathbf w +\mathcal F,\]</div>
+<p>for positive (semi-)definite matrices <span class="math notranslate nohighlight">\(\mathcal D,\mathcal M \in\mathbb R^{(N_u+N_v)\times (N_u+N_v)}\)</span> and a skew-symmetric matrix <span class="math notranslate nohighlight">\(\mathcal B\in\mathbb R^{N_u\times N_v}\)</span>, where we set <span class="math notranslate nohighlight">\(\mathbf w = (\mathbf u^\top,\mathbf v^\top)^\top\)</span> and <span class="math notranslate nohighlight">\(\mathcal F= (\mathbf f^\top,0)^\top\)</span>.</p>
+</section>
+</div><p>Similar to the <a class="reference internal" href="second_order.html#time-integration-so"><span class="std std-ref">Time-integration for the second order systems</span></a> we have energy conservation in the form</p>
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 4.4 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u,\mathbf v\)</span> solve <a class="reference internal" href="#equation-semi-disc-1o">(4.7)</a>. Then</p>
+<div class="math notranslate nohighlight">
+\[\frac{d}{d t} E = -(\mathbf u^\top\mathbf D_u\mathbf u  +\mathbf v^\top\mathbf D_v\mathbf v)+\mathrm u^\top \mathrm f,\]</div>
+<p>where the energy <span class="math notranslate nohighlight">\(E\)</span> is defined by</p>
+<div class="math notranslate nohighlight">
+\[E=\frac{1}{2}\left(\mathbf u^\top\mathbf M_u{\mathbf u}+\mathbf v^\top\mathbf M_v\mathbf v\right).\]</div>
+<p>In particular, if there is no damping (<span class="math notranslate nohighlight">\(\mathbf D_v,\mathbf D_u=0\)</span>) and external sources <span class="math notranslate nohighlight">\(\mathbf f = 0\)</span> the energy <span class="math notranslate nohighlight">\(E\)</span> is constant.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We multiply <a class="reference internal" href="#equation-semi-disc-1o">(4.7)</a> from the left by <span class="math notranslate nohighlight">\((\mathrm u,\mathrm v)^\top\)</span> to obtain</p>
+<div class="math notranslate nohighlight">
+\[\mathbf u^\top\mathbf M_u\dot{\mathbf u} +\mathbf v^\top\mathbf M_v\dot{\mathbf v} =-\mathbf u^\top\mathbf D_u\mathbf u-\mathbf v^\top\mathbf D_v\mathbf v- \mathbf u^\top\mathbf B\mathbf v-\mathbf v^\top\mathbf B^\top\mathbf u + \mathbf u^\top\mathbf f\]</div>
+<p>which yields the claim since</p>
+<div class="math notranslate nohighlight">
+\[\frac{d}{dt}\left(\mathbf g(t)^\top\mathbf A\mathbf g(t)\right)=
+\dot{\mathbf g}(t)^\top\mathbf A\mathbf g(t)+
+\mathbf g(t)^\top\mathbf A\dot{\mathbf g}(t)
+=
+2\dot{\mathbf g}(t)^\top\mathbf A\mathbf g(t),\]</div>
+<p>for symmetric <span class="math notranslate nohighlight">\(\mathbf A\)</span> and arbitrary <span class="math notranslate nohighlight">\(\mathbf g\)</span>.</p>
+</div>
+<section id="the-crank-nicholson-time-stepping">
+<span id="crank-nicholson"></span><h2>The Crank Nicholson time stepping<a class="headerlink" href="#the-crank-nicholson-time-stepping" title="Link to this heading">#</a></h2>
+<p>The Crank Nicholson time stepping can motivated for systems of the form <a class="reference internal" href="#equation-semi-disc-1o-compact">(4.8)</a> as follows:
+As in the previous section for a given timestep <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>  we denote the discrete approximation at <span class="math notranslate nohighlight">\(t=j\tau\)</span> for <span class="math notranslate nohighlight">\(j\in\mathbb N\)</span> by <span class="math notranslate nohighlight">\(\mathbf w_j\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[\mathcal M\mathbf w(t_{j+1})=\mathcal M\mathbf w(t_j)+\int_{t_j}^{t_j+1}\mathcal M\dot{\mathbf w}(s)ds=
+\mathcal M\mathbf w(t_j)+\int_{t_j}^{t_j+1}(-\mathcal D+\mathcal B)\mathbf w(s)+\mathcal F(s)ds.\]</div>
+<p>Now approximating the integral on the right hand side by the trapezoidal rule (and replacing the exact values of <span class="math notranslate nohighlight">\(\mathbf w\)</span> by the approximations) we obtain the relation</p>
+<div class="math notranslate nohighlight">
+\[\mathcal M\mathbf w_{j+1}=\mathcal M\mathbf w_{j}+\frac{\tau}{2}\left(-\mathcal D+\mathcal B\right)\left(\mathbf w_{j}+\mathbf w_{j+1}\right)+\frac{1}{2}\left(\mathcal F_j+\mathcal F_{j+1}\right).\]</div>
+<p>and thus</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf w_{j+1}&amp;=\left(\mathcal M+\frac{\tau}{2}(\mathcal D-\mathcal B)\right)^{-1}\left(\mathcal M-\frac{\tau}{2}(\mathcal D-\mathcal B)\right)\mathbf w_j+\frac{1}{2}\left(\mathcal M+\frac{\tau}{2}(\mathcal D-\mathcal B)\right)^{-1}\left(\mathcal F_j+\mathcal F_{j+1}\right)\\
+&amp;=\mathbf w_j-\tau\mathcal S^{-1}(\mathcal D-\mathcal B)\mathbf w_j+\frac{\tau}{2}\mathcal S^{-1}\left(\mathcal F_j+\mathcal F_{j+1}\right).
+\end{aligned}\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\mathcal S=\mathcal M+\frac{\tau}{2}(\mathcal D-\mathcal B)\)</span>.</p>
+<p>The Crank-Nicholson time stepping is <strong>implicit</strong> since the inverse of a matrix, different from the mass matrix has to be applied in each time step.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -441,6 +515,15 @@ document.write(`
         <p class="prev-next-title"><span class="section-number">4.1. </span>Time-integration for the second order systems</p>
       </div>
     </a>
+    <a class="right-next"
+       href="exercises.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>Exercises for time-stepping schemes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -448,7 +531,20 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-crank-nicholson-time-stepping">The Crank Nicholson time stepping</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

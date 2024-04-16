@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.2. Exercises for time-stepping schemes &#8212; Numerical methods for wave-type equations</title>
+    <title>4.3. Exercises for time-stepping schemes &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/exercises';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="4.1. Time-integration for the second order systems" href="second_order.html" />
+    <link rel="prev" title="4.2. Time-integration for the first order system" href="first_order.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -200,7 +200,8 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="second_order.html">4.1. Time-integration for the second order systems</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. Exercises for time-stepping schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_order.html">4.2. Time-integration for the first order system</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.3. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
 </ul>
@@ -400,6 +401,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
 </ul>
             </nav>
         </div>
@@ -412,7 +414,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises-for-time-stepping-schemes">
-<span id="exercises-th"></span><h1><span class="section-number">4.2. </span>Exercises for time-stepping schemes<a class="headerlink" href="#exercises-for-time-stepping-schemes" title="Link to this heading">#</a></h1>
+<span id="exercises-th"></span><h1><span class="section-number">4.3. </span>Exercises for time-stepping schemes<a class="headerlink" href="#exercises-for-time-stepping-schemes" title="Link to this heading">#</a></h1>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
 <p>Implement the Newmark time-stepping for general <span class="math notranslate nohighlight">\(\alpha,\beta\)</span>. Choose the second order acoustic wave problem on the unit-square with initial data</p>
@@ -422,7 +424,11 @@ document.write(`
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
-<p>Use the example of the previous exercise to check conservation of energies <span class="math notranslate nohighlight">\(\mathbf E\)</span> and <span class="math notranslate nohighlight">\(E_j^{\tau,\alpha,\beta}\)</span> for the parameters <span class="math notranslate nohighlight">\(\gamma_0=1/2,\beta_0=1/4\)</span>, <span class="math notranslate nohighlight">\(\gamma_1=1/2,\beta_1 =0\)</span> and <span class="math notranslate nohighlight">\(\gamma_2 = 1/3, \beta_2 = 1/6\)</span></p>
+<p>Use the example of the previous exercise to check conservation of energies <span class="math notranslate nohighlight">\(\mathbf E\)</span> and <span class="math notranslate nohighlight">\(E_j^{\tau,\alpha,\beta}\)</span> for the parameters <span class="math notranslate nohighlight">\(\gamma_0=1/2,\beta_0=1/4\)</span>, <span class="math notranslate nohighlight">\(\gamma_1=1/2,\beta_1 =0\)</span> and <span class="math notranslate nohighlight">\(\gamma_2 = 1/3, \beta_2 = 1/6\)</span>.</p>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
+<p>Use the example of the previous exercises to verify the CFL condition: Compute the largest magnitude eigenvalue <span class="math notranslate nohighlight">\(\lambda_{\mathrm max}\)</span> of the resulting problem <span class="math notranslate nohighlight">\(\mathbf M \mathbf u = -\lambda \mathbf K \mathbf u\)</span>. Then plot the energies <span class="math notranslate nohighlight">\(\mathbf E, E^{\tau,\alpha,\beta}\)</span> over time for the explicit method <span class="math notranslate nohighlight">\(\beta=0,\gamma=1/2\)</span> and timesteps <span class="math notranslate nohighlight">\(\tau_{\pm}^2=\frac{4}{\lambda_{\mathrm{max}}\pm\varepsilon}\)</span> and small <span class="math notranslate nohighlight">\(\varepsilon&gt;0\)</span>.</p>
 </section>
 </section>
 
@@ -457,12 +463,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="second_order.html"
+       href="first_order.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">4.1. </span>Time-integration for the second order systems</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Time-integration for the first order system</p>
       </div>
     </a>
 </div>
@@ -483,6 +489,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
 </ul>
   </nav></div>
 
