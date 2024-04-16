@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Numerical methods for wave-type equations</title>
+    <title>boundary conditions &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -182,12 +182,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/frequency-domain.html">1.4. Time-harmonic waves</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
 </ul>
 </li>
 </ul>
@@ -362,9 +369,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -375,19 +380,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>boundary conditions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -409,7 +406,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "afed507b36f14b0b802e6b5d831a9e57"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7982a6c19f144c37aaedb5352e7070e1"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -422,7 +419,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "05982910574c4c058aaccc3448072490"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "7e7c1725bfe54ae29023ca4d9dce1d7b"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -433,7 +430,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "27902a668801490ba3165de9caa87eac"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "98d9f260ff72451886b4bc28dda30380"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3442,6 +3439,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span> <span class="o">=</span> <span class="n">Draw</span> <span class="p">(</span><span class="n">gfu</span><span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -3453,7 +3451,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "79b9b2c53ce247e298ab2610a7811b9f"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "5fba5f2685cc469a837f4e42da7246a5"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -6470,7 +6468,7 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "4582a00504ed4e27a8c56d6ffec5c1eb"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f2f285399c8b4e97a87032dcf7eb015a"}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -6497,7 +6495,7 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d4544fb9bce045fb987da52973e36191"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "369f1c99a9dd443788b52f4227c0f0f1"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 7&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">udot</span><span class="o">.</span><span class="n">data</span> <span class="o">-=</span> <span class="n">tau</span> <span class="o">*</span> <span class="n">mstarinv</span><span class="o">*</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">mat</span><span class="o">*</span><span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="p">)</span>
@@ -6529,18 +6527,51 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
 <span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="c1"># multidim gridfunction - generate data for each component</span>
 <span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">gf</span> <span class="o">=</span> <span class="n">ngs</span><span class="o">.</span><span class="n">GridFunction</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">space</span><span class="p">)</span>
 
-<span class="nn">File ~/bin/ngsolve/lib/python3.10/dist-packages/ngsolve/webgui.py:302,</span> in <span class="ni">BuildRenderData</span><span class="nt">(mesh, func, order, draw_surf, draw_vol, intpoints, deformation, regions, objects, nodal_p1, encoding, settings)</span>
-<span class="g g-Whitespace">    </span><span class="mi">300</span> <span class="n">pts</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">MapToAllElements</span><span class="p">({</span><span class="n">ngs</span><span class="o">.</span><span class="n">ET</span><span class="o">.</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">ir_trig</span><span class="p">,</span> <span class="n">ngs</span><span class="o">.</span><span class="n">ET</span><span class="o">.</span><span class="n">QUAD</span><span class="p">:</span> <span class="n">ir_quad</span><span class="p">},</span> <span class="n">reg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">301</span> <span class="n">timer2map</span><span class="o">.</span><span class="n">Stop</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">302</span> <span class="n">pmat</span> <span class="o">=</span> <span class="n">cf</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="n">pmima</span> <span class="o">=</span> <span class="n">updatePMinMax</span><span class="p">(</span><span class="n">pmat</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span> <span class="n">timermult</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+<span class="nn">File ~/bin/ngsolve/lib/python3.10/dist-packages/ngsolve/webgui.py:412,</span> in <span class="ni">BuildRenderData</span><span class="nt">(mesh, func, order, draw_surf, draw_vol, intpoints, deformation, regions, objects, nodal_p1, encoding, settings)</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span> <span class="n">BezierPnts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ir_trig</span><span class="p">),</span> <span class="n">pmat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">411</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">412</span>     <span class="n">ngsmat</span> <span class="o">=</span> <span class="n">ngs</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="n">pmat</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">413</span>     <span class="n">BezierPnts</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">iBvals_trig</span> <span class="o">*</span> <span class="n">ngsmat</span>
+<span class="g g-Whitespace">    </span><span class="mi">414</span> <span class="n">timer3multngs</span><span class="o">.</span><span class="n">Stop</span><span class="p">()</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
 </div>
+<section id="boundary-conditions">
+<h1>boundary conditions<a class="headerlink" href="#boundary-conditions" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">LinearForm</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">u_</span><span class="o">*</span><span class="n">ds</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">Assemble</span><span class="p">()</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">ft</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">omega</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">&lt;</span><span class="n">T0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">udot</span> <span class="o">=</span> <span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="o">.</span><span class="n">CreateVector</span><span class="p">()</span>
+<span class="n">udot</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.</span>
+
+
+<span class="n">scene</span> <span class="o">=</span> <span class="n">Draw</span><span class="p">(</span><span class="n">gfu</span><span class="p">,</span> <span class="n">deformation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">T</span><span class="o">/</span><span class="n">tau</span><span class="p">)):</span>
+    <span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">tau</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">udot</span>
+    <span class="n">udot</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">tau</span> <span class="o">*</span> <span class="n">mstarinv</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">ft</span><span class="p">(</span><span class="n">j</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span><span class="o">+</span><span class="n">ft</span><span class="p">((</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">tau</span><span class="p">))</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">vec</span><span class="o">-</span><span class="n">S</span><span class="o">.</span><span class="n">mat</span><span class="o">*</span><span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="p">)</span>
+    <span class="n">gfu</span><span class="o">.</span><span class="n">vec</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">tau</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">udot</span>
+    <span class="n">scene</span><span class="o">.</span><span class="n">Redraw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8c279b536d354196933774daa0632b6d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -6579,20 +6610,7 @@ Row 2989:   2962: 1.9324e-05   2974: 2.67543e-05   2980: 1.54738e-05   2983: 1.5
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

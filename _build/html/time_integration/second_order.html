@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4.1. Time-integration for the second order systems &#8212; Numerical methods for wave-type equations</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/second_order';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. Time-integration for the first order system" href="first_order.html" />
+    <link rel="prev" title="4. Time-integration" href="../time_integration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ASC_Logo_transparent_300ppi_RGB.png" class="logo__image only-light" alt="Numerical methods for wave-type equations - Home"/>
+    <script>document.write(`<img src="../_static/ASC_Logo_transparent_300ppi_RGB.png" class="logo__image only-dark" alt="Numerical methods for wave-type equations - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Numerical methods for wave-type equations
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/frequency-domain.html">1.4. Time-harmonic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_order.html">4.2. Time-integration for the first order system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">4.3. Exercises for time-stepping schemes</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/markuswess/waves" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Ftime_integration/second_order.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/time_integration/second_order.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Time-integration for the second order systems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-conservation">Energy conservation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability-of-the-newmark-method">Stability of the Newmark method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-method-beta-0-gamma-geq-1-2">The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="time-integration-for-the-second-order-systems">
+<span id="time-integration-so"></span><h1><span class="section-number">4.1. </span>Time-integration for the second order systems<a class="headerlink" href="#time-integration-for-the-second-order-systems" title="Link to this heading">#</a></h1>
+<p>Applying a method of lines approach described in <a class="reference internal" href="../first_numerics/method_of_lines.html#mol"><span class="std std-numref">Section 2.2</span></a> to the acoustic, elastic and electromagnetic time-domain wave problems (with possibly added damping or some variant of not entirely reflecting boundary) leads to a semi-discrete problem of the form (denoting the time derivative by a dot)</p>
+<div class="math notranslate nohighlight" id="equation-semi-disc-2o">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-semi-disc-2o" title="Link to this equation">#</a></span>\[\mathbf M\ddot{\mathbf u} + \mathbf C\dot{\mathbf u}+\mathbf K\mathbf u=\mathbf f,\quad
+\mathbf u(0)=\mathbf u^0,\quad \dot{\mathbf u}(0)=\mathbf v^0\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf u\in C^2([0,T];\mathbb R^N)\)</span> and <span class="math notranslate nohighlight">\(N\in\mathbb N\)</span> is the dimension of the discrete space. The matrices <span class="math notranslate nohighlight">\(\mathbf M,\mathbf C,\mathbf K\in\mathbb R^{N\times N}\)</span> are the discrete mass-, damping- and stiffness matrix and <span class="math notranslate nohighlight">\(\mathbf f\in C([0,T];\mathbb R^N)\)</span></p>
+<section id="energy-conservation">
+<h2>Energy conservation<a class="headerlink" href="#energy-conservation" title="Link to this heading">#</a></h2>
+<p>The semi-discrete system <a class="reference internal" href="#equation-semi-disc-2o">(4.1)</a> conserves the discrete energy:</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 4.1 </span> (Discrete energy conservation)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u\)</span> solve <a class="reference internal" href="#equation-semi-disc-2o">(4.1)</a> with symmetric matrices <span class="math notranslate nohighlight">\(\mathbf M, \mathbf C, \mathbf K\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[\dot {\mathbf E}(\mathbf u):=\frac{d}{dt}\frac{1}{2}\left(\dot{\mathbf u}^\top\mathbf M\dot{\mathbf u}+\mathbf u^\top\mathbf K\mathbf u\right) = -\dot{\mathbf u}^\top\mathbf C\dot{\mathbf u}+\dot{\mathbf u}^\top\mathbf f.\]</div>
+<p>In particular, if there are no external sources (<span class="math notranslate nohighlight">\(\mathbf f =0\)</span>) and damping (<span class="math notranslate nohighlight">\(\mathbf C = 0\)</span>), the discrete energy <span class="math notranslate nohighlight">\(\mathbf E\)</span> is conserved over time.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Multiplying <a class="reference internal" href="#equation-semi-disc-2o">(4.1)</a> by <span class="math notranslate nohighlight">\(\dot{\mathbf  u}^\top\)</span> from the left yields</p>
+<div class="math notranslate nohighlight">
+\[\dot {\mathbf u}^\top\mathbf M\ddot{\mathbf u} +\dot{\mathbf  u}^\top \mathbf C\dot{\mathbf u}+\dot{\mathbf  u}^\top\mathbf K\mathbf u=\dot{\mathbf  u}^\top\mathbf f.\]</div>
+<p>Since for any symmetric matrix <span class="math notranslate nohighlight">\(\mathbf A\)</span> and vector function <span class="math notranslate nohighlight">\(\mathbf g\in C^1([0,T];\mathbb R^N)\)</span></p>
+<div class="math notranslate nohighlight">
+\[\frac{d}{dt}\left(\mathbf g(t)^\top\mathbf A\mathbf g(t)\right)=
+\dot{\mathbf g}(t)^\top\mathbf A\mathbf g(t)+
+\mathbf g(t)^\top\mathbf A\dot{\mathbf g}(t)
+=
+2\dot{\mathbf g}(t)^\top\mathbf A\mathbf g(t)\]</div>
+<p>the claim follows.</p>
+</div>
+<div class="proof remark admonition" id="remark-1">
+<p class="admonition-title"><span class="caption-number">Remark 4.1 </span></p>
+<section class="remark-content" id="proof-content">
+<p>Usually the matrices <span class="math notranslate nohighlight">\(\mathbf M,\mathbf C,\mathbf K\)</span> are assume to be positive (semi-)definite. Then it follows that the energy <span class="math notranslate nohighlight">\(\mathbf E\)</span> is always non-negative.</p>
+</section>
+</div><p>For the time integration of wave problems one usually tries to preserve energy.</p>
+</section>
+<section id="the-newmark-beta-method">
+<h2>The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method<a class="headerlink" href="#the-newmark-beta-method" title="Link to this heading">#</a></h2>
+<p>For the given time interval <span class="math notranslate nohighlight">\([0,T]\)</span> for <span class="math notranslate nohighlight">\(T&gt;0\)</span> we want to approximate the solution <span class="math notranslate nohighlight">\(\mathbf u\)</span> to <a class="reference internal" href="#equation-semi-disc-2o">(4.1)</a> at <span class="math notranslate nohighlight">\(M+1\)</span> discrete timesteps <span class="math notranslate nohighlight">\(t_j=j\tau\)</span> for <span class="math notranslate nohighlight">\(j=0,\ldots,M\)</span>, <span class="math notranslate nohighlight">\(\tau = T/M\)</span>. We write <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> for the approximation of <span class="math notranslate nohighlight">\(\mathbf u(t_j)\)</span> (and use similar notation for the derivatives).</p>
+<p>Assuming sufficient regularity we have by the mean value theorem that for a fixed <span class="math notranslate nohighlight">\(j\)</span> there exist <span class="math notranslate nohighlight">\(\xi_1,\xi_2\in[t_j,t_{j+1}]\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\dot{\mathbf u}(t_{j+1})=\dot{\mathbf u}(t_j)+\tau\ddot{\mathbf u}(\xi_1),\qquad
+\mathbf u(t_{j+1})={\mathbf u}(t_j)+\tau\dot{\mathbf u}(t_j)+\frac{\tau^2}{2}\ddot{\mathbf u}(\xi_2).\]</div>
+<p>Approximating <span class="math notranslate nohighlight">\(\ddot{\mathbf u}(\xi_1),\ddot{\mathbf u}(\xi_2)\)</span> by convex combinations of the approximated values <span class="math notranslate nohighlight">\(\dot{\mathbf u}_j,\dot{\mathbf u}_{j+1}\)</span>, i.e., for fixed <span class="math notranslate nohighlight">\(\gamma,2\beta\in [0,1]\)</span></p>
+<div class="math notranslate nohighlight">
+\[\ddot{\mathbf u}(\xi_1)\approx (1-\gamma)\ddot{\mathbf u}_j+\gamma\ddot{\mathbf u}_{j+1},\qquad
+\ddot{\mathbf u}(\xi_2)\approx (1-2\beta)\ddot{\mathbf u}_j+2\beta\ddot{\mathbf u}_{j+1}\]</div>
+<p>leads to the discrete approximations</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="math notranslate nohighlight" id="equation-newmark-approx">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-newmark-approx" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\dot{\mathbf u}_{j+1}&amp;=\dot{\mathbf u}_j+\tau\left((1-\gamma)\ddot{\mathbf u}_j+\gamma\ddot{\mathbf u}_{j+1}\right),\\
+\mathbf u_{j+1}&amp;={\mathbf u}_j+\tau\dot{\mathbf u}_j+\tau^2\left(\left(\frac{1}{2}-\beta\right)\ddot{\mathbf u}_j+\beta\ddot{\mathbf u}_{j+1}\right).
+\end{aligned}\end{split}\]</div>
+</div>
+</div>
+<p>Additionally approximating <span class="math notranslate nohighlight">\({\mathbf u}(t_{j+1})\approx{\mathbf u}_{j+1}\)</span>, <span class="math notranslate nohighlight">\(\dot{\mathbf u}(t_{j+1})\approx\dot{\mathbf u}_{j+1}\)</span>, <span class="math notranslate nohighlight">\(\ddot{\mathbf u}(t_{j+1})\approx\ddot{\mathbf u}_{j+1}\)</span> in <a class="reference internal" href="#equation-semi-disc-2o">(4.1)</a> yields the third equation</p>
+<div class="math notranslate nohighlight" id="equation-newmark-state">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-newmark-state" title="Link to this equation">#</a></span>\[\mathbf M\ddot{\mathbf u}_{j+1} + \mathbf C\dot{\mathbf u}_{j+1}+\mathbf K\mathbf u_{j+1}=\mathbf f_{j+1} \]</div>
+<p>to close the linear system for the unknowns <span class="math notranslate nohighlight">\(\mathbf u_{j+1},\dot{\mathbf u}_{j+1},\ddot{\mathbf u}_{j+1}\)</span> for given values for
+<span class="math notranslate nohighlight">\(\mathbf u_{j},\dot{\mathbf u}_{j},\ddot{\mathbf u}_{j}\)</span>. Note that the initial data is given by</p>
+<div class="math notranslate nohighlight" id="equation-newmark-init">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-newmark-init" title="Link to this equation">#</a></span>\[\mathbf u_0 = \mathbf u^0,\quad 
+\dot{\mathbf u}_0 = \mathbf v^0,\quad 
+\mathbf M\ddot{\mathbf u}_0 = \mathbf f_0-\mathbf C\mathbf v^0-\mathbf K\mathbf u^0.\]</div>
+<p>The Newmark <span class="math notranslate nohighlight">\(\beta\)</span>-method is well-defined by the discrete approximations <a class="reference internal" href="#equation-newmark-approx">(4.2)</a>, the underlying system of ODE’s for each time step <a class="reference internal" href="#equation-newmark-state">(4.3)</a> and the initial conditions <a class="reference internal" href="#equation-newmark-init">(4.4)</a>. In this general form a <span class="math notranslate nohighlight">\(3N\times 3N\)</span> system would have to be solved in each time-step. In practice this is never done explicitely since there exist various ways to equivalently rewrite it. In fact, the following Theorem gives one general way to compute the single steps.</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 4.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf M\)</span> be positive definite and <span class="math notranslate nohighlight">\(\mathbf C,\mathbf K\)</span> be positive semi-definite. Then the Newmark method is well defined for all <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>, <span class="math notranslate nohighlight">\(\alpha,2\beta\in[0,1]\)</span> and initial data <span class="math notranslate nohighlight">\(\mathbf u^0,\mathbf v^0\in\mathbb R^N\)</span>. Each step requires one application of the inverse of the matrix <span class="math notranslate nohighlight">\(\mathbf S:=\mathbf M+\tau\gamma\mathbf C+\tau^2\beta\mathbf K\)</span> and vector operations (additions, multiplications by scalars).</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Inserting <a class="reference internal" href="#equation-newmark-approx">(4.2)</a> into <a class="reference internal" href="#equation-newmark-state">(4.3)</a> yields and collecting all terms containing <span class="math notranslate nohighlight">\(\ddot{\mathbf u}_{n+1}\)</span> on the left hand side yields</p>
+<div class="math notranslate nohighlight">
+\[(\mathbf M+\gamma\tau\mathbf C+\beta\tau^2\mathbf K)\ddot{\mathbf u}_{j+1}=\mathbf f_{j+1}-\mathbf C(\dot{\mathbf u}_j+(1-\gamma)\tau\ddot{\mathbf u}_j)-\mathbf K(\mathbf u_j+\tau\dot{\mathbf u}_j+(\frac{1}{2}-\beta)\tau^2\ddot{\mathbf u}_j). \]</div>
+<p>Now the method can be written in matrix form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal R
+\begin{pmatrix}
+\mathbf u_{j+1}\\
+\dot{\mathbf u}_{j+1}\\
+\ddot{\mathbf u}_{j+1}
+\end{pmatrix}
+=
+\mathcal L
+\begin{pmatrix}
+\mathbf u_{j}\\
+\dot{\mathbf u}_{j}\\
+\ddot{\mathbf u}_{j}
+\end{pmatrix}
++\begin{pmatrix}
+0\\0\\\mathbf f_{j+1}
+\end{pmatrix}.\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal R:=
+\begin{pmatrix}
+\mathbf I&amp;0&amp;-\tau^2\beta \mathbf I\\
+0&amp;\mathbf I&amp;-\tau\gamma \mathbf I\\
+0&amp;0&amp;\mathbf M+\tau\gamma\mathbf C+\tau^2\beta\mathbf K
+\end{pmatrix},\quad
+\mathcal L:=
+\begin{pmatrix}
+\mathbf I&amp;\tau&amp;\tau^2(\frac{1}{2}-\beta) \mathbf I\\
+0&amp;\mathbf I&amp;\tau(1-\gamma) \mathbf I\\
+-\mathbf K&amp;-\mathbf C-\tau\mathbf K&amp;-\tau(1-\gamma)\mathbf C-\tau^2(\frac{1}{2}-\beta)\mathbf K
+\end{pmatrix}\end{split}\]</div>
+<p>The system above can be solved by backwards elimination where merely in the process of computing <span class="math notranslate nohighlight">\(\ddot{\mathbf u}_{j+1}\)</span> the inverse of the matrix <span class="math notranslate nohighlight">\(\mathbf S:=\mathbf M+\tau\gamma\mathbf C+\tau^2\beta\mathbf K\)</span> has to be applied, all other operations are vector operations.
+Clearly the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</span> is positive definite for all parameters <span class="math notranslate nohighlight">\(\tau,\gamma,\beta\)</span> and thus regular.</p>
+</div>
+<section id="stability-of-the-newmark-method">
+<h3>Stability of the Newmark method<a class="headerlink" href="#stability-of-the-newmark-method" title="Link to this heading">#</a></h3>
+<div class="proof theorem admonition" id="newmark_energy">
+<p class="admonition-title"><span class="caption-number">Theorem 4.3 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u_j, \dot{\mathbf u}_j, \ddot{\mathbf u}_j\)</span> for <span class="math notranslate nohighlight">\(j=0,\ldots, M\)</span> be the discrete Newmark approximations for given <span class="math notranslate nohighlight">\(\tau,\alpha,\beta\)</span> and <span class="math notranslate nohighlight">\(\mathbf C = 0,\mathbf f=0\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[E^{\tau,\alpha,\beta}_{j+1}-E^{\tau,\alpha,\beta}_j=-(\gamma-\frac{1}{2})(\mathbf u_{j+1}-\mathbf u_j)^\top\mathbf K_{\tau,\alpha,\beta}(\mathbf u_{j+1}-\mathbf u_j)\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[E^{\tau,\alpha,\beta}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\alpha,\beta}{\mathbf u}_j\right),\quad
+\mathbf K_{\tau,\alpha,\beta}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.\]</div>
+</section>
+</div><p>The quantity <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> is always positive for non-zero <span class="math notranslate nohighlight">\(\mathbf u_j,\dot{\mathbf u}_j\)</span> if the matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is positive semi-definite.
+In this case we call <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> the discrete energy at timestep <span class="math notranslate nohighlight">\(j\)</span>. The matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is certainly positive semi-definite if <span class="math notranslate nohighlight">\(\beta\geq \gamma/2\)</span>, for any <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>.</p>
+<p><a class="reference internal" href="#newmark_energy">Theorem 4.3</a> shows that the discrete energy is preserved if <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>. Moreover, the discrete energy <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> coincides with the Energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span> iff <span class="math notranslate nohighlight">\(\beta=\gamma/2\)</span>.</p>
+<p>We discuss some specific choices of <span class="math notranslate nohighlight">\(\gamma,\beta\)</span> in more detail:</p>
+</section>
+<section id="the-explicit-method-beta-0-gamma-geq-1-2">
+<h3>The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span><a class="headerlink" href="#the-explicit-method-beta-0-gamma-geq-1-2" title="Link to this heading">#</a></h3>
+<p>for <span class="math notranslate nohighlight">\(\mathbf C=0\)</span> the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</span> which has to be inverted reduces to <span class="math notranslate nohighlight">\(\mathbf M\)</span>. Thus the method is called <strong>explicit</strong>.
+Moreover, let <span class="math notranslate nohighlight">\(\phi_n,\lambda_n\)</span> be the normalized eigenpairs of</p>
+<div class="math notranslate nohighlight" id="equation-disc-evp">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-disc-evp" title="Link to this equation">#</a></span>\[\mathbf K u=\lambda \mathbf M\]</div>
+<p>Then we have</p>
+<div class="math notranslate nohighlight">
+\[\phi_n^\top\mathbf M\phi_k=\delta_{n,k},\quad
+\phi_n^\top\mathbf K\phi_k=\lambda_n\delta_{n,k}.\]</div>
+<p>Expanding <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> with respect to the basis <span class="math notranslate nohighlight">\(\phi_n\)</span> leads to</p>
+<div class="math notranslate nohighlight">
+\[\mathbf u_j=\sum_{n=1}^N c_n\phi_n,\]</div>
+<p>and due to the orthogonality of the eigenvectors we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j&amp;= \mathbf u_j^\top\mathbf K\mathbf u_j-\frac{\gamma\tau^2}{2}\mathbf u_j^\top\mathbf K\mathbf M^{-1}\mathbf K\mathbf u_j\\
+&amp;=\sum_{n=1}^N\lambda_n\phi_n-\frac{\gamma\tau^2}{2}\lambda_n^2\phi_n.
+\end{aligned}\end{split}\]</div>
+<p>Thus</p>
+<div class="math notranslate nohighlight">
+\[\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j\geq 0\]</div>
+<p>for all <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> if</p>
+<div class="math notranslate nohighlight" id="equation-newmark-cfl">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-newmark-cfl" title="Link to this equation">#</a></span>\[\tau^2\leq \frac{2}{\gamma\lambda_{\mathrm {max}}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_{\mathrm {max}}\)</span> is the maximal eigenvalue of <a class="reference internal" href="#equation-disc-evp">(4.5)</a>.
+The condition <a class="reference internal" href="#equation-newmark-cfl">(4.6)</a> is called CFL condition and yields conditional stability of the explicit scheme, depending on the chosen time-step <span class="math notranslate nohighlight">\(\tau\)</span>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./time_integration"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../time_integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Time-integration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="first_order.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Time-integration for the first order system</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-conservation">Energy conservation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability-of-the-newmark-method">Stability of the Newmark method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-method-beta-0-gamma-geq-1-2">The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Wess
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

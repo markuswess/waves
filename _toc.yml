@@ -23,6 +23,11 @@ chapters:
       - file: second_numerics/scattering_problems
       - file: second_numerics/resonance_problems
       - file: second_numerics/exercises
+  - file: time_integration
+    sections:
+      - file: time_integration/second_order
+      - file: time_integration/first_order
+      - file: time_integration/exercises
 #
 #- caption: Conforming methods
 #  numbered: true

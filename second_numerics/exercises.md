@@ -17,7 +17,7 @@ Solve the time-domain problem corresponding to the Helmholtz equation from {ref}
 
 ## Exercise 4
 
-Argue that the discrete resonance problem corresponding to {ref}`exercise_2_2` is of the form to find $\mathbf x\in\mathbb C^N,\omega\in\mathbb C$
+Argue that the discrete resonance problem corresponding to {ref}`exercise_2_2` is of the form: find $\mathbf x\in\mathbb C^N,\omega\in\mathbb C$
 ```{math}
 :label: quad_evp
 M_0 \mathbf x+\omega M_1\mathbf x+\omega^2 M_2\mathbf x = 0,
