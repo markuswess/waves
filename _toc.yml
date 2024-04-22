@@ -26,8 +26,10 @@ chapters:
   - file: time_integration
     sections:
       - file: time_integration/second_order
+      - file: time_integration/mixed_methods
       - file: time_integration/first_order
       - file: time_integration/exercises
+  - file: explicit_methods
 #
 #- caption: Conforming methods
 #  numbered: true

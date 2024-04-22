@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.2. Time-integration for the first order system &#8212; Numerical methods for wave-type equations</title>
+    <title>4.3. Time-integration for the first order system &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -63,8 +63,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/first_order';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.3. Exercises for time-stepping schemes" href="exercises.html" />
-    <link rel="prev" title="4.1. Time-integration for the second order systems" href="second_order.html" />
+    <link rel="next" title="5. Explicit methods for time-domain waves" href="../explicit_methods.html" />
+    <link rel="prev" title="4.2. Mixed formulations for wave equations" href="mixed_methods.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -201,10 +201,11 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="second_order.html">4.1. Time-integration for the second order systems</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. Time-integration for the first order system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exercises.html">4.3. Exercises for time-stepping schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixed_methods.html">4.2. Mixed formulations for wave equations</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.3. Time-integration for the first order system</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
 </ul>
 
     </div>
@@ -401,6 +402,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-crank-nicholson-time-stepping">The Crank Nicholson time stepping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-leap-frog-time-stepping">The Leap Frog time stepping</a></li>
 </ul>
             </nav>
         </div>
@@ -413,37 +415,39 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="time-integration-for-the-first-order-system">
-<span id="time-integration-fo"></span><h1><span class="section-number">4.2. </span>Time-integration for the first order system<a class="headerlink" href="#time-integration-for-the-first-order-system" title="Link to this heading">#</a></h1>
+<span id="time-integration-fo"></span><h1><span class="section-number">4.3. </span>Time-integration for the first order system<a class="headerlink" href="#time-integration-for-the-first-order-system" title="Link to this heading">#</a></h1>
 <p>Applying a method of lines approach described in <a class="reference internal" href="../first_numerics/method_of_lines.html#mol"><span class="std std-numref">Section 2.2</span></a> to the acoustic, elastic and electromagnetic time-domain wave problems (with possibly added damping or some variant of not entirely reflecting boundary) in first order form leads to a semi-discrete problem of the form (denoting the time derivative by a dot)</p>
 <div class="math notranslate nohighlight" id="equation-semi-disc-1o">
-<span class="eqno">(4.7)<a class="headerlink" href="#equation-semi-disc-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+<span class="eqno">(4.12)<a class="headerlink" href="#equation-semi-disc-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \mathbf M_u\dot{\mathbf u}&amp;=-\mathbf D_u{\mathbf u}+\mathbf B\mathbf v +\mathbf f,\\
 \mathbf M_v\dot{\mathbf v}&amp;=-\mathbf D_v{\mathbf v}-\mathbf B^\top\mathbf u,\\
 \mathbf u(0)&amp;=\mathbf u^0,\quad {\mathbf v}(0)=\mathbf v^0
 \end{aligned}\end{split}\]</div>
 <p>for some symmetric positive definite mass and damping matrices <span class="math notranslate nohighlight">\(\mathbf M_u, \mathbf D_u\in\mathbb R^{N_u\times N_u}\)</span>, <span class="math notranslate nohighlight">\(\mathbf M_v,\mathbf D_v\in\mathbb R^{N_v\times N_v}\)</span>, the discrete differential operator <span class="math notranslate nohighlight">\(\mathbf B\in\mathbb R^{N_u\times N_v}\)</span> and the unknown vector functions <span class="math notranslate nohighlight">\(\mathbf u\in C^1([0,T];\mathbb R^{N_u}),\mathbf v\in C^1([0,T];\mathbb R^{N_v})\)</span>.</p>
 <div class="proof remark admonition" id="remark-0">
-<p class="admonition-title"><span class="caption-number">Remark 4.2 </span></p>
+<p class="admonition-title"><span class="caption-number">Remark 4.6 </span></p>
 <section class="remark-content" id="proof-content">
-<p>The system <a class="reference internal" href="#equation-semi-disc-1o">(4.7)</a> can also be rewritten more compactly by</p>
+<p>The system <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a> can also be rewritten more compactly by</p>
 <div class="math notranslate nohighlight" id="equation-semi-disc-1o-compact">
-<span class="eqno">(4.8)<a class="headerlink" href="#equation-semi-disc-1o-compact" title="Link to this equation">#</a></span>\[\mathcal M \dot{\mathbf w} =-\mathcal D\mathbf w + \mathcal B\mathbf w +\mathcal F,\]</div>
-<p>for positive (semi-)definite matrices <span class="math notranslate nohighlight">\(\mathcal D,\mathcal M \in\mathbb R^{(N_u+N_v)\times (N_u+N_v)}\)</span> and a skew-symmetric matrix <span class="math notranslate nohighlight">\(\mathcal B\in\mathbb R^{N_u\times N_v}\)</span>, where we set <span class="math notranslate nohighlight">\(\mathbf w = (\mathbf u^\top,\mathbf v^\top)^\top\)</span> and <span class="math notranslate nohighlight">\(\mathcal F= (\mathbf f^\top,0)^\top\)</span>.</p>
+<span class="eqno">(4.13)<a class="headerlink" href="#equation-semi-disc-1o-compact" title="Link to this equation">#</a></span>\[\mathcal M \dot{\mathbf w} =-\mathcal D\mathbf w + \mathcal B\mathbf w +\mathcal F,\]</div>
+<p>for positive (semi-)definite matrices <span class="math notranslate nohighlight">\(\mathcal D,\mathcal M \in\mathbb R^{N\times N}\)</span> with <span class="math notranslate nohighlight">\(N:=N_u+N_v\)</span> and a skew-symmetric matrix <span class="math notranslate nohighlight">\(\mathcal B\in\mathbb R^{N\times N}\)</span>, where we set <span class="math notranslate nohighlight">\(\mathbf w = (\mathbf u^\top,\mathbf v^\top)^\top\)</span>, <span class="math notranslate nohighlight">\(\mathcal F= (\mathbf f^\top,0)^\top\)</span>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal B = \begin{pmatrix} 0&amp;\mathbf B\\-\mathbf B^\top&amp;0\end{pmatrix}.\end{split}\]</div>
 </section>
 </div><p>Similar to the <a class="reference internal" href="second_order.html#time-integration-so"><span class="std std-ref">Time-integration for the second order systems</span></a> we have energy conservation in the form</p>
 <div class="proof theorem admonition" id="theorem-1">
 <p class="admonition-title"><span class="caption-number">Theorem 4.4 </span></p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\mathbf u,\mathbf v\)</span> solve <a class="reference internal" href="#equation-semi-disc-1o">(4.7)</a>. Then</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u,\mathbf v\)</span> solve <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a>. Then</p>
 <div class="math notranslate nohighlight">
-\[\frac{d}{d t} E = -(\mathbf u^\top\mathbf D_u\mathbf u  +\mathbf v^\top\mathbf D_v\mathbf v)+\mathrm u^\top \mathrm f,\]</div>
-<p>where the energy <span class="math notranslate nohighlight">\(E\)</span> is defined by</p>
+\[\frac{d}{d t} E(\mathbf u,\mathbf v) = -(\mathbf u^\top\mathbf D_u\mathbf u  +\mathbf v^\top\mathbf D_v\mathbf v)+\mathrm u^\top \mathrm f,\]</div>
+<p>where the energy <span class="math notranslate nohighlight">\(E(\mathbf u,\mathbf v)\)</span> is defined by</p>
 <div class="math notranslate nohighlight">
-\[E=\frac{1}{2}\left(\mathbf u^\top\mathbf M_u{\mathbf u}+\mathbf v^\top\mathbf M_v\mathbf v\right).\]</div>
+\[E(\mathbf u,\mathbf v)=\frac{1}{2}\left(\mathbf u^\top\mathbf M_u{\mathbf u}+\mathbf v^\top\mathbf M_v\mathbf v\right).\]</div>
 <p>In particular, if there is no damping (<span class="math notranslate nohighlight">\(\mathbf D_v,\mathbf D_u=0\)</span>) and external sources <span class="math notranslate nohighlight">\(\mathbf f = 0\)</span> the energy <span class="math notranslate nohighlight">\(E\)</span> is constant.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. We multiply <a class="reference internal" href="#equation-semi-disc-1o">(4.7)</a> from the left by <span class="math notranslate nohighlight">\((\mathrm u,\mathrm v)^\top\)</span> to obtain</p>
+<p>Proof. We multiply <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a> from the left by <span class="math notranslate nohighlight">\((\mathrm u,\mathrm v)^\top\)</span> to obtain</p>
 <div class="math notranslate nohighlight">
 \[\mathbf u^\top\mathbf M_u\dot{\mathbf u} +\mathbf v^\top\mathbf M_v\dot{\mathbf v} =-\mathbf u^\top\mathbf D_u\mathbf u-\mathbf v^\top\mathbf D_v\mathbf v- \mathbf u^\top\mathbf B\mathbf v-\mathbf v^\top\mathbf B^\top\mathbf u + \mathbf u^\top\mathbf f\]</div>
 <p>which yields the claim since</p>
@@ -457,7 +461,7 @@ document.write(`
 </div>
 <section id="the-crank-nicholson-time-stepping">
 <span id="crank-nicholson"></span><h2>The Crank Nicholson time stepping<a class="headerlink" href="#the-crank-nicholson-time-stepping" title="Link to this heading">#</a></h2>
-<p>The Crank Nicholson time stepping can motivated for systems of the form <a class="reference internal" href="#equation-semi-disc-1o-compact">(4.8)</a> as follows:
+<p>The Crank Nicholson time stepping can motivated for systems of the form <a class="reference internal" href="#equation-semi-disc-1o-compact">(4.13)</a> as follows:
 As in the previous section for a given timestep <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>  we denote the discrete approximation at <span class="math notranslate nohighlight">\(t=j\tau\)</span> for <span class="math notranslate nohighlight">\(j\in\mathbb N\)</span> by <span class="math notranslate nohighlight">\(\mathbf w_j\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[\mathcal M\mathbf w(t_{j+1})=\mathcal M\mathbf w(t_j)+\int_{t_j}^{t_j+1}\mathcal M\dot{\mathbf w}(s)ds=
@@ -473,6 +477,91 @@ As in the previous section for a given timestep <span class="math notranslate no
 \end{aligned}\end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(\mathcal S=\mathcal M+\frac{\tau}{2}(\mathcal D-\mathcal B)\)</span>.</p>
 <p>The Crank-Nicholson time stepping is <strong>implicit</strong> since the inverse of a matrix, different from the mass matrix has to be applied in each time step.</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 4.5 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf w_j^\top=(\mathbf u_j^\top,\mathbf v_j^\top)\)</span> for <span class="math notranslate nohighlight">\(j\in\mathbf N\)</span> be the discrete Crank-Nicholson approximation of <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a> (or <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a>) with <span class="math notranslate nohighlight">\(\mathbf D, \mathbf f=0\)</span>.</p>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[E(\mathbf u_j,\mathbf v_j)=E(\mathbf u_0,\mathbf v_0),\]</div>
+<p>for all <span class="math notranslate nohighlight">\(j\in\mathbb N\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. It follows from basic linear algebra that the eigenpairs of</p>
+<div class="math notranslate nohighlight">
+\[\lambda\mathcal M \phi = \mathcal B \phi\]</div>
+<p>consist of pairs of imaginary eigenvalues <span class="math notranslate nohighlight">\(\lambda_l, \lambda_{-l}=-\lambda_l\in i\mathbb R\)</span>, <span class="math notranslate nohighlight">\(l=1,2,\ldots,N\)</span> with conlugate complex eigenfunctions <span class="math notranslate nohighlight">\(\phi_l,\phi_{-l}=\bar\phi_l\)</span>.
+We fix <span class="math notranslate nohighlight">\(\mathbf w^\top=(\mathbf u^\top,\mathbf v^\top)=\mathbf w_j^\top\)</span> and <span class="math notranslate nohighlight">\(\tilde{\mathbf w}^\top=(\tilde{\mathbf u}^\top,\tilde{\mathbf v}^\top)=\mathbf w_{j+1}^\top\)</span>.
+Decomposing <span class="math notranslate nohighlight">\(\mathbf w,\tilde{\mathbf w}\)</span> into the according orthonormal (with respect to <span class="math notranslate nohighlight">\(\mathcal M\)</span>) eigensystem i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf w&amp;=\sum_{l=- N}^ N c_l\phi_l,\\
+\tilde{\mathbf w}&amp;=\sum_{l=- N}^ N \tilde c_l\phi_l,
+\end{aligned}\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(c_l = \bar c_{-l}\in\mathbb C\)</span> (and for convenience we set <span class="math notranslate nohighlight">\(c_0,\phi_0=0\)</span>)
+and inserting the expansions into the Crank-Nicholson stepping leads to</p>
+<div class="math notranslate nohighlight">
+\[\sum_{l=- N}^ N \left(\mathcal M-\frac{\tau}{2}\lambda_l\right)\tilde c_l\phi_l=\left(\mathcal M-\frac{\tau}{2}\mathcal B\right)\sum_{l=- N}^ N \tilde c_l\phi_l=\left(\mathcal M+\frac{\tau}{2}\mathcal B\right)\sum_{l=- N}^ N c_l\phi_l=\sum_{l=- N}^ N \left(\mathcal M+\frac{\tau}{2}\lambda_l\right)c_l\phi_l.\]</div>
+<p>Multiplying this by <span class="math notranslate nohighlight">\(\phi_k^H\)</span> from the left yields due to the orthonormality of the eigenbase</p>
+<div class="math notranslate nohighlight">
+\[\left(1-\frac{\tau}{2}\lambda_k\right)\tilde c_k=\left(1+\frac{\tau}{2}\lambda_k\right)c_k.\]</div>
+<p>i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\tilde{c}_k=\frac{1+\frac{\tau}{2}\lambda_k}{1-\frac{\tau}{2}\lambda_k}c_k.\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\lambda_k\)</span> is purely imaginary we have <span class="math notranslate nohighlight">\(|\tilde c_k|=|c_k|\)</span> since for any complex number <span class="math notranslate nohighlight">\(z\)</span> we have <span class="math notranslate nohighlight">\(|z/\bar z| = 1\)</span>.</p>
+<p>Thus</p>
+<div class="math notranslate nohighlight">
+\[E(\mathbf u,\mathbf v) =\frac{1}{2} \mathbf w^\top\mathcal M\mathbf w  =\frac{1}{2} \left(\sum_{l=1}^ N c_l\phi_l^\top+\bar c_{l}\bar\phi_l^\top\right)\mathcal M \left(\sum_{l=1}^ N c_l\phi_l+\bar c_{l}\bar\phi_l\right)=\sum_{l=1}^ N|c_l|^2=\sum_{l=1}^ N|\tilde c_l|^2=E(\tilde{\mathbf u},\tilde{\mathbf v})\]</div>
+</div>
+</section>
+<section id="the-leap-frog-time-stepping">
+<span id="leap-frog"></span><h2>The Leap Frog time stepping<a class="headerlink" href="#the-leap-frog-time-stepping" title="Link to this heading">#</a></h2>
+<p>While the Crank-Nicholson scheme can be easily derived for general first-order in time equations the Leap Frog scheme exploits the underlying skew symmetric structure.</p>
+<p>The basic idea is to approximate <span class="math notranslate nohighlight">\(\mathbf v\)</span> at half steps namely to set</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf v_{1/2}&amp;=\mathbf v_0 -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_0,\\
+\mathbf u_{j+1}&amp;=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
+\mathbf v_{j+1/2}&amp;=\mathbf v_{j-1/2} -\tau \mathbf M_v^{-1}\mathbf B^\top\mathbf u_j.\end{split}\]</div>
+<div class="proof remark admonition" id="remark-3">
+<p class="admonition-title"><span class="caption-number">Remark 4.7 </span></p>
+<section class="remark-content" id="proof-content">
+<p>To be able to evaluate also the velocity at full time-steps one may rewrite the method as</p>
+<div class="math notranslate nohighlight" id="equation-leap-frog-whole">
+<span class="eqno">(4.14)<a class="headerlink" href="#equation-leap-frog-whole" title="Link to this equation">#</a></span>\[\begin{split}\mathbf v_{j+1/2}&amp;=\mathbf v_j -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_j,\\
+\mathbf u_{j+1}&amp;=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
+\mathbf v_{j+1}&amp;=\mathbf v_{j+1/2} -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_{j+1}.\end{split}\]</div>
+<p>This version is also known as kick-drift-kick formulation.</p>
+</section>
+</div><div class="proof theorem admonition" id="theorem-4">
+<p class="admonition-title"><span class="caption-number">Theorem 4.6 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u_j,\mathbf v_j\)</span> be the Leap Frog approximations applied to <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a> with <span class="math notranslate nohighlight">\(\mathbf D_u,\mathbf D_v,\mathbf f = 0\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf u}_j,\dot{\mathbf u}_j\)</span> be the approximations by the Verlet time stepping applied to the equation</p>
+<div class="math notranslate nohighlight" id="equation-second-order-fo">
+<span class="eqno">(4.15)<a class="headerlink" href="#equation-second-order-fo" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\mathbf M_u \ddot{\mathbf u}+\mathbf B\mathbf M_v^{-1}\mathbf B^\top\mathbf u &amp;= 0,\\
+\mathbf u(0) &amp;= \mathbf u^0,\\
+ \dot{\mathbf u}(0) &amp;= \mathbf M_u^{-1}\mathbf B \mathbf v^0.
+\end{aligned}\end{split}\]</div>
+<p>Then <span class="math notranslate nohighlight">\(\mathbf u_j=\hat{\mathbf u}_j\)</span> for all <span class="math notranslate nohighlight">\(j\in\mathbb N\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Multiplying the first and last line of <a class="reference internal" href="#equation-leap-frog-whole">(4.14)</a> by <span class="math notranslate nohighlight">\(\mathbf M_u^{-1}\mathbf B\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2}&amp;=\mathbf M_u^{-1}\mathbf B\mathbf v_j -\frac{\tau}{2} \mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top\mathbf u_j,\\
+\mathbf u_{j+1}&amp;=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
+\mathbf M_u^{-1}\mathbf B\mathbf v_{j+1}&amp;=\mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2} -\frac{\tau}{2} \mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top\mathbf u_{j+1}.
+\end{aligned}\end{split}\]</div>
+<p>On the other hand applying the equivalent Verlet algorithm <a class="reference internal" href="second_order.html#equation-newmark-explicit-leap">(4.7)</a> to the second order problem  <a class="reference internal" href="#equation-second-order-fo">(4.15)</a> yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\tilde{\mathbf u}&amp;=\dot{\mathbf u}_j-\frac{\tau}{2}\mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top{\mathbf u}_j,\\
+\mathbf u_{j+1}&amp;={\mathbf u}_j+\tau\tilde{\mathbf u},\\
+\dot{\mathbf u}_{j+1}&amp;=\tilde{\mathbf u}-\frac{\tau}{2}\mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top{\mathbf u}_{j+1}.
+\end{aligned}\end{split}\]</div>
+<p>Thus with <span class="math notranslate nohighlight">\(\tilde {\mathbf u}:=\mathbf M^{-1}_u\mathbf B\mathbf v_{j+1/2}\)</span> and <span class="math notranslate nohighlight">\(\dot{\mathbf u}_j:=\mathbf M_u^{-1}\mathbf B \mathbf v_{j}\)</span> the algorithms are identical (note that also the inital data coincide).</p>
+</div>
+<p>By the above theorem we immediately obtain that the Leapfrog time stepping inherits all of the properties of the Verlet time stepping, in particular the preservation of the modified energy and the CFL condition.</p>
 </section>
 </section>
 
@@ -507,20 +596,20 @@ As in the previous section for a given timestep <span class="math notranslate no
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="second_order.html"
+       href="mixed_methods.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">4.1. </span>Time-integration for the second order systems</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Mixed formulations for wave equations</p>
       </div>
     </a>
     <a class="right-next"
-       href="exercises.html"
+       href="../explicit_methods.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.3. </span>Exercises for time-stepping schemes</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Explicit methods for time-domain waves</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -541,6 +630,7 @@ As in the previous section for a given timestep <span class="math notranslate no
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-crank-nicholson-time-stepping">The Crank Nicholson time stepping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-leap-frog-time-stepping">The Leap Frog time stepping</a></li>
 </ul>
   </nav></div>
 

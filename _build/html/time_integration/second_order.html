@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/second_order';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.2. Time-integration for the first order system" href="first_order.html" />
+    <link rel="next" title="4.2. Mixed formulations for wave equations" href="mixed_methods.html" />
     <link rel="prev" title="4. Time-integration" href="../time_integration.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -201,10 +201,11 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">4.1. Time-integration for the second order systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="first_order.html">4.2. Time-integration for the first order system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exercises.html">4.3. Exercises for time-stepping schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixed_methods.html">4.2. Mixed formulations for wave equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_order.html">4.3. Time-integration for the first order system</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
 </ul>
 
     </div>
@@ -403,7 +404,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-conservation">Energy conservation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability-of-the-newmark-method">Stability of the Newmark method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-method-beta-0-gamma-geq-1-2">The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-midpoint-rule-time-stepping-beta-1-4-gamma-1-2">The midpoint rule time stepping <span class="math notranslate nohighlight">\(\beta = 1/4, \gamma = 1/2\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-verlet-method-beta-0-gamma-geq-1-2">The explicit (Verlet) method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Energy conservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -535,25 +540,106 @@ Clearly the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</spa
 <div class="proof theorem admonition" id="newmark_energy">
 <p class="admonition-title"><span class="caption-number">Theorem 4.3 </span></p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\mathbf u_j, \dot{\mathbf u}_j, \ddot{\mathbf u}_j\)</span> for <span class="math notranslate nohighlight">\(j=0,\ldots, M\)</span> be the discrete Newmark approximations for given <span class="math notranslate nohighlight">\(\tau,\alpha,\beta\)</span> and <span class="math notranslate nohighlight">\(\mathbf C = 0,\mathbf f=0\)</span>. Then</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf u_j, \dot{\mathbf u}_j, \ddot{\mathbf u}_j\)</span> for <span class="math notranslate nohighlight">\(j=0,\ldots, M\)</span> be the discrete Newmark approximations for given <span class="math notranslate nohighlight">\(\tau,\beta,\gamma\)</span> and <span class="math notranslate nohighlight">\(\mathbf C = 0,\mathbf f=0\)</span>. Then</p>
 <div class="math notranslate nohighlight">
-\[E^{\tau,\alpha,\beta}_{j+1}-E^{\tau,\alpha,\beta}_j=-(\gamma-\frac{1}{2})(\mathbf u_{j+1}-\mathbf u_j)^\top\mathbf K_{\tau,\alpha,\beta}(\mathbf u_{j+1}-\mathbf u_j)\]</div>
+\[E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j=-(\gamma-\frac{1}{2})(\mathbf u_{j+1}-\mathbf u_j)^\top\mathbf K_{\tau,\beta,\gamma}(\mathbf u_{j+1}-\mathbf u_j)\]</div>
 <p>with</p>
 <div class="math notranslate nohighlight">
-\[E^{\tau,\alpha,\beta}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\alpha,\beta}{\mathbf u}_j\right),\quad
-\mathbf K_{\tau,\alpha,\beta}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.\]</div>
+\[E^{\tau,\beta,\gamma}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\beta,\gamma}{\mathbf u}_j\right),\quad
+\mathbf K_{\tau,\beta,\gamma}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.\]</div>
 </section>
-</div><p>The quantity <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> is always positive for non-zero <span class="math notranslate nohighlight">\(\mathbf u_j,\dot{\mathbf u}_j\)</span> if the matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is positive semi-definite.
-In this case we call <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> the discrete energy at timestep <span class="math notranslate nohighlight">\(j\)</span>. The matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is certainly positive semi-definite if <span class="math notranslate nohighlight">\(\beta\geq \gamma/2\)</span>, for any <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>.</p>
-<p><a class="reference internal" href="#newmark_energy">Theorem 4.3</a> shows that the discrete energy is preserved if <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>. Moreover, the discrete energy <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> coincides with the Energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span> iff <span class="math notranslate nohighlight">\(\beta=\gamma/2\)</span>.</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We start with the change of the energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span> for a given <span class="math notranslate nohighlight">\(j\in\mathbb N\)</span>.
+Due to symmetry of <span class="math notranslate nohighlight">\(\mathbf M\)</span> and <span class="math notranslate nohighlight">\(\mathbf K\)</span> we have</p>
+<div class="math notranslate nohighlight" id="equation-energy-increment">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-energy-increment" title="Link to this equation">#</a></span>\[\mathbf E(\mathbf u_{j+1})
+-\mathbf E(\mathbf u_{j})=\frac{1}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_{j})
++\frac{1}{2}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K({\mathbf u}_{j+1}-{\mathbf u}_{j}).\]</div>
+<p>For the increments of <span class="math notranslate nohighlight">\(\dot{\mathbf u}_j\)</span>, <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_j &amp;= \frac{\tau}{2}(\ddot{\mathbf u}_{j+1}+\ddot{\mathbf u}_{j})+\left(\gamma-\frac{1}{2}\right)\tau(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j}),\\
+{\mathbf u}_{j+1}-{\mathbf u}_j &amp;= \frac{\tau}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})+\left(\beta-\frac{\gamma}{2}\right)\tau^2(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j}).
+\end{aligned}\end{split}\]</div>
+<p>Eliminating the increments of <span class="math notranslate nohighlight">\(\dot{\mathbf u}_j\)</span>, <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> in <a class="reference internal" href="#equation-energy-increment">(4.5)</a> we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf E(\mathbf u_{j+1})
+-\mathbf E(\mathbf u_{j})={}&amp;\frac{\tau}{4}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}+\ddot{\mathbf u}_{j})
++\frac{\tau}{4}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})\\
+&amp;+\frac{\tau}{2}\left(\gamma-\frac{1}{2}\right)(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
++\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\\
+={}&amp;\frac{\tau}{2}\left(\gamma-\frac{1}{2}\right)(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
++\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\\
+\end{aligned}\end{split}\]</div>
+<p>since the first part vanishes due to <a class="reference internal" href="#equation-newmark-state">(4.3)</a>.
+Using again <a class="reference internal" href="#equation-newmark-state">(4.3)</a> and the same reasoning as in the beginning we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
+&amp;=-\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}+\ddot{\mathbf u}_{j})\\
+&amp;=-\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)\ddot{\mathbf u}_{j+1}^\top\mathbf M\ddot{\mathbf u}_{j+1}
++\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)\ddot{\mathbf u}_{j}^\top\mathbf M\ddot{\mathbf u}_{j}\\
+&amp;=-\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right){\mathbf u}_{j+1}^\top\mathbf K\mathbf M^{-1}\mathbf K{\mathbf u}_{j+1}
++\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right){\mathbf u}_{j}^\top\mathbf K\mathbf M^{-1}\mathbf K{\mathbf u}_{j}\end{split}\]</div>
+<p>which gives</p>
+<div class="math notranslate nohighlight">
+\[E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j=\frac{\tau}{2}\left(\gamma-\frac{1}{2}\right)(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\]</div>
+<p>Since again</p>
+<div class="math notranslate nohighlight">
+\[\frac{\tau}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})={\mathbf u}_{j+1}-{\mathbf u}_{j}-\left(\beta-\frac{\gamma}{2}\right)\tau^2(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\]</div>
+<p>we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j&amp;=\left(\gamma-\frac{1}{2}\right)({\mathbf u}_{j+1}-{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
++\tau^2\left(\beta-\frac{\gamma}{2}\right)\left(\gamma-\frac{1}{2}\right)(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\\
+&amp;=-\left(\gamma-\frac{1}{2}\right)({\mathbf u}_{j+1}-{\mathbf u}_{j})^\top\mathbf K({\mathbf u}_{j+1}-{\mathbf u}_{j})
+-\tau^2\left(\beta-\frac{\gamma}{2}\right)\left(\gamma-\frac{1}{2}\right)({\mathbf u}_{j+1}-{\mathbf u}_{j})^\top\mathbf K\mathbf M^{-1}\mathbf K({\mathbf u}_{j+1}-{\mathbf u}_{j})\\\end{split}\]</div>
+<p>which concludes the proof.</p>
+</div>
+<p>The quantity <span class="math notranslate nohighlight">\(E^{\tau,\beta,\gamma}_j\)</span> is always positive for non-zero <span class="math notranslate nohighlight">\(\mathbf u_j,\dot{\mathbf u}_j\)</span> if the matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\beta,\gamma}\)</span> is positive semi-definite.
+In this case we call <span class="math notranslate nohighlight">\(E^{\tau,\beta,\gamma}_j\)</span> the discrete energy at timestep <span class="math notranslate nohighlight">\(j\)</span>. The matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\beta,\gamma}\)</span> is certainly positive semi-definite if <span class="math notranslate nohighlight">\(\beta\geq \gamma/2\)</span>, for any <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>.</p>
+<p><a class="reference internal" href="#newmark_energy">Theorem 4.3</a> shows that the discrete energy is preserved if <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>. Moreover, the discrete energy <span class="math notranslate nohighlight">\(E^{\tau,\beta,\gamma}_j\)</span> coincides with the Energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span> iff <span class="math notranslate nohighlight">\(\beta=\gamma/2\)</span>.</p>
 <p>We discuss some specific choices of <span class="math notranslate nohighlight">\(\gamma,\beta\)</span> in more detail:</p>
 </section>
-<section id="the-explicit-method-beta-0-gamma-geq-1-2">
-<h3>The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span><a class="headerlink" href="#the-explicit-method-beta-0-gamma-geq-1-2" title="Link to this heading">#</a></h3>
-<p>for <span class="math notranslate nohighlight">\(\mathbf C=0\)</span> the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</span> which has to be inverted reduces to <span class="math notranslate nohighlight">\(\mathbf M\)</span>. Thus the method is called <strong>explicit</strong>.
-Moreover, let <span class="math notranslate nohighlight">\(\phi_n,\lambda_n\)</span> be the normalized eigenpairs of</p>
+<section id="the-midpoint-rule-time-stepping-beta-1-4-gamma-1-2">
+<h3>The midpoint rule time stepping <span class="math notranslate nohighlight">\(\beta = 1/4, \gamma = 1/2\)</span><a class="headerlink" href="#the-midpoint-rule-time-stepping-beta-1-4-gamma-1-2" title="Link to this heading">#</a></h3>
+<p>Choosing <span class="math notranslate nohighlight">\(\beta = 1/4, \gamma = 1/2\)</span> <a class="reference internal" href="#newmark_energy">Theorem 4.3</a> yields <span class="math notranslate nohighlight">\(E_j^{\tau,\beta,\gamma} = \mathbf E(\mathbf u_j)\)</span> and <span class="math notranslate nohighlight">\(E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j=0\)</span>, i.e., the discrete energy is exact and conserved.</p>
+<div class="proof remark admonition" id="remark-4">
+<p class="admonition-title"><span class="caption-number">Remark 4.2 </span></p>
+<section class="remark-content" id="proof-content">
+<p>Straighforward computations show that the obtained method is equivalent to the method from
+<a class="reference internal" href="../first_numerics/fem_for_waveeq.html#basic-fe-wave"><span class="std std-numref">Section 2.3</span></a> and given by the algorithm</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde {\mathbf u} &amp;= \mathbf u_j+\frac{\tau}{2}\dot{\mathbf u}_j,\\
+\dot{\mathbf u}_{j+1} &amp;= \dot{\mathbf u}_j-\tau \mathbf S^{-1}\mathbf K\tilde{\mathbf u},\\
+\mathbf u_{j+1}&amp;=\tilde{\mathbf u}+\frac{\tau}{2}\dot{\mathbf u}_{j+1},\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\mathbf S = \mathbf M+\frac{\tau}{2}\mathbf C+\frac{\tau^2}{4}\mathbf K\)</span>.</p>
+</section>
+</div></section>
+<section id="the-explicit-verlet-method-beta-0-gamma-geq-1-2">
+<h3>The explicit (Verlet) method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span><a class="headerlink" href="#the-explicit-verlet-method-beta-0-gamma-geq-1-2" title="Link to this heading">#</a></h3>
+<p>for <span class="math notranslate nohighlight">\(\mathbf C=0\)</span> the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</span> which has to be inverted reduces to <span class="math notranslate nohighlight">\(\mathbf M\)</span>. Thus the method is called <strong>explicit</strong>.</p>
+<div class="proof remark admonition" id="remark-5">
+<p class="admonition-title"><span class="caption-number">Remark 4.3 </span></p>
+<section class="remark-content" id="proof-content">
+<p>The explicit scheme for <span class="math notranslate nohighlight">\(\gamma = 1/2\)</span> and <span class="math notranslate nohighlight">\(\mathbf C,\mathbf f = 0\)</span> is given by</p>
+<div class="math notranslate nohighlight" id="equation-newmark-explicit">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-newmark-explicit" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\dot{\mathbf u}_{j+1}&amp;=\dot{\mathbf u}_j-\frac{\tau}{2}\mathbf M^{-1}\mathbf K\left({\mathbf u}_j+{\mathbf u}_{j+1}\right),\\
+\mathbf u_{j+1}&amp;={\mathbf u}_j+\tau\dot{\mathbf u}_j-\frac{\tau^2}{2}\mathbf M^{-1}\mathbf K{\mathbf u}_j.
+\end{aligned}\end{split}\]</div>
+<p>which can be rewritten by</p>
+<div class="math notranslate nohighlight" id="equation-newmark-explicit-leap">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-newmark-explicit-leap" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\tilde{\mathbf u}&amp;=\dot{\mathbf u}_j-\frac{\tau}{2}\mathbf M^{-1}\mathbf K{\mathbf u}_j,\\
+\mathbf u_{j+1}&amp;={\mathbf u}_j+\tau\tilde{\mathbf u},\\
+\dot{\mathbf u}_{j+1}&amp;=\tilde{\mathbf u}-\frac{\tau}{2}\mathbf M^{-1}\mathbf K{\mathbf u}_{j+1}.
+\end{aligned}\end{split}\]</div>
+</section>
+</div><section id="id1">
+<h4>Energy conservation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>Moreover, let <span class="math notranslate nohighlight">\(\phi_n,\lambda_n\)</span> be the normalized eigenpairs of</p>
 <div class="math notranslate nohighlight" id="equation-disc-evp">
-<span class="eqno">(4.5)<a class="headerlink" href="#equation-disc-evp" title="Link to this equation">#</a></span>\[\mathbf K u=\lambda \mathbf M\]</div>
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-disc-evp" title="Link to this equation">#</a></span>\[\mathbf K u=\lambda \mathbf M\]</div>
 <p>Then we have</p>
 <div class="math notranslate nohighlight">
 \[\phi_n^\top\mathbf M\phi_k=\delta_{n,k},\quad
@@ -564,7 +650,7 @@ Moreover, let <span class="math notranslate nohighlight">\(\phi_n,\lambda_n\)</s
 <p>and due to the orthogonality of the eigenvectors we have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
-\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j&amp;= \mathbf u_j^\top\mathbf K\mathbf u_j-\frac{\gamma\tau^2}{2}\mathbf u_j^\top\mathbf K\mathbf M^{-1}\mathbf K\mathbf u_j\\
+\mathbf u_j^\top\mathbf K_{\tau,0,\gamma}\mathbf u_j&amp;= \mathbf u_j^\top\mathbf K\mathbf u_j-\frac{\gamma\tau^2}{2}\mathbf u_j^\top\mathbf K\mathbf M^{-1}\mathbf K\mathbf u_j\\
 &amp;=\sum_{n=1}^N\lambda_n\phi_n-\frac{\gamma\tau^2}{2}\lambda_n^2\phi_n.
 \end{aligned}\end{split}\]</div>
 <p>Thus</p>
@@ -572,9 +658,10 @@ Moreover, let <span class="math notranslate nohighlight">\(\phi_n,\lambda_n\)</s
 \[\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j\geq 0\]</div>
 <p>for all <span class="math notranslate nohighlight">\(\mathbf u_j\)</span> if</p>
 <div class="math notranslate nohighlight" id="equation-newmark-cfl">
-<span class="eqno">(4.6)<a class="headerlink" href="#equation-newmark-cfl" title="Link to this equation">#</a></span>\[\tau^2\leq \frac{2}{\gamma\lambda_{\mathrm {max}}},\]</div>
-<p>where <span class="math notranslate nohighlight">\(\lambda_{\mathrm {max}}\)</span> is the maximal eigenvalue of <a class="reference internal" href="#equation-disc-evp">(4.5)</a>.
-The condition <a class="reference internal" href="#equation-newmark-cfl">(4.6)</a> is called CFL condition and yields conditional stability of the explicit scheme, depending on the chosen time-step <span class="math notranslate nohighlight">\(\tau\)</span>.</p>
+<span class="eqno">(4.9)<a class="headerlink" href="#equation-newmark-cfl" title="Link to this equation">#</a></span>\[\tau^2\leq \frac{2}{\gamma\lambda_{\mathrm {max}}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_{\mathrm {max}}\)</span> is the maximal eigenvalue of <a class="reference internal" href="#equation-disc-evp">(4.8)</a>.
+The condition <a class="reference internal" href="#equation-newmark-cfl">(4.9)</a> is called CFL condition and yields conditional stability of the explicit scheme, depending on the chosen time-step <span class="math notranslate nohighlight">\(\tau\)</span>.</p>
+</section>
 </section>
 </section>
 </section>
@@ -619,11 +706,11 @@ The condition <a class="reference internal" href="#equation-newmark-cfl">(4.6)</
       </div>
     </a>
     <a class="right-next"
-       href="first_order.html"
+       href="mixed_methods.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.2. </span>Time-integration for the first order system</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Mixed formulations for wave equations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -646,7 +733,11 @@ The condition <a class="reference internal" href="#equation-newmark-cfl">(4.6)</
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-conservation">Energy conservation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-newmark-beta-method">The Newmark <span class="math notranslate nohighlight">\(\beta-\)</span>method</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability-of-the-newmark-method">Stability of the Newmark method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-method-beta-0-gamma-geq-1-2">The explicit method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-midpoint-rule-time-stepping-beta-1-4-gamma-1-2">The midpoint rule time stepping <span class="math notranslate nohighlight">\(\beta = 1/4, \gamma = 1/2\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-explicit-verlet-method-beta-0-gamma-geq-1-2">The explicit (Verlet) method <span class="math notranslate nohighlight">\(\beta = 0\)</span>, <span class="math notranslate nohighlight">\(\gamma\geq 1/2\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Energy conservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
