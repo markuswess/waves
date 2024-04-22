@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -202,7 +202,6 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">4.1. Time-integration for the second order systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="first_order.html">4.2. Time-integration for the first order system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exercises.html">4.3. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
 </ul>
@@ -543,7 +542,16 @@ Clearly the matrix <span class="math notranslate nohighlight">\(\mathbf S\)</spa
 \[E^{\tau,\alpha,\beta}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\alpha,\beta}{\mathbf u}_j\right),\quad
 \mathbf K_{\tau,\alpha,\beta}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.\]</div>
 </section>
-</div><p>The quantity <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> is always positive for non-zero <span class="math notranslate nohighlight">\(\mathbf u_j,\dot{\mathbf u}_j\)</span> if the matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is positive semi-definite.
+</div><div class="proof admonition" id="proof">
+<p>Proof. We start with the change of the energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span>.
+Due to symmetry of <span class="math notranslate nohighlight">\(\mathbf M\)</span> and <span class="math notranslate nohighlight">\(\mathbf K\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[\mathbf E(\mathbf u_{j+1})
+-\mathbf E(\mathbf u_{j})=\frac{1}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_{j})
++\frac{1}{2}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\dot{\mathbf u}_{j+1}-{\mathbf u}_{j})\]</div>
+<p>Using the fact that</p>
+</div>
+<p>The quantity <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> is always positive for non-zero <span class="math notranslate nohighlight">\(\mathbf u_j,\dot{\mathbf u}_j\)</span> if the matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is positive semi-definite.
 In this case we call <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> the discrete energy at timestep <span class="math notranslate nohighlight">\(j\)</span>. The matrix <span class="math notranslate nohighlight">\(\mathbf K_{\tau,\alpha,\beta}\)</span> is certainly positive semi-definite if <span class="math notranslate nohighlight">\(\beta\geq \gamma/2\)</span>, for any <span class="math notranslate nohighlight">\(\tau&gt;0\)</span>.</p>
 <p><a class="reference internal" href="#newmark_energy">Theorem 4.3</a> shows that the discrete energy is preserved if <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>. Moreover, the discrete energy <span class="math notranslate nohighlight">\(E^{\tau,\alpha,\beta}_j\)</span> coincides with the Energy <span class="math notranslate nohighlight">\(\mathbf E(\mathbf u_j)\)</span> iff <span class="math notranslate nohighlight">\(\beta=\gamma/2\)</span>.</p>
 <p>We discuss some specific choices of <span class="math notranslate nohighlight">\(\gamma,\beta\)</span> in more detail:</p>

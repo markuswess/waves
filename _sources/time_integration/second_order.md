@@ -145,16 +145,16 @@ E^{\tau,\alpha,\beta}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\
 ```
 ````
 
-% ````{prf:Proof}
-% We start with the change of the energy $\mathbf E(\mathbf u_j)$.
-% Due to symmetry of $\mathbf M$ and $\mathbf K$ we have
-% ```{math}
-% \mathbf E(\mathbf u_{j+1})
-% -\mathbf E(\mathbf u_{j})=\frac{1}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_{j})
-% +\frac{1}{2}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\dot{\mathbf u}_{j+1}-{\mathbf u}_{j})
-% ```
-% Using the fact that 
-% ````
+ ````{prf:Proof}
+ We start with the change of the energy $\mathbf E(\mathbf u_j)$.
+ Due to symmetry of $\mathbf M$ and $\mathbf K$ we have
+ ```{math}
+ \mathbf E(\mathbf u_{j+1})
+ -\mathbf E(\mathbf u_{j})=\frac{1}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_{j})
+ +\frac{1}{2}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\dot{\mathbf u}_{j+1}-{\mathbf u}_{j})
+ ```
+ Using the fact that 
+ ````
 
 The quantity $E^{\tau,\alpha,\beta}_j$ is always positive for non-zero $\mathbf u_j,\dot{\mathbf u}_j$ if the matrix $\mathbf K_{\tau,\alpha,\beta}$ is positive semi-definite.
 In this case we call $E^{\tau,\alpha,\beta}_j$ the discrete energy at timestep $j$. The matrix $\mathbf K_{\tau,\alpha,\beta}$ is certainly positive semi-definite if $\beta\geq \gamma/2$, for any $\tau>0$.
