@@ -44,7 +44,7 @@ Alternatively one may apply integration by parts in the first equation. Then the
 ```
 
 ## Mixed formulations in NGSolve
-[download as jupyter notebook](https://markuswess.github.io/waves/_sources/time-integarion/mixed_methods_py.ipynb)
+[download as jupyter notebook](https://markuswess.github.io/waves/_sources/time-integration/mixed_methods_py.ipynb)
 
 As usual we start by importing and generating a mesh
 
