@@ -113,7 +113,7 @@ is conserved over time. The two terms can be interpreted as kinetiv and potentia
 The well-known second order form of the acoustic wave equation is then obtained by taking the time-derivative of the scalar equation and inserting the vectorial equation to obtain
 ````{card}
 ```{math}
-:label: wave_eq_1o
+:label: wave_eq_2o
 \begin{aligned}
 \partial_t^2 p-\kappa_0\nabla\cdot\frac{1}{\rho_0}\nabla p &= -\kappa_0 \nabla\cdot f,&\text{in }&[0,t]\times \Omega,\\
 p(0,\cdot)&=p_0,&\text{in }&\Omega,\\

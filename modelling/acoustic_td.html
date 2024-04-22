@@ -201,10 +201,11 @@
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../time_integration/second_order.html">4.1. Time-integration for the second order systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time_integration/first_order.html">4.2. Time-integration for the first order system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time_integration/exercises.html">4.3. Exercises for time-stepping schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/mixed_methods.html">4.2. Mixed formulations for wave equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/first_order.html">4.3. Time-integration for the first order system</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
 </ul>
 
     </div>
@@ -463,7 +464,7 @@ Thus the linearized conservation of mass and momentum become</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
 <div class="math notranslate nohighlight" id="equation-wave-eq-1o">
-<span class="eqno">(1.7)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+<span class="eqno">(1.6)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \partial_tv+\frac{1}{\rho_0}\nabla p &amp;= f,&amp;\text{in }&amp;[0,T]\times \Omega,\\
 \partial_t p+\kappa_0\nabla\cdot v &amp;=0,&amp;\text{in }&amp;[0,T]\times \Omega,\\
 p(0,\cdot)&amp;=0,&amp;\text{in }&amp;\Omega,\\
@@ -481,12 +482,12 @@ p&amp;=0,&amp;\text{in }&amp;[0,T]\times \partial\Omega,\\
 <p>where <span class="math notranslate nohighlight">\(s\)</span> is the entropy (unit <span class="math notranslate nohighlight">\(kg\,m^2/(s^2\,K)\)</span>) which satisfies the conservation law (adiabatic hypothesis)</p>
 <div class="math notranslate nohighlight">
 \[\partial_t s +v\cdot\nabla s = 0.\]</div>
-<p>A similar reasoning as above then leads to <a class="reference internal" href="#equation-wave-eq-1o">(1.7)</a> with variable in space <span class="math notranslate nohighlight">\(\rho_0,\kappa_0\)</span> (but still uniform initial pressure <span class="math notranslate nohighlight">\(p_0\)</span>).</p>
+<p>A similar reasoning as above then leads to <a class="reference internal" href="../time_integration/mixed_methods.html#equation-wave-eq-1o">(4.10)</a> with variable in space <span class="math notranslate nohighlight">\(\rho_0,\kappa_0\)</span> (but still uniform initial pressure <span class="math notranslate nohighlight">\(p_0\)</span>).</p>
 </section>
 </div><div class="proof remark admonition" id="energy_conservation">
 <p class="admonition-title"><span class="caption-number">Remark 1.2 </span> (Energy conservation)</p>
 <section class="remark-content" id="proof-content">
-<p>Multiplying the first and second equation of <a class="reference internal" href="#equation-wave-eq-1o">(1.7)</a> with <span class="math notranslate nohighlight">\(f=0\)</span> by <span class="math notranslate nohighlight">\(\rho_0 v\)</span> and <span class="math notranslate nohighlight">\(\frac{p}{\kappa_0}\)</span> respectively yields</p>
+<p>Multiplying the first and second equation of <a class="reference internal" href="../time_integration/mixed_methods.html#equation-wave-eq-1o">(4.10)</a> with <span class="math notranslate nohighlight">\(f=0\)</span> by <span class="math notranslate nohighlight">\(\rho_0 v\)</span> and <span class="math notranslate nohighlight">\(\frac{p}{\kappa_0}\)</span> respectively yields</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{2}\left(\rho_0\partial_t|v|^2+\frac{1}{\kappa_0}\partial_t |p|^2\right)+\nabla\cdot(pv)=0.\]</div>
 <p>Integration over <span class="math notranslate nohighlight">\(\Omega\)</span> and applying the Gauss theorem yields</p>
@@ -501,8 +502,8 @@ Thus the energy</p>
 </div><p>The well-known second order form of the acoustic wave equation is then obtained by taking the time-derivative of the scalar equation and inserting the vectorial equation to obtain</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
-<div class="math notranslate nohighlight" id="equation-wave-eq-1o">
-<span class="eqno">(1.7)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-wave-eq-2o">
+<span class="eqno">(1.7)<a class="headerlink" href="#equation-wave-eq-2o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \partial_t^2 p-\kappa_0\nabla\cdot\frac{1}{\rho_0}\nabla p &amp;= -\kappa_0 \nabla\cdot f,&amp;\text{in }&amp;[0,t]\times \Omega,\\
 p(0,\cdot)&amp;=p_0,&amp;\text{in }&amp;\Omega,\\
 \partial_t p(0,\cdot)&amp;=-\kappa_0\nabla\cdot v_0,&amp;\text{in }&amp;\Omega,\\
@@ -519,8 +520,8 @@ v &amp;= \nabla \phi
 <p>and thus the scalar wave equation for <span class="math notranslate nohighlight">\(\phi\)</span></p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
-<div class="amsmath math notranslate nohighlight" id="equation-8792c17e-7b06-4ce8-a17d-303fe8763b03">
-<span class="eqno">(1.8)<a class="headerlink" href="#equation-8792c17e-7b06-4ce8-a17d-303fe8763b03" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c89cd305-1141-4d43-a1c6-5da265371311">
+<span class="eqno">(1.8)<a class="headerlink" href="#equation-c89cd305-1141-4d43-a1c6-5da265371311" title="Permalink to this equation">#</a></span>\[\begin{align}
   \frac{1}{c^2}
 \partial_t^2\phi&amp;=\Delta\phi-f\\
 &amp;+\text{i.c., b.c.}

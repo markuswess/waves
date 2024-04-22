@@ -134,39 +134,125 @@ Clearly the matrix $\mathbf S$ is positive definite for all parameters $\tau,\ga
 
 ````{prf:Theorem}
 :label: newmark_energy
-Let $\mathbf u_j, \dot{\mathbf u}_j, \ddot{\mathbf u}_j$ for $j=0,\ldots, M$ be the discrete Newmark approximations for given $\tau,\alpha,\beta$ and $\mathbf C = 0,\mathbf f=0$. Then 
+Let $\mathbf u_j, \dot{\mathbf u}_j, \ddot{\mathbf u}_j$ for $j=0,\ldots, M$ be the discrete Newmark approximations for given $\tau,\beta,\gamma$ and $\mathbf C = 0,\mathbf f=0$. Then 
 ```{math}
-E^{\tau,\alpha,\beta}_{j+1}-E^{\tau,\alpha,\beta}_j=-(\gamma-\frac{1}{2})(\mathbf u_{j+1}-\mathbf u_j)^\top\mathbf K_{\tau,\alpha,\beta}(\mathbf u_{j+1}-\mathbf u_j)
+E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j=-(\gamma-\frac{1}{2})(\mathbf u_{j+1}-\mathbf u_j)^\top\mathbf K_{\tau,\beta,\gamma}(\mathbf u_{j+1}-\mathbf u_j)
 ```
 with
 ```{math}
-E^{\tau,\alpha,\beta}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\alpha,\beta}{\mathbf u}_j\right),\quad
-\mathbf K_{\tau,\alpha,\beta}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.
+E^{\tau,\beta,\gamma}_{j}=\frac{1}{2}\left(\dot{\mathbf u}_j^\top\mathbf M\dot{\mathbf u}_j+{\mathbf u}_j^\top\mathbf K_{\tau,\beta,\gamma}{\mathbf u}_j\right),\quad
+\mathbf K_{\tau,\beta,\gamma}=\mathbf K+\left(\beta-\frac{1}{2}\gamma\right)\tau^2\mathbf K\mathbf M^{-1}\mathbf K.
 ```
 ````
 
  ````{prf:Proof}
- We start with the change of the energy $\mathbf E(\mathbf u_j)$.
+ We start with the change of the energy $\mathbf E(\mathbf u_j)$ for a given $j\in\mathbb N$.
  Due to symmetry of $\mathbf M$ and $\mathbf K$ we have
  ```{math}
+:label: energy_increment
  \mathbf E(\mathbf u_{j+1})
  -\mathbf E(\mathbf u_{j})=\frac{1}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_{j})
- +\frac{1}{2}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\dot{\mathbf u}_{j+1}-{\mathbf u}_{j})
+ +\frac{1}{2}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K({\mathbf u}_{j+1}-{\mathbf u}_{j}).
  ```
- Using the fact that 
+For the increments of $\dot{\mathbf u}_j$, $\mathbf u_j$ we obtain 
+```{math}
+\begin{aligned}
+\dot{\mathbf u}_{j+1}-\dot{\mathbf u}_j &= \frac{\tau}{2}(\ddot{\mathbf u}_{j+1}+\ddot{\mathbf u}_{j})+\left(\gamma-\frac{1}{2}\right)\tau(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j}),\\
+{\mathbf u}_{j+1}-{\mathbf u}_j &= \frac{\tau}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})+\left(\beta-\frac{\gamma}{2}\right)\tau^2(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j}).
+\end{aligned}
+```
+Eliminating the increments of $\dot{\mathbf u}_j$, $\mathbf u_j$ in {eq}`energy_increment` we obtain
+```{math}
+\begin{aligned}
+ \mathbf E(\mathbf u_{j+1})
+ -\mathbf E(\mathbf u_{j})={}&\frac{\tau}{4}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}+\ddot{\mathbf u}_{j})
+ +\frac{\tau}{4}({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})\\
+&+\frac{\tau}{2}\left(\gamma-\frac{1}{2}\right)(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
+ +\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\\
+={}&\frac{\tau}{2}\left(\gamma-\frac{1}{2}\right)(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
+ +\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\\
+\end{aligned}
+```
+since the first part vanishes due to {eq}`newmark_state`.
+Using again {eq}`newmark_state` and the same reasoning as in the beginning we have
+```{math}
+\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)({\mathbf u}_{j+1}+{\mathbf u}_{j})^\top\mathbf K(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
+&=-\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}+\ddot{\mathbf u}_{j})\\
+&=-\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)\ddot{\mathbf u}_{j+1}^\top\mathbf M\ddot{\mathbf u}_{j+1}
++\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right)\ddot{\mathbf u}_{j}^\top\mathbf M\ddot{\mathbf u}_{j}\\
+&=-\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right){\mathbf u}_{j+1}^\top\mathbf K\mathbf M^{-1}\mathbf K{\mathbf u}_{j+1}
++\frac{\tau^2}{2}\left(\beta-\frac{\gamma}{2}\right){\mathbf u}_{j}^\top\mathbf K\mathbf M^{-1}\mathbf K{\mathbf u}_{j}
+```
+which gives
+```{math}
+E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j=\frac{\tau}{2}\left(\gamma-\frac{1}{2}\right)(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
+```
+Since again 
+
+```{math}
+\frac{\tau}{2}(\dot{\mathbf u}_{j+1}+\dot{\mathbf u}_{j})={\mathbf u}_{j+1}-{\mathbf u}_{j}-\left(\beta-\frac{\gamma}{2}\right)\tau^2(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
+```
+we obtain
+```{math}
+E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j&=\left(\gamma-\frac{1}{2}\right)({\mathbf u}_{j+1}-{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})
++\tau^2\left(\beta-\frac{\gamma}{2}\right)\left(\gamma-\frac{1}{2}\right)(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})^\top\mathbf M(\ddot{\mathbf u}_{j+1}-\ddot{\mathbf u}_{j})\\
+&=-\left(\gamma-\frac{1}{2}\right)({\mathbf u}_{j+1}-{\mathbf u}_{j})^\top\mathbf K({\mathbf u}_{j+1}-{\mathbf u}_{j})
+-\tau^2\left(\beta-\frac{\gamma}{2}\right)\left(\gamma-\frac{1}{2}\right)({\mathbf u}_{j+1}-{\mathbf u}_{j})^\top\mathbf K\mathbf M^{-1}\mathbf K({\mathbf u}_{j+1}-{\mathbf u}_{j})\\
+```
+which concludes the proof.
  ````
 
-The quantity $E^{\tau,\alpha,\beta}_j$ is always positive for non-zero $\mathbf u_j,\dot{\mathbf u}_j$ if the matrix $\mathbf K_{\tau,\alpha,\beta}$ is positive semi-definite.
-In this case we call $E^{\tau,\alpha,\beta}_j$ the discrete energy at timestep $j$. The matrix $\mathbf K_{\tau,\alpha,\beta}$ is certainly positive semi-definite if $\beta\geq \gamma/2$, for any $\tau>0$.
+The quantity $E^{\tau,\beta,\gamma}_j$ is always positive for non-zero $\mathbf u_j,\dot{\mathbf u}_j$ if the matrix $\mathbf K_{\tau,\beta,\gamma}$ is positive semi-definite.
+In this case we call $E^{\tau,\beta,\gamma}_j$ the discrete energy at timestep $j$. The matrix $\mathbf K_{\tau,\beta,\gamma}$ is certainly positive semi-definite if $\beta\geq \gamma/2$, for any $\tau>0$.
 
-{prf:ref}`newmark_energy` shows that the discrete energy is preserved if $\gamma=1/2$. Moreover, the discrete energy $E^{\tau,\alpha,\beta}_j$ coincides with the Energy $\mathbf E(\mathbf u_j)$ iff $\beta=\gamma/2$.
+{prf:ref}`newmark_energy` shows that the discrete energy is preserved if $\gamma=1/2$. Moreover, the discrete energy $E^{\tau,\beta,\gamma}_j$ coincides with the Energy $\mathbf E(\mathbf u_j)$ iff $\beta=\gamma/2$.
 
 
 We discuss some specific choices of $\gamma,\beta$ in more detail:
 
-### The explicit method $\beta = 0$, $\gamma\geq 1/2$
+### The midpoint rule time stepping $\beta = 1/4, \gamma = 1/2$
+Choosing $\beta = 1/4, \gamma = 1/2$ {prf:ref}`newmark_energy` yields $E_j^{\tau,\beta,\gamma} = \mathbf E(\mathbf u_j)$ and $E^{\tau,\beta,\gamma}_{j+1}-E^{\tau,\beta,\gamma}_j=0$, i.e., the discrete energy is exact and conserved.
+````{prf:remark}
+Straighforward computations show that the obtained method is equivalent to the method from 
+{numref}`basic_fe_wave` and given by the algorithm
+```{math}
+\tilde {\mathbf u} &= \mathbf u_j+\frac{\tau}{2}\dot{\mathbf u}_j,\\
+\dot{\mathbf u}_{j+1} &= \dot{\mathbf u}_j-\tau \mathbf S^{-1}\mathbf K\tilde{\mathbf u},\\
+\mathbf u_{j+1}&=\tilde{\mathbf u}+\frac{\tau}{2}\dot{\mathbf u}_{j+1},
+```
+with $\mathbf S = \mathbf M+\frac{\tau}{2}\mathbf C+\frac{\tau^2}{4}\mathbf K$.
+````
+
+
+
+### The explicit (Verlet) method $\beta = 0$, $\gamma\geq 1/2$
 
 for $\mathbf C=0$ the matrix $\mathbf S$ which has to be inverted reduces to $\mathbf M$. Thus the method is called **explicit**.
+
+````{prf:remark}
+The explicit scheme for $\gamma = 1/2$ and $\mathbf C,\mathbf f = 0$ is given by
+
+```{math}
+:label: newmark_explicit
+\begin{aligned}
+\dot{\mathbf u}_{j+1}&=\dot{\mathbf u}_j-\frac{\tau}{2}\mathbf M^{-1}\mathbf K\left({\mathbf u}_j+{\mathbf u}_{j+1}\right),\\
+\mathbf u_{j+1}&={\mathbf u}_j+\tau\dot{\mathbf u}_j-\frac{\tau^2}{2}\mathbf M^{-1}\mathbf K{\mathbf u}_j.
+\end{aligned}
+```
+which can be rewritten by 
+
+```{math}
+:label: newmark_explicit_leap
+\begin{aligned}
+\tilde{\mathbf u}&=\dot{\mathbf u}_j-\frac{\tau}{2}\mathbf M^{-1}\mathbf K{\mathbf u}_j,\\
+\mathbf u_{j+1}&={\mathbf u}_j+\tau\tilde{\mathbf u},\\
+\dot{\mathbf u}_{j+1}&=\tilde{\mathbf u}-\frac{\tau}{2}\mathbf M^{-1}\mathbf K{\mathbf u}_{j+1}.
+\end{aligned}
+```
+
+````
+
+#### Energy conservation
 Moreover, let $\phi_n,\lambda_n$ be the normalized eigenpairs of 
 ```{math}
 :label: disc_evp
@@ -184,7 +270,7 @@ Expanding $\mathbf u_j$ with respect to the basis $\phi_n$ leads to
 and due to the orthogonality of the eigenvectors we have
 ```{math}
 \begin{aligned}
-\mathbf u_j^\top\mathbf K_{\tau,\alpha,0}\mathbf u_j&= \mathbf u_j^\top\mathbf K\mathbf u_j-\frac{\gamma\tau^2}{2}\mathbf u_j^\top\mathbf K\mathbf M^{-1}\mathbf K\mathbf u_j\\
+\mathbf u_j^\top\mathbf K_{\tau,0,\gamma}\mathbf u_j&= \mathbf u_j^\top\mathbf K\mathbf u_j-\frac{\gamma\tau^2}{2}\mathbf u_j^\top\mathbf K\mathbf M^{-1}\mathbf K\mathbf u_j\\
 &=\sum_{n=1}^N\lambda_n\phi_n-\frac{\gamma\tau^2}{2}\lambda_n^2\phi_n.
 \end{aligned}
 ```

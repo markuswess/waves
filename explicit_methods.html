@@ -6,8 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proof Index &#8212; Numerical methods for wave-type equations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. Explicit methods for time-domain waves &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -57,18 +58,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'prf-prf';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explicit_methods';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-
+    <link rel="prev" title="4.3. Time-integration for the first order system" href="time_integration/first_order.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-
-    <script>
-      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
-    </script>
-
-
   </head>
   
   
@@ -128,8 +123,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -183,7 +176,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modelling/elastic_td.html">1.2. Elastic waves</a></li>
@@ -209,7 +202,7 @@
 <li class="toctree-l2"><a class="reference internal" href="time_integration/first_order.html">4.3. Time-integration for the first order system</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Explicit methods for time-domain waves</a></li>
 </ul>
 
     </div>
@@ -281,7 +274,7 @@
       
       
       
-      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fprf-prf.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fexplicit_methods.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -293,6 +286,54 @@
   </span>
 <span class="btn__text-container">Open issue</span>
 </a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/explicit_methods.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
 </li>
       
   </ul>
@@ -345,7 +386,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1></h1>
+    <h1>Explicit methods for time-domain waves</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -359,159 +400,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
+  <section class="tex2jax_ignore mathjax_ignore" id="explicit-methods-for-time-domain-waves">
+<span id="explicit-methods"></span><h1><span class="section-number">5. </span>Explicit methods for time-domain waves<a class="headerlink" href="#explicit-methods-for-time-domain-waves" title="Link to this heading">#</a></h1>
+<p>In <a class="reference internal" href="time_integration.html#time-integration"><span class="std std-numref">Section 4</span></a> we have defined <strong>explicit</strong> time-stepping methods as methods where in each time step merely the inverse of one or two mass matrices has to be applied. These methods are particularly efficient when the inverse mass matrice(s) are cheap to compute/apply. To construct spaces featuring such matrices is the goal of this section.</p>
+<p>We present two different approaches to construct such spaces. Notably both of these methods leave the setting of classical Galerkin methods.</p>
+</section>
 
-   <h1>Proof Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-energy_conservation"><strong>energy_conservation</strong></a> | 
-   <a href="#cap-example-4"><strong>example-4</strong></a> | 
-   <a href="#cap-example_1d"><strong>example_1d</strong></a> | 
-   <a href="#cap-example_1d_fqd"><strong>example_1d_fqd</strong></a> | 
-   <a href="#cap-first_order"><strong>first_order</strong></a> | 
-   <a href="#cap-newmark_energy"><strong>newmark_energy</strong></a> | 
-   <a href="#cap-remark-0"><strong>remark-0</strong></a> | 
-   <a href="#cap-remark-1"><strong>remark-1</strong></a> | 
-   <a href="#cap-remark-2"><strong>remark-2</strong></a> | 
-   <a href="#cap-remark-3"><strong>remark-3</strong></a> | 
-   <a href="#cap-remark-4"><strong>remark-4</strong></a> | 
-   <a href="#cap-remark-5"><strong>remark-5</strong></a> | 
-   <a href="#cap-theorem-0"><strong>theorem-0</strong></a> | 
-   <a href="#cap-theorem-1"><strong>theorem-1</strong></a> | 
-   <a href="#cap-theorem-2"><strong>theorem-2</strong></a> | 
-   <a href="#cap-theorem-4"><strong>theorem-4</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-energy_conservation"><td></td><td>
-       <strong>energy_conservation</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="modelling/acoustic_td.html#energy_conservation"><code class="xref">energy_conservation</code></a> <em>(modelling/acoustic_td)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-4"><td></td><td>
-       <strong>example-4</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="modelling/frequency-domain.html#example-4"><code class="xref">example-4</code></a> <em>(modelling/frequency-domain)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example_1d"><td></td><td>
-       <strong>example_1d</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="modelling/frequency-domain.html#example_1d"><code class="xref">example_1d</code></a> <em>(modelling/frequency-domain)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example_1d_fqd"><td></td><td>
-       <strong>example_1d_fqd</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="modelling/frequency-domain.html#example_1d_fqd"><code class="xref">example_1d_fqd</code></a> <em>(modelling/frequency-domain)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-first_order"><td></td><td>
-       <strong>first_order</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="modelling/acoustic_td.html#first_order"><code class="xref">first_order</code></a> <em>(modelling/acoustic_td)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-newmark_energy"><td></td><td>
-       <strong>newmark_energy</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/second_order.html#newmark_energy"><code class="xref">newmark_energy</code></a> <em>(time_integration/second_order)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-0"><td></td><td>
-       <strong>remark-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/mixed_methods.html#remark-0"><code class="xref">remark-0</code></a> <em>(time_integration/mixed_methods)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-1"><td></td><td>
-       <strong>remark-1</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/second_order.html#remark-1"><code class="xref">remark-1</code></a> <em>(time_integration/second_order)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-2"><td></td><td>
-       <strong>remark-2</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="modelling/frequency-domain.html#remark-2"><code class="xref">remark-2</code></a> <em>(modelling/frequency-domain)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-3"><td></td><td>
-       <strong>remark-3</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/first_order.html#remark-3"><code class="xref">remark-3</code></a> <em>(time_integration/first_order)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-4"><td></td><td>
-       <strong>remark-4</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/second_order.html#remark-4"><code class="xref">remark-4</code></a> <em>(time_integration/second_order)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-remark-5"><td></td><td>
-       <strong>remark-5</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/second_order.html#remark-5"><code class="xref">remark-5</code></a> <em>(time_integration/second_order)</em></td><td>
-       <em>remark</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-0"><td></td><td>
-       <strong>theorem-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/second_order.html#theorem-0"><code class="xref">theorem-0</code></a> <em>(time_integration/second_order)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-1"><td></td><td>
-       <strong>theorem-1</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/first_order.html#theorem-1"><code class="xref">theorem-1</code></a> <em>(time_integration/first_order)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-2"><td></td><td>
-       <strong>theorem-2</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/second_order.html#theorem-2"><code class="xref">theorem-2</code></a> <em>(time_integration/second_order)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-4"><td></td><td>
-       <strong>theorem-4</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="time_integration/first_order.html#theorem-4"><code class="xref">theorem-4</code></a> <em>(time_integration/first_order)</em></td><td>
-       <em>theorem</em></td></tr>
-   </table>
-
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -523,6 +436,15 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="time_integration/first_order.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>Time-integration for the first order system</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
