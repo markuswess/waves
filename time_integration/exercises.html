@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.3. Exercises for time-stepping schemes &#8212; Numerical methods for wave-type equations</title>
+    <title>4.4. Exercises for time-stepping schemes &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -63,7 +63,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'time_integration/exercises';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="4.2. Time-integration for the first order system" href="first_order.html" />
+    <link rel="next" title="5. Explicit methods for time-domain waves" href="../explicit_methods.html" />
+    <link rel="prev" title="4.3. Time-integration for the first order system" href="first_order.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -200,10 +201,12 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="second_order.html">4.1. Time-integration for the second order systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="first_order.html">4.2. Time-integration for the first order system</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.3. Exercises for time-stepping schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixed_methods.html">4.2. Mixed formulations for wave equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="first_order.html">4.3. Time-integration for the first order system</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.4. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
 </ul>
 
     </div>
@@ -414,21 +417,21 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises-for-time-stepping-schemes">
-<span id="exercises-th"></span><h1><span class="section-number">4.3. </span>Exercises for time-stepping schemes<a class="headerlink" href="#exercises-for-time-stepping-schemes" title="Link to this heading">#</a></h1>
+<span id="exercises-th"></span><h1><span class="section-number">4.4. </span>Exercises for time-stepping schemes<a class="headerlink" href="#exercises-for-time-stepping-schemes" title="Link to this heading">#</a></h1>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Implement the Newmark time-stepping for general <span class="math notranslate nohighlight">\(\alpha,\beta\)</span>. Choose the second order acoustic wave problem on the unit-square with initial data</p>
+<p>Implement the Newmark time-stepping for general <span class="math notranslate nohighlight">\(\beta,\gamma\)</span>. Choose the second order acoustic wave problem on the unit-square with initial data</p>
 <div class="math notranslate nohighlight">
 \[u_0 = \exp(-30(x-1/2)^2),\quad v_0=0\]</div>
 <p>and homogeneous Neumann boundary conditions. Argue that the exact solution for <span class="math notranslate nohighlight">\(t=1\)</span> is identical to the initial values. Compute the error at <span class="math notranslate nohighlight">\(t=1\)</span> in the <span class="math notranslate nohighlight">\(L^2\)</span> norm for <span class="math notranslate nohighlight">\(\beta = \gamma/2\)</span> and varying <span class="math notranslate nohighlight">\(\gamma\)</span>. What order of convergence with respect to <span class="math notranslate nohighlight">\(\tau\)</span> do you observe? (Pay particular interest to the case <span class="math notranslate nohighlight">\(\gamma=1/2\)</span>.)</p>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
-<p>Use the example of the previous exercise to check conservation of energies <span class="math notranslate nohighlight">\(\mathbf E\)</span> and <span class="math notranslate nohighlight">\(E_j^{\tau,\alpha,\beta}\)</span> for the parameters <span class="math notranslate nohighlight">\(\gamma_0=1/2,\beta_0=1/4\)</span>, <span class="math notranslate nohighlight">\(\gamma_1=1/2,\beta_1 =0\)</span> and <span class="math notranslate nohighlight">\(\gamma_2 = 1/3, \beta_2 = 1/6\)</span>.</p>
+<p>Use the example of the previous exercise to check conservation of energies <span class="math notranslate nohighlight">\(\mathbf E\)</span> and <span class="math notranslate nohighlight">\(E_j^{\tau,\beta,\gamma}\)</span> for the parameters <span class="math notranslate nohighlight">\(\gamma_0=1/2,\beta_0=1/4\)</span>, <span class="math notranslate nohighlight">\(\gamma_1=1/2,\beta_1 =0\)</span> and <span class="math notranslate nohighlight">\(\gamma_2 = 1/3, \beta_2 = 1/6\)</span>.</p>
 </section>
 <section id="exercise-3">
 <h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
-<p>Use the example of the previous exercises to verify the CFL condition: Compute the largest magnitude eigenvalue <span class="math notranslate nohighlight">\(\lambda_{\mathrm max}\)</span> of the resulting problem <span class="math notranslate nohighlight">\(\mathbf M \mathbf u = -\lambda \mathbf K \mathbf u\)</span>. Then plot the energies <span class="math notranslate nohighlight">\(\mathbf E, E^{\tau,\alpha,\beta}\)</span> over time for the explicit method <span class="math notranslate nohighlight">\(\beta=0,\gamma=1/2\)</span> and timesteps <span class="math notranslate nohighlight">\(\tau_{\pm}^2=\frac{4}{\lambda_{\mathrm{max}}\pm\varepsilon}\)</span> and small <span class="math notranslate nohighlight">\(\varepsilon&gt;0\)</span>.</p>
+<p>Use the example of the previous exercises to verify the CFL condition: Compute the largest magnitude eigenvalue <span class="math notranslate nohighlight">\(\lambda_{\mathrm max}\)</span> of the resulting problem <span class="math notranslate nohighlight">\(\mathbf M \mathbf u = -\lambda \mathbf K \mathbf u\)</span>. Then plot the energies <span class="math notranslate nohighlight">\(\mathbf E, E^{\tau,\beta,\gamma}\)</span> over time for the explicit method <span class="math notranslate nohighlight">\(\beta=0,\gamma=1/2\)</span> and timesteps <span class="math notranslate nohighlight">\(\tau_{\pm}^2=\frac{4}{\lambda_{\mathrm{max}}\pm\varepsilon}\)</span> and small <span class="math notranslate nohighlight">\(\varepsilon&gt;0\)</span>.</p>
 </section>
 </section>
 
@@ -468,8 +471,17 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">4.2. </span>Time-integration for the first order system</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>Time-integration for the first order system</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../explicit_methods.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Explicit methods for time-domain waves</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
