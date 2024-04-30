@@ -61,6 +61,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'explicit_methods';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5.1. Discontinuous Galerkin methods for the wave equation" href="explicit_methods/dg.html" />
     <link rel="prev" title="4.4. Exercises for time-stepping schemes" href="time_integration/exercises.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -203,7 +204,11 @@
 <li class="toctree-l2"><a class="reference internal" href="time_integration/exercises.html">4.4. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Explicit methods for time-domain waves</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">5. Explicit methods for time-domain waves</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="explicit_methods/dg.html">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explicit_methods/dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -405,6 +410,8 @@ document.write(`
 <span id="explicit-methods"></span><h1><span class="section-number">5. </span>Explicit methods for time-domain waves<a class="headerlink" href="#explicit-methods-for-time-domain-waves" title="Link to this heading">#</a></h1>
 <p>In <a class="reference internal" href="time_integration.html#time-integration"><span class="std std-numref">Section 4</span></a> we have defined <strong>explicit</strong> time-stepping methods as methods where in each time step merely the inverse of one or two mass matrices has to be applied. These methods are particularly efficient when the inverse mass matrice(s) are cheap to compute/apply. To construct spaces featuring such matrices is the goal of this section.</p>
 <p>We present two different approaches to construct such spaces. Notably both of these methods leave the setting of classical Galerkin methods.</p>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -445,6 +452,15 @@ document.write(`
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title"><span class="section-number">4.4. </span>Exercises for time-stepping schemes</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="explicit_methods/dg.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.1. </span>Discontinuous Galerkin methods for the wave equation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

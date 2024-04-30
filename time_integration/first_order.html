@@ -206,7 +206,11 @@
 <li class="toctree-l2"><a class="reference internal" href="exercises.html">4.4. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/dg.html">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -519,8 +523,8 @@ and inserting the expansions into the Crank-Nicholson stepping leads to</p>
 <span id="leap-frog"></span><h2>The Leap Frog time stepping<a class="headerlink" href="#the-leap-frog-time-stepping" title="Link to this heading">#</a></h2>
 <p>While the Crank-Nicholson scheme can be easily derived for general first-order in time equations the Leap Frog scheme exploits the underlying skew symmetric structure.</p>
 <p>The basic idea is to approximate <span class="math notranslate nohighlight">\(\mathbf v\)</span> at half steps namely to set</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf v_{1/2}&amp;=\mathbf v_0 -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_0,\\
+<div class="math notranslate nohighlight" id="equation-leap-frog">
+<span class="eqno">(4.14)<a class="headerlink" href="#equation-leap-frog" title="Link to this equation">#</a></span>\[\begin{split}\mathbf v_{1/2}&amp;=\mathbf v_0 -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_0,\\
 \mathbf u_{j+1}&amp;=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
 \mathbf v_{j+1/2}&amp;=\mathbf v_{j-1/2} -\tau \mathbf M_v^{-1}\mathbf B^\top\mathbf u_j.\end{split}\]</div>
 <div class="proof remark admonition" id="remark-3">
@@ -528,7 +532,7 @@ and inserting the expansions into the Crank-Nicholson stepping leads to</p>
 <section class="remark-content" id="proof-content">
 <p>To be able to evaluate also the velocity at full time-steps one may rewrite the method as</p>
 <div class="math notranslate nohighlight" id="equation-leap-frog-whole">
-<span class="eqno">(4.14)<a class="headerlink" href="#equation-leap-frog-whole" title="Link to this equation">#</a></span>\[\begin{split}\mathbf v_{j+1/2}&amp;=\mathbf v_j -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_j,\\
+<span class="eqno">(4.15)<a class="headerlink" href="#equation-leap-frog-whole" title="Link to this equation">#</a></span>\[\begin{split}\mathbf v_{j+1/2}&amp;=\mathbf v_j -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_j,\\
 \mathbf u_{j+1}&amp;=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
 \mathbf v_{j+1}&amp;=\mathbf v_{j+1/2} -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_{j+1}.\end{split}\]</div>
 <p>This version is also known as kick-drift-kick formulation.</p>
@@ -538,7 +542,7 @@ and inserting the expansions into the Crank-Nicholson stepping leads to</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\mathbf u_j,\mathbf v_j\)</span> be the Leap Frog approximations applied to <a class="reference internal" href="#equation-semi-disc-1o">(4.12)</a> with <span class="math notranslate nohighlight">\(\mathbf D_u,\mathbf D_v,\mathbf f = 0\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf u}_j,\dot{\mathbf u}_j\)</span> be the approximations by the Verlet time stepping applied to the equation</p>
 <div class="math notranslate nohighlight" id="equation-second-order-fo">
-<span class="eqno">(4.15)<a class="headerlink" href="#equation-second-order-fo" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+<span class="eqno">(4.16)<a class="headerlink" href="#equation-second-order-fo" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \mathbf M_u \ddot{\mathbf u}+\mathbf B\mathbf M_v^{-1}\mathbf B^\top\mathbf u &amp;= 0,\\
 \mathbf u(0) &amp;= \mathbf u^0,\\
  \dot{\mathbf u}(0) &amp;= \mathbf M_u^{-1}\mathbf B \mathbf v^0.
@@ -546,14 +550,14 @@ and inserting the expansions into the Crank-Nicholson stepping leads to</p>
 <p>Then <span class="math notranslate nohighlight">\(\mathbf u_j=\hat{\mathbf u}_j\)</span> for all <span class="math notranslate nohighlight">\(j\in\mathbb N\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. Multiplying the first and last line of <a class="reference internal" href="#equation-leap-frog-whole">(4.14)</a> by <span class="math notranslate nohighlight">\(\mathbf M_u^{-1}\mathbf B\)</span> yields</p>
+<p>Proof. Multiplying the first and last line of <a class="reference internal" href="#equation-leap-frog-whole">(4.15)</a> by <span class="math notranslate nohighlight">\(\mathbf M_u^{-1}\mathbf B\)</span> yields</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2}&amp;=\mathbf M_u^{-1}\mathbf B\mathbf v_j -\frac{\tau}{2} \mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top\mathbf u_j,\\
 \mathbf u_{j+1}&amp;=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
 \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1}&amp;=\mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2} -\frac{\tau}{2} \mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top\mathbf u_{j+1}.
 \end{aligned}\end{split}\]</div>
-<p>On the other hand applying the equivalent Verlet algorithm <a class="reference internal" href="second_order.html#equation-newmark-explicit-leap">(4.7)</a> to the second order problem  <a class="reference internal" href="#equation-second-order-fo">(4.15)</a> yields</p>
+<p>On the other hand applying the equivalent Verlet algorithm <a class="reference internal" href="second_order.html#equation-newmark-explicit-leap">(4.7)</a> to the second order problem  <a class="reference internal" href="#equation-second-order-fo">(4.16)</a> yields</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 \tilde{\mathbf u}&amp;=\dot{\mathbf u}_j-\frac{\tau}{2}\mathbf M_u^{-1}\mathbf B\mathbf M_v^{-1}\mathbf B^\top{\mathbf u}_j,\\

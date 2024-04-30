@@ -129,6 +129,7 @@ While the Crank-Nicholson scheme can be easily derived for general first-order i
 
 The basic idea is to approximate $\mathbf v$ at half steps namely to set
 ```{math}
+:label: leap_frog
 \mathbf v_{1/2}&=\mathbf v_0 -\frac{\tau}{2} \mathbf M_v^{-1}\mathbf B^\top\mathbf u_0,\\
 \mathbf u_{j+1}&=\mathbf u_{j} +\tau \mathbf M_u^{-1}\mathbf B\mathbf v_{j+1/2},\\
 \mathbf v_{j+1/2}&=\mathbf v_{j-1/2} -\tau \mathbf M_v^{-1}\mathbf B^\top\mathbf u_j.

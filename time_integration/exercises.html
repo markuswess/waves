@@ -206,7 +206,11 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">4.4. Exercises for time-stepping schemes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/dg.html">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -405,6 +409,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
 </ul>
             </nav>
         </div>
@@ -432,6 +439,24 @@ document.write(`
 <section id="exercise-3">
 <h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
 <p>Use the example of the previous exercises to verify the CFL condition: Compute the largest magnitude eigenvalue <span class="math notranslate nohighlight">\(\lambda_{\mathrm {max}}\)</span> of the resulting problem <span class="math notranslate nohighlight">\(\mathbf K \mathbf u = \lambda \mathbf M \mathbf u\)</span>. Then plot the energies <span class="math notranslate nohighlight">\(\mathbf E, E^{\tau,\beta,\gamma}\)</span> over time for the explicit method <span class="math notranslate nohighlight">\(\beta=0,\gamma=1/2\)</span> and timesteps <span class="math notranslate nohighlight">\(\tau_{\pm}^2=\frac{4}{\lambda_{\mathrm{max}}}(1\pm\varepsilon)\)</span> and small <span class="math notranslate nohighlight">\(\varepsilon&gt;0\)</span>.</p>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
+<p>Implement the Crank-Nicholson time-stepping for the <span class="math notranslate nohighlight">\(H^1-L^2\)</span> space pairing <a class="reference internal" href="mixed_methods.html#equation-wave-eq-h1l2">(4.11)</a> for a similar problem as in the previous exercises. Fix the orders of spaces and time-step and check the convergence of the error with respect to the mesh-size <span class="math notranslate nohighlight">\(h\)</span>. How do the orders of the two spaces have to be related to obtain an efficient method?</p>
+</section>
+<section id="exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h2>
+<p>Implement the Leap-Frog time-stepping for the first order equation using an <span class="math notranslate nohighlight">\(L^2-H(\mathrm{div}))\)</span> pairing. Preserving the skew-symmetric structure of the system, what options do you find for imposing homogeneous boundary conditions?</p>
+</section>
+<section id="exercise-6">
+<h2>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h2>
+<p>For Galerkin approximations using a discrete space <span class="math notranslate nohighlight">\(V_h\)</span>, the error of the spacial discretization is usually governed by the error of the spacial approximation <span class="math notranslate nohighlight">\(I-\Pi_h\)</span> where the projection <span class="math notranslate nohighlight">\(\Pi_h:L^2\to V_h\)</span> is defined by</p>
+<div class="math notranslate nohighlight">
+\[\int_\Omega \Pi_h f v = \int_\Omega f v\]</div>
+<p>for all <span class="math notranslate nohighlight">\(v\in V_h\)</span>.
+Compare the projection errors for <span class="math notranslate nohighlight">\(f = \exp\left(-30((x-1/2)^2+(y-1/2)^2)\right)\)</span> on the <code class="docutils literal notranslate"><span class="pre">unit_square</span></code> for the spaces <code class="docutils literal notranslate"><span class="pre">H1</span></code> and <code class="docutils literal notranslate"><span class="pre">L2</span></code> for different mesh-sizes <span class="math notranslate nohighlight">\(h\)</span> with respect to the degrees of freedom (<code class="docutils literal notranslate"><span class="pre">H1.ndof</span></code>, <code class="docutils literal notranslate"><span class="pre">L2.ndof</span></code>).</p>
+<p>Assume you were able to use the space <code class="docutils literal notranslate"><span class="pre">L2</span></code> for a discretization of the wave equation. Compare the computational effort for factorizing the mass matrices for the <code class="docutils literal notranslate"><span class="pre">H1</span></code> and <code class="docutils literal notranslate"><span class="pre">L2</span></code> spaces and <span class="math notranslate nohighlight">\(200\)</span> applications of the inverse mass matrix with respect to accuracy (measured by the projection error) on different meshes. Use also <code class="docutils literal notranslate"><span class="pre">L2.Mass().Inverse()</span></code> instead of assembling the matrix.</p>
+<p>Consider also a three-dimensional example.</p>
 </section>
 </section>
 
@@ -502,6 +527,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
 </ul>
   </nav></div>
 
