@@ -209,6 +209,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mass_lumping.html">5.3. Mass lumping for the wave equation</a></li>
 </ul>
 </li>
 </ul>
@@ -426,7 +427,7 @@ document.write(`
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
 <div class="math notranslate nohighlight" id="equation-wave-eq-1o">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \partial_tv+\nabla p &amp;= f,&amp;\text{in }&amp;[0,T_0]\times \Omega,\\
 \partial_t p+\nabla\cdot v &amp;=0,&amp;\text{in }&amp;[0,T_0]\times \Omega,\\
 p(0,\cdot)&amp;=p_0,&amp;\text{in }&amp;\Omega,\\
@@ -501,10 +502,10 @@ v&amp;\mapsto \left(x\mapsto \frac{1}{2}\lim_{\varepsilon\to 0}v(x+\varepsilon n
 <p>Following the reasoning for the 1d case we obtain the general DG formulation</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
-<div class="math notranslate nohighlight" id="equation-wave-eq-1o">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-wave-eq-1o" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-wave-eq-1o-dg">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-wave-eq-1o-dg" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \int_\Omega\partial_tv w+b(p,w) &amp;= \int_\Omega f w,\\
-\partial_t \int_\Omega pq-b(q,v) &amp;=0,\\
+\int_\Omega \partial_t pq-b(q,v) &amp;=0,\\
 p(0,\cdot)&amp;=p_0,\\
 v(0,\cdot)&amp;=v_0,
 \end{aligned}\end{split}\]</div>
@@ -513,7 +514,12 @@ v(0,\cdot)&amp;=v_0,
 \[b(p,w) = \sum_{T\in\mathcal T} \int_T \nabla p\cdot w + \int_{\partial T}(\{p\}-p)w\]</div>
 </div>
 </div>
+<div class="proof theorem admonition" id="theorem-1">
+<p class="admonition-title"><span class="caption-number">Theorem 5.1 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>The DG formulation <a class="reference internal" href="../time_integration/mixed_methods.html#equation-wave-eq-1o">(4.10)</a> is consistent, i.e., the weak solution <span class="math notranslate nohighlight">\(p,v\)</span> of <a class="reference internal" href="../time_integration/mixed_methods.html#equation-wave-eq-1o">(4.10)</a> also solves <a class="reference internal" href="#equation-wave-eq-1o-dg">(5.7)</a></p>
 </section>
+</div></section>
 </section>
 
     <script type="text/x-thebe-config">

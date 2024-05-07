@@ -101,10 +101,10 @@ Following the reasoning for the 1d case we obtain the general DG formulation
 
 ````{card}
 ```{math}
-:label: wave_eq_1o
+:label: wave_eq_1o_dg
 \begin{aligned}
 \int_\Omega\partial_tv w+b(p,w) &= \int_\Omega f w,\\
-\partial_t \int_\Omega pq-b(q,v) &=0,\\
+\int_\Omega \partial_t pq-b(q,v) &=0,\\
 p(0,\cdot)&=p_0,\\
 v(0,\cdot)&=v_0,
 \end{aligned}
@@ -113,4 +113,8 @@ for all $w\in\mathcal V_h,q\in\mathcal W_h$ with
 ```{math}
 b(p,w) = \sum_{T\in\mathcal T} \int_T \nabla p\cdot w + \int_{\partial T}(\{p\}-p)w
 ```
+````
+
+````{prf:theorem}
+The DG formulation {eq}`wave_eq_1o` is consistent, i.e., the weak solution $p,v$ of {eq}`wave_eq_1o` also solves {eq}`wave_eq_1o_dg`
 ````
