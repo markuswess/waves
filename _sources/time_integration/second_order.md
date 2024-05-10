@@ -256,7 +256,7 @@ which can be rewritten by
 Moreover, let $\phi_n,\lambda_n$ be the normalized eigenpairs of 
 ```{math}
 :label: disc_evp
-\mathbf K u=\lambda \mathbf M
+\mathbf K \mathbf u=\lambda \mathbf M\mathbf u
 ```
 Then we have 
 ```{math}

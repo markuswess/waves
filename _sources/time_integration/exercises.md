@@ -1,4 +1,4 @@
-(exercises_th)=
+(exercises_ti)=
 # Exercises for time-stepping schemes
 
 ## Exercise 1

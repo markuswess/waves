@@ -63,6 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'explicit_methods/mass_lumping';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. Integration rules in NGSolve" href="intrules.html" />
     <link rel="prev" title="5.2. DG Operators in NGSolve" href="dg_in_ngsolve.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -209,6 +210,8 @@
 <li class="toctree-l2"><a class="reference internal" href="dg.html">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">5.3. Mass lumping for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intrules.html">5.4. Integration rules in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">5.5. Exercises for explicit methods</a></li>
 </ul>
 </li>
 </ul>
@@ -408,6 +411,13 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-lumping-for-linear-finite-elements">Mass lumping for linear finite elements</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-lumping-for-linear-1d-elements">Mass lumping for linear 1d elements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-lumping-in-higher-dimensions">Mass lumping in higher dimensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping">Higher order mass lumping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping-in-one-dimension">Higher order mass lumping in one dimension</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping-for-quadrilaterals-and-hexahedra">Higher order mass lumping for quadrilaterals and hexahedra</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping-on-simplexes">Higher order mass lumping on simplexes</a></li>
 </ul>
 </li>
 </ul>
@@ -458,6 +468,106 @@ Instead of computing the integrals for the entries of the mass matrix exactly we
 0,&amp;\mathrm{else.}\end{cases}
 \end{aligned}\end{split}\]</div>
 </section>
+<section id="mass-lumping-in-higher-dimensions">
+<h3>Mass lumping in higher dimensions<a class="headerlink" href="#mass-lumping-in-higher-dimensions" title="Link to this heading">#</a></h3>
+<p>For higher dimensions the first order finite element spaces (for triangular or tetrahedral elements <span class="math notranslate nohighlight">\(T\in\mathcal T\)</span>) are again given by piecewise linear functions. A convenient basis is given by the according functions which vanish on all but one vertex points, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[V_h = \{f\in H^1(\Omega): f|_T\in \mathcal P^1,\forall T\in\mathcal T\}\]</div>
+<p>where the polynomial space <span class="math notranslate nohighlight">\(\mathcal P^k\)</span> is defined by</p>
+<div class="math notranslate nohighlight">
+\[\mathcal P^k:=\{(x,y,z)\mapsto x^ny^mz^l:n+m+l\leq k\},\]</div>
+<p>(and in two dimensions the exponent <span class="math notranslate nohighlight">\(l\)</span> of the <span class="math notranslate nohighlight">\(z\)</span> coordinate is always <span class="math notranslate nohighlight">\(0\)</span>).
+If we denote the set of vertices by <span class="math notranslate nohighlight">\(V_0,\ldots,V_N\)</span> the nodal basis is given by the condition</p>
+<div class="math notranslate nohighlight">
+\[b_j(V_i)=\delta_{j,i}.\]</div>
+<p>Following the same reasoning as in one dimension we may construct integration rules locally on each element <span class="math notranslate nohighlight">\(T\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[I_T(f):=\frac{|T|}{d+1}\sum_{i=0}^{d+1} f(V_{T,i})\]</div>
+<p>where <span class="math notranslate nohighlight">\(V_{T_i}\)</span> are the vertices of the element <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(d\)</span> is the spacial dimension.
+Again an approximation to the correct mass integrals is given by</p>
+<div class="math notranslate nohighlight">
+\[\tilde m_{i,j}:=\sum_{T\in\mathcal T} I_T(b_ib_j)=\delta_{i,j}\frac{1}{d+1}\sum_{k=1}^{K_i} |T_{i,k}|\]</div>
+<p>where  <span class="math notranslate nohighlight">\(T_{i,k},k=1,\ldots,K_i\)</span> are the elements sharing the vertex <span class="math notranslate nohighlight">\(V_i\)</span> and <span class="math notranslate nohighlight">\(K_i\)</span> is the number of these elements.</p>
+</section>
+</section>
+<section id="higher-order-mass-lumping">
+<h2>Higher order mass lumping<a class="headerlink" href="#higher-order-mass-lumping" title="Link to this heading">#</a></h2>
+<p>Usually finite element basis functions are defined on a reference element first. Then they are appropriately transformed to the physical elements and basis functions on neighbouring elements are glued together to obtain conforming basis functions. I.e., if <span class="math notranslate nohighlight">\(T\)</span> is a physical element (interval, triangle, quadrilateral, tetrahedron, hexahedron,…) we have a reference element <span class="math notranslate nohighlight">\(\hat T\)</span> and a diffeomorphism  <span class="math notranslate nohighlight">\(\phi:\hat T\to T\)</span>.
+If a local basis function <span class="math notranslate nohighlight">\(\hat b:\hat T\to\mathbb R\)</span> is given then the basis function on the phyiscal element is given by <span class="math notranslate nohighlight">\(b := \hat b \circ \phi ^{-1}\)</span>.
+We use the following reference elements:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\hat T_{\mathrm{segm}} &amp;= \mathrm{conv}\{0,1\}=[0,1],\\
+\hat T_{\mathrm{trig}} &amp;= \mathrm{conv}\{(0,0),(1,0),(0,1)\},\\
+\hat T_{\mathrm{tet}} &amp;= \mathrm{conv}\{(0,0,0),(1,0,0),(0,1,0),(0,0,1)\} ,\\
+\hat T_{\mathrm{quad}} &amp;= \mathrm{conv}\{(0,0),(1,0),(0,1),(1,1)\}=[0,1]^2,\\
+\hat T_{\mathrm{hex}} &amp;= \mathrm{conv}\{(0,0,0),(1,0,0),(0,1,0),(1,1,0),(0,0,1),(1,0,1),(0,1,1),(1,1,1)\}=[0,1]^3,
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathrm{conv}\)</span> denotes the convex hull of a set.</p>
+<p>For a given integration rule consisting of integration points <span class="math notranslate nohighlight">\(\hat x_j\in \hat T\)</span> we use basis functions which vanish in all but one integration points, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\hat b_i(\hat x_j)=\delta_{i,j}.\]</div>
+<p>The task is now to find suitable integration rules and spaces on the reference elements.</p>
+<section id="higher-order-mass-lumping-in-one-dimension">
+<h3>Higher order mass lumping in one dimension<a class="headerlink" href="#higher-order-mass-lumping-in-one-dimension" title="Link to this heading">#</a></h3>
+<p>To be able to couple the mapped basis functions on two adjoining elements (intervals) we need to fix the endpoints <span class="math notranslate nohighlight">\(0,1\)</span> of the reference interval <span class="math notranslate nohighlight">\(T_{\mathrm{segm}}\)</span> as integration points. Then for a given total number of points <span class="math notranslate nohighlight">\(N+1\)</span> the integration rule with highest order is the Gauss-Lobatto rule which is exact for polynomials of up to order <span class="math notranslate nohighlight">\(2N-1\)</span>.</p>
+<p>As local spaces we may choose the spaces of polynomials of up to order <span class="math notranslate nohighlight">\(N\)</span> with the Lagrangian basis</p>
+<div class="math notranslate nohighlight">
+\[\hat b_j(x):= \prod_{k=0,k\neq j}^N\frac{x-\hat x_k}{\hat x_j-\hat x_k},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat x_j\)</span> denote the integration points on the reference element. The basis functions are then mapped to the physical elements as described above and the first basis function of an element is glued to the last basis function of the previous element to obtain globally continuous basis functions.</p>
+</section>
+<section id="higher-order-mass-lumping-for-quadrilaterals-and-hexahedra">
+<h3>Higher order mass lumping for quadrilaterals and hexahedra<a class="headerlink" href="#higher-order-mass-lumping-for-quadrilaterals-and-hexahedra" title="Link to this heading">#</a></h3>
+<p>In the case of quadrilaterals and hexahedra integration rules may be obtained by tensorizing the one dimensional Gauss-Lobatto rules. I.e., if a Gauss-Lobatto rule is given by the points <span class="math notranslate nohighlight">\(\hat x_0,\ldots,\hat x_N\)</span> and weights <span class="math notranslate nohighlight">\(\hat w_0,\ldots, \hat w_N\)</span> we define</p>
+<div class="math notranslate nohighlight">
+\[\hat {\mathbf x}_{i+(N+1)j}:=(\hat x_i,\hat x_j)^\top,\quad \hat {\mathbf w}_{i+(N+1)j}:=\hat w_i\hat w_j,\]</div>
+<p>on the unit square.
+The according Lagrangian polynomial basis is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf b}_{i+(N+1)j}(x,y) = \hat b_i(x)\hat b_j(y).\]</div>
+<p>Note that here we use the polynomial space</p>
+<div class="math notranslate nohighlight">
+\[\mathcal Q^N:=\{x^ky^l:k,l\leq N\}\]</div>
+<p>which differs from <span class="math notranslate nohighlight">\(\mathcal P^N\)</span>.
+For three dimensions the construction works similarly.</p>
+</section>
+<section id="higher-order-mass-lumping-on-simplexes">
+<h3>Higher order mass lumping on simplexes<a class="headerlink" href="#higher-order-mass-lumping-on-simplexes" title="Link to this heading">#</a></h3>
+<p>A naive ansatz to construct a second order mass-lumping method for triangles would be to follow the ideas from the first-order case: There we used the given basis and constructed a suitable integration rule. Since the dimension of <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> is <span class="math notranslate nohighlight">\(6\)</span> and we need three symmetric degrees of freedom on each boundary to ensure continuity of the correctly coupled basis functions. The integration points on the reference triangle are fixed by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\hat{\mathbf x}_1&amp;=(0,0),&amp;
+\hat{\mathbf x}_2&amp;=(1/2,0),&amp;
+\hat{\mathbf x}_3&amp;=(1,0),\\
+\hat{\mathbf x}_4&amp;=(1/2,1/2),&amp;
+\hat{\mathbf x}_5&amp;=(0,1),&amp;
+\hat{\mathbf x}_6&amp;=(0,1/2)\}.
+\end{aligned}\end{split}\]</div>
+<p>It remains to specify the integration weights to obtain an optimal accuracy. Due to symmetry we only have to specify two weights <span class="math notranslate nohighlight">\(w_2=w_4=w_6=w_E\)</span> for the mid-points of the edges and <span class="math notranslate nohighlight">\(w_1=w_3=w_5=w_V\)</span> for the vertices, i.e., our integration rule is given by</p>
+<div class="math notranslate nohighlight">
+\[I_{\hat T}(f)=w_V\left(f(\hat{\mathbf x}_1)+f(\hat{\mathbf x}_3)+f(\hat{\mathbf x}_5)\right)+w_E\left(f(\hat{\mathbf x}_2)+f(\hat{\mathbf x}_4)+f(\hat{\mathbf x}_6)\right).\]</div>
+<p>The condition that constants are integrated exactly yields</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}=3w_V+3w_E.\]</div>
+<p>Imposing that also the function <span class="math notranslate nohighlight">\((x,y)\mapsto x\)</span> is integrated exactly yields</p>
+<div class="math notranslate nohighlight">
+\[\int_{\hat T}xdx=\frac{1}{6}=w_V\left(0+1+0\right)+w_E\left(\frac{1}{2}+\frac{1}{2}+0\right)=w_V+w_E,\]</div>
+<p>which is the same condition as before. Imposing that also the function <span class="math notranslate nohighlight">\((x,y)=x^2\)</span> is integrated exactly yields</p>
+<div class="math notranslate nohighlight">
+\[\int_{\hat T} x^2 dx = \int_0^1\int_0^{1-x} x^2 dydx = \int_0^1x^2-x^3 dx = \frac{1}{12}
+=w_V\left(0+1+0\right)+w_E\left(\frac{1}{4}+\frac{1}{4}+0\right)=w_V+\frac{1}{2}w_E.\]</div>
+<p>Inserting the first condition <span class="math notranslate nohighlight">\(w_E=1/6-w_V\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[w_V = 0,\quad w_E = \frac{1}{6}.\]</div>
+<p>Using this quadrature for approximating our mass matrix is not an option since we would end up with a singular approximated mass matrix. We may settle for an integration rule which only integrates linear functions exactly, however it turns out that this will also reduce the overall convergence order of the resulting method.</p>
+<p>The remedy to this problem is to add an additional integration point to the integration rule. From symmetry considerations this can only be the center <span class="math notranslate nohighlight">\(\hat{\mathbf x}_7=(1/3,1/3)\)</span> of the reference triangle.</p>
+<p>We also have to enlargen the local space of polynomials by another basis function.</p>
+<p>Since this has to be a basis function corresponding to the integration point in the center we have to choose a bubble function namely <span class="math notranslate nohighlight">\(\hat b_7(x,y):= xy(1-x-y)\}.\)</span>
+The resulting space</p>
+<div class="math notranslate nohighlight">
+\[\hat V_h:=\mathcal P^2\oplus \{\hat b_7\}.\]</div>
+<p>now lies in between the polynomial spaces <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> and <span class="math notranslate nohighlight">\(\mathcal P^3\)</span>. To obtain a Lagrangian basis with respect to the integration points one may simply use the Lagrangian basis of <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> with respect to the original integration points and subtract the bubble function.</p>
+</section>
 </section>
 </section>
 
@@ -500,6 +610,15 @@ Instead of computing the integrals for the entries of the mass matrix exactly we
         <p class="prev-next-title"><span class="section-number">5.2. </span>DG Operators in NGSolve</p>
       </div>
     </a>
+    <a class="right-next"
+       href="intrules.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.4. </span>Integration rules in NGSolve</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -518,6 +637,13 @@ Instead of computing the integrals for the entries of the mass matrix exactly we
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-lumping-for-linear-finite-elements">Mass lumping for linear finite elements</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-lumping-for-linear-1d-elements">Mass lumping for linear 1d elements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-lumping-in-higher-dimensions">Mass lumping in higher dimensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping">Higher order mass lumping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping-in-one-dimension">Higher order mass lumping in one dimension</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping-for-quadrilaterals-and-hexahedra">Higher order mass lumping for quadrilaterals and hexahedra</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#higher-order-mass-lumping-on-simplexes">Higher order mass lumping on simplexes</a></li>
 </ul>
 </li>
 </ul>

@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5.4. Integration rules in NGSolve &#8212; Numerical methods for wave-type equations</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"0464749fecc14af8b9f8e3d7eede8056": {"model_module": "webgui_jupyter_widgets", "model_module_version": "0.2.10", "model_name": "WebguiModel", "state": {"_dom_classes": [], "_model_module": "webgui_jupyter_widgets", "_model_module_version": "0.2.10", "_model_name": "WebguiModel", "_view_count": null, "_view_module": "webgui_jupyter_widgets", "_view_module_version": "0.2.10", "_view_name": "WebguiView", "layout": "IPY_MODEL_4dcd1310a518428c8fe81661852bdf2e", "value": {"Bezier_points": ["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"], "Bezier_trig_points": ["slhJP5OOcD4AAAAAAAAAAAAAgD+rqio/AAAAAAAAAACyWEk/k45wPgAAAAAAAAAARZIqPwAAAAAAAAAAAAAAAKuqKj8AAIA/AAAAAAAAAABvGfw+gyE6PwAAAAAAAAAAmpmZPpqZmT4AAAAAAAAAAAAAgD+rqqo+AAAAAAAAAABvGfw+gyE6PwAAAAAAAAAAmpmZPgAAAD8AAAAAAAAAAJBZjaRFkio/AAAAAAAAAACamZk+AAAAPwAAAAAAAAAAbxn8PoMhOj8AAAAAAAAAAAAAgD+rqqo+AAAAAAAAAAAAAAA/mpmZPgAAAAAAAAAAtBx7Ps7ALz8AAAAAAAAAALQcez7OwC8/AAAAAAAAAACrqqo+AACAPwAAAAAAAAAAmpmZPpqZmT4AAAAAAAAAAJBZDaUTSao+AAAAAAAAAAAAAAA/mpmZPgAAAAAAAAAAO4WqPgAAAAAAAAAAAAAAAA==", "AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AAAAAAAAAAAAAAA/mpmZPgAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAKuqqj4AAIA/AAAAAAAAAAAAAIA/q6oqPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgD+rqio/AAAAAAAAAAAAAAA/AAAAPwAAAAAAAAAAtBx7Ps7ALz8AAAAAAAAAAJBZDaUTSao+AAAAAAAAAAAAAAA/AAAAPwAAAAAAAAAAtBx7Ps7ALz8AAAAAAAAAAAAAAD8AAAA/AAAAAAAAAACyWEk/k45wPgAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAG8Z/D6DITo/AAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAmpmZPgAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACamZk+mpmZPgAAAAAAAAAARZIqPwAAAAAAAAAAAAAAAA==", "AACAP6uqqj4AAAAAAAAAAKuqKj8AAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAP5qZmT4AAAAAAAAAAAAAgD+rqio/AAAAAAAAAACrqqo+AACAPwAAAAAAAAAAO4WqPgAAAAAAAAAAAAAAAAAAAD8AAAA/AAAAAAAAAAAAAIA/q6oqPwAAAAAAAAAAkFkNpRNJqj4AAAAAAAAAALQcez7OwC8/AAAAAAAAAAC0HHs+zsAvPwAAAAAAAAAAAAAAPwAAAD8AAAAAAAAAALJYST+TjnA+AAAAAAAAAAAAAAA/AAAAPwAAAAAAAAAAAACApEWSKj8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAAABvGfw+gyE6PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJqZmT4AAAA/AAAAAAAAAABFkio/AAAAAAAAAAAAAAAAmpmZPpqZmT4AAAAAAAAAAA=="], "autoscale": true, "colors": [[0.0, 1.0, 0.0, 1.0]], "deformation": false, "draw_surf": null, "draw_vol": null, "edge_names": ["default", "default", "default", "default", "default", "default", "default", "default"], "edges": ["O4WqPgAAAAAAAAAAAAAAAEWSKj8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAkFmNpEWSKj8AAAAAAACAP5BZDaUTSao+AAAAAAAAgD8AAAAAAAAAAAAAAAAAAIA/AACAP6uqqj4AAAAAAAAAQAAAgD+rqio/AAAAAAAAAEAAAIA/AACAPwAAAAAAAABAq6oqPwAAgD8AAAAAAABAQKuqqj4AAIA/AAAAAAAAQEAAAAAAAACAPwAAAAAAAEBAAAAAP5qZmT4AAAAAAACAQAAAAD8AAAA/AAAAAAAAoECamZk+AAAAPwAAAAAAAMBAmpmZPpqZmT4AAAAAAADgQA==", "AAAAAAAAAAAAAAAAAAAAADuFqj4AAAAAAAAAAAAAAABFkio/AAAAAAAAAAAAAAAAAAAAAAAAgD8AAAAAAACAP5BZjaRFkio/AAAAAAAAgD+QWQ2lE0mqPgAAAAAAAIA/AACAPwAAAAAAAAAAAAAAQAAAgD+rqqo+AAAAAAAAAEAAAIA/q6oqPwAAAAAAAABAAACAPwAAgD8AAAAAAABAQKuqKj8AAIA/AAAAAAAAQECrqqo+AACAPwAAAAAAAEBAmpmZPpqZmT4AAAAAAACAQAAAAD+amZk+AAAAAAAAoEAAAAA/AAAAPwAAAAAAAMBAmpmZPgAAAD8AAAAAAADgQA=="], "fullscreen": false, "funcdim": 0, "gui_settings": {}, "mesh_center": [0.49999999999999994, 0.5000000000000001, 1.1125369292536007e-308], "mesh_dim": 2, "mesh_radius": 0.7071067811865477, "mesh_regions_2d": 1, "mesh_regions_3d": 0, "names": ["default"], "ngsolve_version": "6.2.2401-4-g6fc35016a", "objects": [], "order2d": 1, "order3d": 1, "show_mesh": true, "show_wireframe": true}}}, "1691be9459bc4b88a76ec3d85b3a4423": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4dcd1310a518428c8fe81661852bdf2e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "660cbee6cb044e468aa52eeee3409249": {"model_module": "webgui_jupyter_widgets", "model_module_version": "0.2.10", "model_name": "WebguiModel", "state": {"_dom_classes": [], "_model_module": "webgui_jupyter_widgets", "_model_module_version": "0.2.10", "_model_name": "WebguiModel", "_view_count": null, "_view_module": "webgui_jupyter_widgets", "_view_module_version": "0.2.10", "_view_name": "WebguiView", "layout": "IPY_MODEL_1691be9459bc4b88a76ec3d85b3a4423", "value": {"Bezier_points": ["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"], "Bezier_trig_points": ["slhJP5OOcD4AAAAAAAAAAAAAgD+rqio/AAAAAAAAAACyWEk/k45wPgAAAAAAAAAARZIqPwAAAAAAAAAAAAAAAKuqKj8AAIA/AAAAAAAAAABvGfw+gyE6PwAAAAAAAAAAmpmZPpqZmT4AAAAAAAAAAAAAgD+rqqo+AAAAAAAAAABvGfw+gyE6PwAAAAAAAAAAmpmZPgAAAD8AAAAAAAAAAJBZjaRFkio/AAAAAAAAAACamZk+AAAAPwAAAAAAAAAAbxn8PoMhOj8AAAAAAAAAAAAAgD+rqqo+AAAAAAAAAAAAAAA/mpmZPgAAAAAAAAAAtBx7Ps7ALz8AAAAAAAAAALQcez7OwC8/AAAAAAAAAACrqqo+AACAPwAAAAAAAAAAmpmZPpqZmT4AAAAAAAAAAJBZDaUTSao+AAAAAAAAAAAAAAA/mpmZPgAAAAAAAAAAO4WqPgAAAAAAAAAAAAAAAA==", "AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AAAAAAAAAAAAAAA/mpmZPgAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAKuqqj4AAIA/AAAAAAAAAAAAAIA/q6oqPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgD+rqio/AAAAAAAAAAAAAAA/AAAAPwAAAAAAAAAAtBx7Ps7ALz8AAAAAAAAAAJBZDaUTSao+AAAAAAAAAAAAAAA/AAAAPwAAAAAAAAAAtBx7Ps7ALz8AAAAAAAAAAAAAAD8AAAA/AAAAAAAAAACyWEk/k45wPgAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAG8Z/D6DITo/AAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAmpmZPgAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACamZk+mpmZPgAAAAAAAAAARZIqPwAAAAAAAAAAAAAAAA==", "AACAP6uqqj4AAAAAAAAAAKuqKj8AAIA/AAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAP5qZmT4AAAAAAAAAAAAAgD+rqio/AAAAAAAAAACrqqo+AACAPwAAAAAAAAAAO4WqPgAAAAAAAAAAAAAAAAAAAD8AAAA/AAAAAAAAAAAAAIA/q6oqPwAAAAAAAAAAkFkNpRNJqj4AAAAAAAAAALQcez7OwC8/AAAAAAAAAAC0HHs+zsAvPwAAAAAAAAAAAAAAPwAAAD8AAAAAAAAAALJYST+TjnA+AAAAAAAAAAAAAAA/AAAAPwAAAAAAAAAAAACApEWSKj8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAAABvGfw+gyE6PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJqZmT4AAAA/AAAAAAAAAABFkio/AAAAAAAAAAAAAAAAmpmZPpqZmT4AAAAAAAAAAA=="], "autoscale": true, "colors": [[0.0, 1.0, 0.0, 1.0]], "deformation": false, "draw_surf": null, "draw_vol": null, "edge_names": ["default", "default", "default", "default", "default", "default", "default", "default"], "edges": ["O4WqPgAAAAAAAAAAAAAAAEWSKj8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAkFmNpEWSKj8AAAAAAACAP5BZDaUTSao+AAAAAAAAgD8AAAAAAAAAAAAAAAAAAIA/AACAP6uqqj4AAAAAAAAAQAAAgD+rqio/AAAAAAAAAEAAAIA/AACAPwAAAAAAAABAq6oqPwAAgD8AAAAAAABAQKuqqj4AAIA/AAAAAAAAQEAAAAAAAACAPwAAAAAAAEBAAAAAP5qZmT4AAAAAAACAQAAAAD8AAAA/AAAAAAAAoECamZk+AAAAPwAAAAAAAMBAmpmZPpqZmT4AAAAAAADgQA==", "AAAAAAAAAAAAAAAAAAAAADuFqj4AAAAAAAAAAAAAAABFkio/AAAAAAAAAAAAAAAAAAAAAAAAgD8AAAAAAACAP5BZjaRFkio/AAAAAAAAgD+QWQ2lE0mqPgAAAAAAAIA/AACAPwAAAAAAAAAAAAAAQAAAgD+rqqo+AAAAAAAAAEAAAIA/q6oqPwAAAAAAAABAAACAPwAAgD8AAAAAAABAQKuqKj8AAIA/AAAAAAAAQECrqqo+AACAPwAAAAAAAEBAmpmZPpqZmT4AAAAAAACAQAAAAD+amZk+AAAAAAAAoEAAAAA/AAAAPwAAAAAAAMBAmpmZPgAAAD8AAAAAAADgQA=="], "fullscreen": false, "funcdim": 0, "gui_settings": {}, "mesh_center": [0.49999999999999994, 0.5000000000000001, 1.1125369292536007e-308], "mesh_dim": 2, "mesh_radius": 0.7071067811865477, "mesh_regions_2d": 1, "mesh_regions_3d": 0, "names": ["default"], "ngsolve_version": "6.2.2401-4-g6fc35016a", "objects": [], "order2d": 1, "order3d": 1, "show_mesh": true, "show_wireframe": true}}}, "6e9bbb6e3e9545df84702be6cfa3d9a0": {"model_module": "webgui_jupyter_widgets", "model_module_version": "0.2.10", "model_name": "WebguiModel", "state": {"_dom_classes": [], "_model_module": "webgui_jupyter_widgets", "_model_module_version": "0.2.10", "_model_name": "WebguiModel", "_view_count": null, "_view_module": "webgui_jupyter_widgets", "_view_module_version": "0.2.10", "_view_name": "WebguiView", "layout": "IPY_MODEL_f934b0231632488c9138688b6dee4c52", "value": {"Bezier_points": ["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"], "Bezier_trig_points": ["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"], "autoscale": true, "colors": [[0.0, 1.0, 0.0, 1.0]], "deformation": false, "draw_surf": null, "draw_vol": null, "edge_names": ["bottom", "right", "top", "left"], "edges": ["zcxMPgAAAAAAAAAAAAAAAM3MzD4AAAAAAAAAAAAAAACamRk/AAAAAAAAAAAAAAAAzcxMPwAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAIA/zcxMPgAAAAAAAIA/AACAP83MzD4AAAAAAACAPwAAgD+amRk/AAAAAAAAgD8AAIA/zcxMPwAAAAAAAIA/AACAPwAAgD8AAAAAAACAP83MTD8AAIA/AAAAAAAAAECamRk/AACAPwAAAAAAAABAzczMPgAAgD8AAAAAAAAAQM3MTD4AAIA/AAAAAAAAAEAAAAAAAACAPwAAAAAAAABAPG4ppM3MTD8AAAAAAABAQDxuqaSamRk/AAAAAAAAQEBZJf6kzczMPgAAAAAAAEBAPG4ppc3MTD4AAAAAAABAQAAAAAAAAAAAAAAAAAAAQEA=", "AAAAAAAAAAAAAAAAAAAAAM3MTD4AAAAAAAAAAAAAAADNzMw+AAAAAAAAAAAAAAAAmpkZPwAAAAAAAAAAAAAAAM3MTD8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAIA/AACAP83MTD4AAAAAAACAPwAAgD/NzMw+AAAAAAAAgD8AAIA/mpkZPwAAAAAAAIA/AACAP83MTD8AAAAAAACAPwAAgD8AAIA/AAAAAAAAAEDNzEw/AACAPwAAAAAAAABAmpkZPwAAgD8AAAAAAAAAQM3MzD4AAIA/AAAAAAAAAEDNzEw+AACAPwAAAAAAAABAAAAAAAAAgD8AAAAAAABAQDxuKaTNzEw/AAAAAAAAQEA8bqmkmpkZPwAAAAAAAEBAWSX+pM3MzD4AAAAAAABAQDxuKaXNzEw+AAAAAAAAQEA="], "fullscreen": false, "funcdim": 0, "gui_settings": {}, "mesh_center": [0.49999999999999994, 0.5000000000000001, 1.1125369292536007e-308], "mesh_dim": 2, "mesh_radius": 0.7071067811865477, "mesh_regions_2d": 1, "mesh_regions_3d": 0, "names": ["default"], "ngsolve_version": "6.2.2401-4-g6fc35016a", "objects": [], "order2d": 1, "order3d": 1, "show_mesh": true, "show_wireframe": true}}}, "f934b0231632488c9138688b6dee4c52": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explicit_methods/intrules';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.5. Exercises for explicit methods" href="exercises.html" />
+    <link rel="prev" title="5.3. Mass lumping for the wave equation" href="mass_lumping.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ASC_Logo_transparent_300ppi_RGB.png" class="logo__image only-light" alt="Numerical methods for wave-type equations - Home"/>
+    <script>document.write(`<img src="../_static/ASC_Logo_transparent_300ppi_RGB.png" class="logo__image only-dark" alt="Numerical methods for wave-type equations - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Numerical methods for wave-type equations
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/frequency-domain.html">1.4. Time-harmonic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/second_order.html">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/mixed_methods.html">4.2. Mixed formulations for wave equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/first_order.html">4.3. Time-integration for the first order system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/exercises.html">4.4. Exercises for time-stepping schemes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dg.html">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mass_lumping.html">5.3. Mass lumping for the wave equation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.4. Integration rules in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">5.5. Exercises for explicit methods</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/markuswess/waves" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fexplicit_methods/intrules.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/explicit_methods/intrules.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Integration rules in NGSolve</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="integration-rules-in-ngsolve">
+<h1><span class="section-number">5.4. </span>Integration rules in NGSolve<a class="headerlink" href="#integration-rules-in-ngsolve" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ngsolve</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ngsolve.webgui</span> <span class="kn">import</span> <span class="n">Draw</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In NGSolve an <code class="docutils literal notranslate"><span class="pre">IntegrationRule</span></code> for finite element meshes is defined on the respective reference element. E.g. for a triangle <code class="docutils literal notranslate"><span class="pre">TRIG</span></code> the reference element has the vertices <span class="math notranslate nohighlight">\((0,0),(1,0),(0,1)\)</span>,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">intrule</span> <span class="o">=</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="c1">#returns an integration rule of at least order k</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">intrule</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> locnr = 0: (0.816848, 0.0915762, 0), weight = 0.0549759
+ locnr = 1: (0.0915762, 0.816848, 0), weight = 0.0549759
+ locnr = 2: (0.0915762, 0.0915762, 0), weight = 0.0549759
+ locnr = 3: (0.108103, 0.445948, 0), weight = 0.111691
+ locnr = 4: (0.445948, 0.108103, 0), weight = 0.111691
+ locnr = 5: (0.445948, 0.445948, 0), weight = 0.111691
+</pre></div>
+</div>
+</div>
+</div>
+<p>An <code class="docutils literal notranslate"><span class="pre">IntegrationRule</span></code> consists of <code class="docutils literal notranslate"><span class="pre">IntegrationPoints</span></code> which have a position and a weight:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pl</span>
+
+<span class="n">pl</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">intrule</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;point: &quot;</span><span class="p">,</span> <span class="n">ip</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;weight: &quot;</span><span class="p">,</span> <span class="n">ip</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ip</span><span class="o">.</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>point:  (0.816847572980459, 0.091576213509771, 0.0)
+weight:  0.054975871827661
+point:  (0.091576213509771, 0.816847572980459, 0.0)
+weight:  0.054975871827661
+point:  (0.091576213509771, 0.091576213509771, 0.0)
+weight:  0.054975871827661
+point:  (0.10810301816807, 0.445948490915965, 0.0)
+weight:  0.111690794839005
+point:  (0.445948490915965, 0.10810301816807, 0.0)
+weight:  0.111690794839005
+point:  (0.445948490915965, 0.445948490915965, 0.0)
+weight:  0.111690794839005
+</pre></div>
+</div>
+<img alt="../_images/a98df43b75d74a2615428272be009b4b75fb34633f9781a39084fe9e591323bf.png" src="../_images/a98df43b75d74a2615428272be009b4b75fb34633f9781a39084fe9e591323bf.png" />
+</div>
+</div>
+<p>We may check the accuracy of the integration rule by using <code class="docutils literal notranslate"><span class="pre">IntegrationRule.Integrate(f)</span></code> for a <code class="docutils literal notranslate"><span class="pre">lambda</span></code> function <code class="docutils literal notranslate"><span class="pre">f</span></code> on the reference element.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intrule</span> <span class="o">=</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">intrule_ref</span> <span class="o">=</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">int_ref</span> <span class="o">=</span> <span class="n">intrule_ref</span><span class="o">.</span><span class="n">Integrate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">int_approx</span> <span class="o">=</span> <span class="n">intrule</span><span class="o">.</span><span class="n">Integrate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Polynomial of order </span><span class="si">{}</span><span class="s2">: error =  </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">int_ref</span><span class="o">-</span><span class="n">int_approx</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Polynomial of order 0: error =  1.942890293094024e-15
+Polynomial of order 1: error =  8.326672684688674e-17
+Polynomial of order 2: error =  1.249000902703301e-16
+Polynomial of order 3: error =  0.0
+Polynomial of order 4: error =  0.0
+Polynomial of order 5: error =  4.961309141293668e-16
+Polynomial of order 6: error =  1.5855372570428017e-15
+Polynomial of order 7: error =  2.750544061753263e-06
+Polynomial of order 8: error =  4.881966328910969e-06
+Polynomial of order 9: error =  7.801460834254426e-07
+</pre></div>
+</div>
+</div>
+</div>
+<p>Integration over a finite element <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> can be done by supplying the integration rule(s) (if more than one type of element is present in the mesh)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">unit_square</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">(</span><span class="n">maxh</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
+<span class="n">Draw</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">(</span><span class="n">intrules</span> <span class="o">=</span> <span class="p">{</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span><span class="mi">0</span><span class="p">)}),</span><span class="n">mesh</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6e9bbb6e3e9545df84702be6cfa3d9a0", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.024473463317593043
+</pre></div>
+</div>
+</div>
+</div>
+<p>For mesh refinement we should observe convergence:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">unit_square</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">(</span><span class="n">maxh</span><span class="o">=</span><span class="mf">0.2</span><span class="p">))</span>
+
+<span class="n">intorders</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">refinements</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">refinements</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">intorders</span><span class="p">)))</span>
+<span class="n">hs</span> <span class="o">=</span>     <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">refinements</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">intorders</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">refinements</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;refinement: &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intorders</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;order = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">intorders</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="n">intrules</span> <span class="o">=</span> <span class="p">{</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span> <span class="n">intorders</span><span class="p">[</span><span class="n">j</span><span class="p">])}</span>
+        <span class="n">integral</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">(</span><span class="n">intrules</span> <span class="o">=</span> <span class="n">intrules</span><span class="p">),</span><span class="n">mesh</span><span class="p">))</span>
+        <span class="n">errors</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">integral</span>
+        <span class="n">hs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">i</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">Refine</span><span class="p">()</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>refinement:  0
+order = 0
+order = 1
+order = 2
+order = 3
+order = 4
+refinement:  1
+order = 0
+order = 1
+order = 2
+order = 3
+order = 4
+refinement:  2
+order = 0
+order = 1
+order = 2
+order = 3
+order = 4
+refinement:  3
+order = 0
+order = 1
+order = 2
+order = 3
+order = 4
+refinement:  4
+order = 0
+order = 1
+order = 2
+order = 3
+order = 4
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>refinement:  5
+order = 0
+order = 1
+order = 2
+order = 3
+order = 4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pl</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span><span class="n">errors</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06bc915444bae01174c41f7113f522a4bbd50b5e914d842b215eda5e053ea863.png" src="../_images/06bc915444bae01174c41f7113f522a4bbd50b5e914d842b215eda5e053ea863.png" />
+</div>
+</div>
+<p>For mixed meshes we also need an integration rule for quads:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">netgen.occ</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">geo</span> <span class="o">=</span> <span class="n">OCCGeometry</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Face</span><span class="p">()</span><span class="o">-</span><span class="n">MoveTo</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">Face</span><span class="p">(),</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">geo</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">(</span><span class="n">maxh</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">quad_dominated</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">Draw</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+
+<span class="n">intorders</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">refinements</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">refinements</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">intorders</span><span class="p">)))</span>
+<span class="n">hs</span> <span class="o">=</span>     <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">refinements</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">intorders</span><span class="p">)))</span>
+
+<span class="n">intrules_ref</span> <span class="o">=</span> <span class="p">{</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">QUAD</span><span class="p">:</span><span class="n">IntegrationRule</span><span class="p">(</span><span class="n">QUAD</span><span class="p">,</span><span class="mi">20</span><span class="p">)}</span>
+<span class="n">integral_ref</span> <span class="o">=</span> <span class="n">Integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">(</span><span class="n">intrules</span> <span class="o">=</span> <span class="n">intrules_ref</span><span class="p">),</span><span class="n">mesh</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">refinements</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;refinement: &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intorders</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;order = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">intorders</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="n">intrules</span> <span class="o">=</span> <span class="p">{</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span> <span class="n">intorders</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span><span class="n">QUAD</span><span class="p">:</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">QUAD</span><span class="p">,</span> <span class="n">intorders</span><span class="p">[</span><span class="n">j</span><span class="p">])}</span>
+        <span class="n">integral</span> <span class="o">=</span> <span class="n">Integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">(</span><span class="n">intrules</span> <span class="o">=</span> <span class="n">intrules</span><span class="p">),</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">errors</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">integral</span><span class="o">-</span><span class="n">integral_ref</span><span class="p">)</span>
+        <span class="n">hs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">i</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">Refine</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "660cbee6cb044e468aa52eeee3409249", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>refinement:  0
+order = 0
+order = 1
+order = 2
+refinement:  1
+order = 0
+order = 1
+order = 2
+refinement:  2
+order = 0
+order = 1
+order = 2
+refinement:  3
+order = 0
+order = 1
+order = 2
+refinement:  4
+order = 0
+order = 1
+order = 2
+refinement:  5
+order = 0
+order = 1
+order = 2
+refinement:  6
+order = 0
+order = 1
+order = 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pl</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span><span class="n">errors</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/47cb7a51634c62543a400ba30961e2312ae7bb9e9bd517566b07ad0e46d56b92.png" src="../_images/47cb7a51634c62543a400ba30961e2312ae7bb9e9bd517566b07ad0e46d56b92.png" />
+</div>
+</div>
+<p>One may also create an own integration rule:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_intrule_trig</span> <span class="o">=</span> <span class="n">IntegrationRule</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)],[</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">my_intrule_quad</span> <span class="o">=</span> <span class="n">IntegrationRule</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],[</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geo</span> <span class="o">=</span> <span class="n">OCCGeometry</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Face</span><span class="p">()</span><span class="o">-</span><span class="n">MoveTo</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">Face</span><span class="p">(),</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">geo</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">(</span><span class="n">maxh</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">quad_dominated</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">Draw</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+
+<span class="n">intrules_ref</span> <span class="o">=</span> <span class="p">{</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">IntegrationRule</span><span class="p">(</span><span class="n">TRIG</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">QUAD</span><span class="p">:</span><span class="n">IntegrationRule</span><span class="p">(</span><span class="n">QUAD</span><span class="p">,</span><span class="mi">20</span><span class="p">)}</span>
+<span class="n">integral_ref</span> <span class="o">=</span> <span class="n">Integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">(</span><span class="n">intrules</span> <span class="o">=</span> <span class="n">intrules_ref</span><span class="p">),</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">refinements</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">hs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">refinements</span><span class="p">):</span>
+        <span class="n">intrules</span> <span class="o">=</span> <span class="p">{</span><span class="n">TRIG</span><span class="p">:</span> <span class="n">my_intrule_trig</span><span class="p">,</span><span class="n">QUAD</span><span class="p">:</span> <span class="n">my_intrule_quad</span><span class="p">}</span>
+        <span class="n">integral</span> <span class="o">=</span> <span class="n">Integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">(</span><span class="n">intrules</span> <span class="o">=</span> <span class="n">intrules</span><span class="p">),</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">integral</span><span class="o">-</span><span class="n">integral_ref</span><span class="p">))</span>
+        <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">Refine</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0464749fecc14af8b9f8e3d7eede8056", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pl</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span><span class="n">errors</span><span class="p">);</span>
+<span class="n">pl</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">hs</span><span class="p">,[</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hs</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/19adf1143b920e503dcd10894bd25145365954ea05a3693664f3ea490f66e66b.png" src="../_images/19adf1143b920e503dcd10894bd25145365954ea05a3693664f3ea490f66e66b.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./explicit_methods"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="mass_lumping.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>Mass lumping for the wave equation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="exercises.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.5. </span>Exercises for explicit methods</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Wess
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
