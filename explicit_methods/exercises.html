@@ -63,6 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'explicit_methods/exercises';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Perfectly Matched Layers" href="../pmls.html" />
     <link rel="prev" title="5.4. Integration rules in NGSolve" href="intrules.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -211,6 +212,10 @@
 <li class="toctree-l2"><a class="reference internal" href="mass_lumping.html">5.3. Mass lumping for the wave equation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intrules.html">5.4. Integration rules in NGSolve</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">5.5. Exercises for explicit methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pmls.html">6. Perfectly Matched Layers</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/fq_domain.html">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
 </ul>
 </li>
 </ul>
@@ -430,7 +435,7 @@ document.write(`
 <p>Estimate the CFL condition of the Leap-Frog timestepping for the DG system. To this end estimate the largest eigenvalue of <span class="math notranslate nohighlight">\(\mathbf M^{-1}\mathbf K\)</span> by <span class="math notranslate nohighlight">\(\mu_N\)</span> for large enough <span class="math notranslate nohighlight">\(N\)</span> given by a power iteration</p>
 <div class="math notranslate nohighlight">
 \[\mathbf x_{n+1}=\mathbf M^{-1}\mathbf K\mathbf x_n,\quad \mu_n:=\frac{\mathbf x_n^\top\mathbf M^{-1}\mathbf K\mathbf x_n}{\|\mathbf x_n\|}\]</div>
-<p>with a random starting vector <span class="math notranslate nohighlight">\(\mathbf x_n\)</span>.</p>
+<p>with a random starting vector <span class="math notranslate nohighlight">\(\mathbf x_0\)</span>.</p>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
@@ -485,6 +490,15 @@ Replace the <code class="docutils literal notranslate"><span class="pre">H1</spa
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title"><span class="section-number">5.4. </span>Integration rules in NGSolve</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../pmls.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Perfectly Matched Layers</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

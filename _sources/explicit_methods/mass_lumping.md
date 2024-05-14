@@ -135,6 +135,17 @@ A naive ansatz to construct a second order mass-lumping method for triangles wou
 \hat{\mathbf x}_6&=(0,1/2)\}.
 \end{aligned}
 ```
+The nodal basis functions are given by
+ ```{math}
+\begin{aligned}
+\hat b_1 &= 2(1-x-y)(1-x-y-\frac{1}{2}),&
+\hat b_2 &= 4(1-x-y)x,&
+\hat b_3 &= 2x(x-\frac{1}{2})\\
+\hat b_4 &= 4xy,&
+\hat b_5 &= 2y(1-\frac{1}{2}),&
+\hat b_6 &= 4y(1-x-y).
+\end{aligned}
+``` 
 It remains to specify the integration weights to obtain an optimal accuracy. Due to symmetry we only have to specify two weights $w_2=w_4=w_6=w_E$ for the mid-points of the edges and $w_1=w_3=w_5=w_V$ for the vertices, i.e., our integration rule is given by
 ```{math}
 I_{\hat T}(f)=w_V\left(f(\hat{\mathbf x}_1)+f(\hat{\mathbf x}_3)+f(\hat{\mathbf x}_5)\right)+w_E\left(f(\hat{\mathbf x}_2)+f(\hat{\mathbf x}_4)+f(\hat{\mathbf x}_6)\right).
@@ -162,9 +173,30 @@ The remedy to this problem is to add an additional integration point to the inte
 
 We also have to enlargen the local space of polynomials by another basis function.
 
-Since this has to be a basis function corresponding to the integration point in the center we have to choose a bubble function namely $\hat b_7(x,y):= xy(1-x-y)\}.$
+Since this has to be a basis function corresponding to the integration point in the center we have to choose a bubble function namely $\tilde b_7(x,y):= 27xy(1-x-y)\}.$
 The resulting space 
 ```{math}
-\hat V_h:=\mathcal P^2\oplus \{\hat b_7\}.
+\hat V_h:=\mathcal P^2\oplus \mathrm{span}\{\tilde b_7\}=\mathrm{span}\left\{\hat b_1,\hat b_2,\hat b_3,\hat b_4,\hat b_5,\hat b_6,\tilde b_7\right\}
 ```
-now lies in between the polynomial spaces $\mathcal P^2$ and $\mathcal P^3$. To obtain a Lagrangian basis with respect to the integration points one may simply use the Lagrangian basis of $\mathcal P^2$ with respect to the original integration points and subtract the bubble function.  
+now lies in between the polynomial spaces $\mathcal P^2$ and $\mathcal P^3$. To obtain a Lagrangian basis with respect to the integration points one may simply use the Lagrangian basis of $\mathcal P^2$ with respect to the original integration points and subtract the bubble function, i.e.,
+```{math}
+\tilde b_j = \frac{\hat b_j+\tilde b_7}{1+\hat b_j(1/3,1/3)},\quad j=1,\ldots,6.
+```
+It remains to specify the correct weights for the integration rule. 
+
+````{prf:Theorem}
+Let $\tilde b_j$, $\mathbf x_j$ be given as above. Moreover we define 
+```{math}
+w_1=w_3=w_5=\frac{1}{40},\quad w_2=w_4=w_6=\frac{1}{15},\quad w_7 = \frac{9}{40}.
+```
+Then the quadrature rule given by $\mathbf x_j,\omega_j$ is exact for all functions from $\mathcal P^3$.
+````
+
+% ````{prf:proof}
+% Due to symmetry it is sufficient to show that the integrals 
+% ````
+
+
+````{prf:remark}
+It turns out that a sufficient condition for the integration rule to not spoil the convergence of the method is that it is exact for $\mathcal P^{k+\tilde k-2}$ if the space on the reference element $\hat V_h$ is given by $\mathcal P^k\oplus \tilde V_h$ with $\tilde V_h\subset \mathcal P^{\tilde k}$. This means that the integration rule defined above fo the second order mass lumping space is sufficient.
+````

@@ -214,6 +214,10 @@
 <li class="toctree-l2"><a class="reference internal" href="exercises.html">5.5. Exercises for explicit methods</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pmls.html">6. Perfectly Matched Layers</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/fq_domain.html">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -543,6 +547,16 @@ For three dimensions the construction works similarly.</p>
 \hat{\mathbf x}_5&amp;=(0,1),&amp;
 \hat{\mathbf x}_6&amp;=(0,1/2)\}.
 \end{aligned}\end{split}\]</div>
+<p>The nodal basis functions are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\hat b_1 &amp;= 2(1-x-y)(1-x-y-\frac{1}{2}),&amp;
+\hat b_2 &amp;= 4(1-x-y)x,&amp;
+\hat b_3 &amp;= 2x(x-\frac{1}{2})\\
+\hat b_4 &amp;= 4xy,&amp;
+\hat b_5 &amp;= 2y(1-\frac{1}{2}),&amp;
+\hat b_6 &amp;= 4y(1-x-y).
+\end{aligned}\end{split}\]</div>
 <p>It remains to specify the integration weights to obtain an optimal accuracy. Due to symmetry we only have to specify two weights <span class="math notranslate nohighlight">\(w_2=w_4=w_6=w_E\)</span> for the mid-points of the edges and <span class="math notranslate nohighlight">\(w_1=w_3=w_5=w_V\)</span> for the vertices, i.e., our integration rule is given by</p>
 <div class="math notranslate nohighlight">
 \[I_{\hat T}(f)=w_V\left(f(\hat{\mathbf x}_1)+f(\hat{\mathbf x}_3)+f(\hat{\mathbf x}_5)\right)+w_E\left(f(\hat{\mathbf x}_2)+f(\hat{\mathbf x}_4)+f(\hat{\mathbf x}_6)\right).\]</div>
@@ -562,12 +576,28 @@ For three dimensions the construction works similarly.</p>
 <p>Using this quadrature for approximating our mass matrix is not an option since we would end up with a singular approximated mass matrix. We may settle for an integration rule which only integrates linear functions exactly, however it turns out that this will also reduce the overall convergence order of the resulting method.</p>
 <p>The remedy to this problem is to add an additional integration point to the integration rule. From symmetry considerations this can only be the center <span class="math notranslate nohighlight">\(\hat{\mathbf x}_7=(1/3,1/3)\)</span> of the reference triangle.</p>
 <p>We also have to enlargen the local space of polynomials by another basis function.</p>
-<p>Since this has to be a basis function corresponding to the integration point in the center we have to choose a bubble function namely <span class="math notranslate nohighlight">\(\hat b_7(x,y):= xy(1-x-y)\}.\)</span>
+<p>Since this has to be a basis function corresponding to the integration point in the center we have to choose a bubble function namely <span class="math notranslate nohighlight">\(\tilde b_7(x,y):= 27xy(1-x-y)\}.\)</span>
 The resulting space</p>
 <div class="math notranslate nohighlight">
-\[\hat V_h:=\mathcal P^2\oplus \{\hat b_7\}.\]</div>
-<p>now lies in between the polynomial spaces <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> and <span class="math notranslate nohighlight">\(\mathcal P^3\)</span>. To obtain a Lagrangian basis with respect to the integration points one may simply use the Lagrangian basis of <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> with respect to the original integration points and subtract the bubble function.</p>
+\[\hat V_h:=\mathcal P^2\oplus \mathrm{span}\{\tilde b_7\}=\mathrm{span}\left\{\hat b_1,\hat b_2,\hat b_3,\hat b_4,\hat b_5,\hat b_6,\tilde b_7\right\}\]</div>
+<p>now lies in between the polynomial spaces <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> and <span class="math notranslate nohighlight">\(\mathcal P^3\)</span>. To obtain a Lagrangian basis with respect to the integration points one may simply use the Lagrangian basis of <span class="math notranslate nohighlight">\(\mathcal P^2\)</span> with respect to the original integration points and subtract the bubble function, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\tilde b_j = \frac{\hat b_j+\tilde b_7}{1+\hat b_j(1/3,1/3)},\quad j=1,\ldots,6.\]</div>
+<p>It remains to specify the correct weights for the integration rule.</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 5.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\tilde b_j\)</span>, <span class="math notranslate nohighlight">\(\mathbf x_j\)</span> be given as above. Moreover we define</p>
+<div class="math notranslate nohighlight">
+\[w_1=w_3=w_5=\frac{1}{40},\quad w_2=w_4=w_6=\frac{1}{15},\quad w_7 = \frac{9}{40}.\]</div>
+<p>Then the quadrature rule given by <span class="math notranslate nohighlight">\(\mathbf x_j,\omega_j\)</span> is exact for all functions from <span class="math notranslate nohighlight">\(\mathcal P^3\)</span>.</p>
 </section>
+</div><div class="proof remark admonition" id="remark-1">
+<p class="admonition-title"><span class="caption-number">Remark 5.2 </span></p>
+<section class="remark-content" id="proof-content">
+<p>It turns out that a sufficient condition for the integration rule to not spoil the convergence of the method is that it is exact for <span class="math notranslate nohighlight">\(\mathcal P^{k+\tilde k-2}\)</span> if the space on the reference element <span class="math notranslate nohighlight">\(\hat V_h\)</span> is given by <span class="math notranslate nohighlight">\(\mathcal P^k\oplus \tilde V_h\)</span> with <span class="math notranslate nohighlight">\(\tilde V_h\subset \mathcal P^{\tilde k}\)</span>. This means that the integration rule defined above fo the second order mass lumping space is sufficient.</p>
+</section>
+</div></section>
 </section>
 </section>
 

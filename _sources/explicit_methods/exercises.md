@@ -6,7 +6,7 @@ Estimate the CFL condition of the Leap-Frog timestepping for the DG system. To t
 ```{math}
 \mathbf x_{n+1}=\mathbf M^{-1}\mathbf K\mathbf x_n,\quad \mu_n:=\frac{\mathbf x_n^\top\mathbf M^{-1}\mathbf K\mathbf x_n}{\|\mathbf x_n\|}
 ```
-with a random starting vector $\mathbf x_n$. 
+with a random starting vector $\mathbf x_0$. 
 
 
 ## Exercise 2
