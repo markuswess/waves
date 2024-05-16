@@ -434,8 +434,8 @@ document.write(`
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
 <p>Estimate the CFL condition of the Leap-Frog timestepping for the DG system. To this end estimate the largest eigenvalue of <span class="math notranslate nohighlight">\(\mathbf M^{-1}\mathbf K\)</span> by <span class="math notranslate nohighlight">\(\mu_N\)</span> for large enough <span class="math notranslate nohighlight">\(N\)</span> given by a power iteration</p>
 <div class="math notranslate nohighlight">
-\[\mathbf x_{n+1}=\mathbf M^{-1}\mathbf K\mathbf x_n,\quad \mu_n:=\frac{\mathbf x_n^\top\mathbf M^{-1}\mathbf K\mathbf x_n}{\|\mathbf x_n\|}\]</div>
-<p>with a random starting vector <span class="math notranslate nohighlight">\(\mathbf x_0\)</span>.</p>
+\[\mathbf x_{n+1}=\frac{1}{\|\mathbf M^{-1}\mathbf K\mathbf x_n\|}\mathbf M^{-1}\mathbf K\mathbf x_n,\quad \mu_n:=\frac{\mathbf x_n^\top\mathbf M^{-1}\mathbf K\mathbf x_n}{\|\mathbf x_n\|}\]</div>
+<p>with a random starting vector <span class="math notranslate nohighlight">\(\mathbf x_0\)</span>. The matrices <span class="math notranslate nohighlight">\(\mathbf M\)</span> and <span class="math notranslate nohighlight">\(\mathbf K\)</span> are the matrices of the equivalent verlet time stepping, i.e. if <span class="math notranslate nohighlight">\(\mathbf M_p\)</span>, <span class="math notranslate nohighlight">\(\mathbf M_v\)</span> are the mass matrices of the scalar and vectorial space and <span class="math notranslate nohighlight">\(\mathbf B\)</span> is the discrete gradient we set <span class="math notranslate nohighlight">\(\mathbf M = \mathbf M_p\)</span> and <span class="math notranslate nohighlight">\(\mathbf K=\mathbf B^\top\mathbf M_v^{-1}\mathbf B\)</span>.</p>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>

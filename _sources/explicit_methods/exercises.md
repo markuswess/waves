@@ -4,9 +4,9 @@
 ## Exercise 1
 Estimate the CFL condition of the Leap-Frog timestepping for the DG system. To this end estimate the largest eigenvalue of $\mathbf M^{-1}\mathbf K$ by $\mu_N$ for large enough $N$ given by a power iteration
 ```{math}
-\mathbf x_{n+1}=\mathbf M^{-1}\mathbf K\mathbf x_n,\quad \mu_n:=\frac{\mathbf x_n^\top\mathbf M^{-1}\mathbf K\mathbf x_n}{\|\mathbf x_n\|}
+\mathbf x_{n+1}=\frac{1}{\|\mathbf M^{-1}\mathbf K\mathbf x_n\|}\mathbf M^{-1}\mathbf K\mathbf x_n,\quad \mu_n:=\frac{\mathbf x_n^\top\mathbf M^{-1}\mathbf K\mathbf x_n}{\|\mathbf x_n\|}
 ```
-with a random starting vector $\mathbf x_0$. 
+with a random starting vector $\mathbf x_0$. The matrices $\mathbf M$ and $\mathbf K$ are the matrices of the equivalent verlet time stepping, i.e. if $\mathbf M_p$, $\mathbf M_v$ are the mass matrices of the scalar and vectorial space and $\mathbf B$ is the discrete gradient we set $\mathbf M = \mathbf M_p$ and $\mathbf K=\mathbf B^\top\mathbf M_v^{-1}\mathbf B$.
 
 
 ## Exercise 2

@@ -430,13 +430,56 @@ document.write(`
 <section id="pmls-in-one-dimension">
 <h2>PMLs in one dimension<a class="headerlink" href="#pmls-in-one-dimension" title="Link to this heading">#</a></h2>
 <p>Consider the one dimensional Helmholtz problem for given <span class="math notranslate nohighlight">\(k&gt;0\)</span> and compactly in <span class="math notranslate nohighlight">\((0,a)\)</span>, <span class="math notranslate nohighlight">\(a&gt;0\)</span> supported <span class="math notranslate nohighlight">\(f\)</span> to find <span class="math notranslate nohighlight">\(u: (0,\infty)\to\mathbb R\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-helmholtz-1d">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-helmholtz-1d" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 -u''-k^2 u &amp;= f,\\
 u(0) &amp;= 0,\\
 \lim_{x\to\infty} u'(x)-iku(x) &amp;= 0.
 \end{aligned}\end{split}\]</div>
 <p>The last condition is the Sommerfeld radiation condition which accounts for the missing boundary condition at the right.</p>
+<p>The general solution to <a class="reference internal" href="#equation-helmholtz-1d">(6.1)</a> (without boundary conditions) is given by</p>
+<div class="math notranslate nohighlight" id="equation-gen-sol">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-gen-sol" title="Link to this equation">#</a></span>\[u(x) = \frac{1}{2ik}\left(c_+-\int_0^x\exp(-ik\xi)f(\xi) d\xi\right) \exp(ikx)+\left(c_-+\frac{1}{2ik}\int_0^x\exp(ik\xi)f(\xi)d\xi\right) \exp(-ik x).\]</div>
+<p>Inserting the boundary conditions we obtain that the solution of <a class="reference internal" href="#equation-helmholtz-1d">(6.1)</a> is given in closed form by</p>
+<div class="math notranslate nohighlight">
+\[u(x) = \frac{1}{2ik}\left(\int_0^a\exp(ik\xi)f(\xi) d\xi-\int_0^x\exp(-ik\xi)f(\xi) d\xi\right) \exp(ikx)-\frac{1}{2ik}\int_x^a\exp(ik\xi)f(\xi)d\xi \exp(-ik x).\]</div>
+<p>Note that for <span class="math notranslate nohighlight">\(x\geq a\)</span> this boils down to</p>
+<div class="math notranslate nohighlight">
+\[u(x)=\tilde c \exp(ikx),\quad \tilde c = \frac{1}{k}\int_0^a\sin(k\xi)f(\xi) d\xi.\]</div>
+<p>Now the crucial observation here is that <span class="math notranslate nohighlight">\(u\)</span> for <span class="math notranslate nohighlight">\(x&gt;a\)</span> is an analytic function which allows a holomorphic extension to <span class="math notranslate nohighlight">\(\mathbb C\)</span>, which we also denote by <span class="math notranslate nohighlight">\(u\)</span>. Moreover if we bend the path in the complex plane from the real axis upwards the value of <span class="math notranslate nohighlight">\(u\)</span> decreases exponentially with increasing imaginary part of the argument, e.g., if we choose for any <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde x(x):=\begin{cases}x,&amp;x&lt;a\\x+i\alpha(x-a),&amp;x\geq a\end{cases}\end{split}\]</div>
+<p>we have that</p>
+<div class="math notranslate nohighlight" id="equation-u-scaled">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-u-scaled" title="Link to this equation">#</a></span>\[\begin{split}\tilde u(x):=u(\tilde x(x))=\begin{cases}
+\tilde c\exp(ikx),&amp;x&lt;a,\\
+\tilde c\exp(-\alpha k(x-a))\exp(ikx),&amp;x\geq a.
+\end{cases}\end{split}\]</div>
+<p>Note that the <em>unwanted</em> term <span class="math notranslate nohighlight">\(\exp(-ikx)\)</span> in the general solution <a class="reference internal" href="#equation-gen-sol">(6.2)</a> on the other hand increases exponentially along <span class="math notranslate nohighlight">\(\tilde x\)</span>.
+We have found a way to alter the solution of the original problem in a way that it remains unchanged in the interval of interest <span class="math notranslate nohighlight">\((0,a)\)</span> and the Sommerfeld radiation condition reduces to the condition that the altered solution is square integrable on the real axis. This condition fits nicely into the desired variational framework.</p>
+<p>To obtain a numerical method one now alters the Helmholtz equation such that <a class="reference internal" href="#equation-u-scaled">(6.3)</a> is the (unique) solution. Applying the chain rule one obtains easily:</p>
+<div class="proof theorem admonition" id="theorem-0">
+<p class="admonition-title"><span class="caption-number">Theorem 6.1 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>The function <span class="math notranslate nohighlight">\(\tilde u\)</span> <a class="reference internal" href="#equation-u-scaled">(6.3)</a> is the (unique) solution to the problem to find <span class="math notranslate nohighlight">\(\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+-\tilde u''-k^2 \tilde u &amp;= f,&amp;\text{in }(0,a),\\
+-\frac{1}{1+i\alpha}\tilde u''-(1+i\alpha)k^2 \tilde u &amp;= 0,&amp;\text{in }(a,\infty),\\
+\tilde u(0) &amp;= 0,\\
+\lim _{\varepsilon\to 0}\tilde u(x+\varepsilon)-\tilde u(x-\varepsilon) &amp;= 0,\\
+\lim _{\varepsilon\to 0}\tilde u'(x+\varepsilon)-(1+i\alpha)\tilde u'(x-\varepsilon) &amp;= 0.
+\end{aligned}\end{split}\]</div>
+</section>
+</div><p>As usual we also may derive the weak formulation to find <span class="math notranslate nohighlight">\(\tilde u\in H^1_0((0,\infty))\)</span> s.t.</p>
+<div class="math notranslate nohighlight" id="equation-weak-scaled">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-weak-scaled" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^\infty \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^\infty \tilde uv=\int_0^a fv\]</div>
+<p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,\infty))\)</span>.
+Note that the weak formulation (also known as <strong>complex scaled</strong> equation) <a class="reference internal" href="#equation-weak-scaled">(6.5)</a> is still posed on an unbounded domain and thus not feasible for a FEM discretization. Thus we truncate the domain to <span class="math notranslate nohighlight">\((0,T)\)</span> for some <span class="math notranslate nohighlight">\(T&gt;a\)</span> and impose homogeneous Dirichlet or Neumann boundary conditions at <span class="math notranslate nohighlight">\(x=T\)</span>: Namely we look for <span class="math notranslate nohighlight">\(\tilde u\in H^1_0((0,T))\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-weak-scaled">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-weak-scaled" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^T \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^T \tilde uv=\int_0^a fv\]</div>
+<p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,T))\)</span>.
+Since the solution decays exponentially for <span class="math notranslate nohighlight">\(x\to\infty\)</span> we expect an exponentially small (with respect to the truncation <span class="math notranslate nohighlight">\(T\)</span>) error.</p>
 </section>
 </section>
 
