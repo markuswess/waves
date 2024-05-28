@@ -63,6 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'pmls/fq_domain';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.2. Perfectly matched layers in NGSolve" href="pmls_ngsolve.html" />
     <link rel="prev" title="6. Perfectly Matched Layers" href="../pmls.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -215,6 +216,7 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../pmls.html">6. Perfectly Matched Layers</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pmls_ngsolve.html">6.2. Perfectly matched layers in NGSolve</a></li>
 </ul>
 </li>
 </ul>
@@ -413,6 +415,16 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pmls-in-one-dimension">PMLs in one dimension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pmls-for-waveguides">PMLs for waveguides</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-into-modes-and-radiation-condition">Decomposition into modes and radiation condition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-scaling">Complex scaling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#free-space">Free space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cartesian-scalings">Cartesian scalings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radial-scalings">Radial scalings</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -447,21 +459,21 @@ u(0) &amp;= 0,\\
 <div class="math notranslate nohighlight">
 \[u(x)=\tilde c \exp(ikx),\quad \tilde c = \frac{1}{k}\int_0^a\sin(k\xi)f(\xi) d\xi.\]</div>
 <p>Now the crucial observation here is that <span class="math notranslate nohighlight">\(u\)</span> for <span class="math notranslate nohighlight">\(x&gt;a\)</span> is an analytic function which allows a holomorphic extension to <span class="math notranslate nohighlight">\(\mathbb C\)</span>, which we also denote by <span class="math notranslate nohighlight">\(u\)</span>. Moreover if we bend the path in the complex plane from the real axis upwards the value of <span class="math notranslate nohighlight">\(u\)</span> decreases exponentially with increasing imaginary part of the argument, e.g., if we choose for any <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\tilde x(x):=\begin{cases}x,&amp;x&lt;a\\x+i\alpha(x-a),&amp;x\geq a\end{cases}\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-scaling-1d">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-scaling-1d" title="Link to this equation">#</a></span>\[\begin{split}\tilde x(x):=\begin{cases}x,&amp;x&lt;a\\x+i\alpha(x-a),&amp;x\geq a\end{cases}\end{split}\]</div>
 <p>we have that</p>
 <div class="math notranslate nohighlight" id="equation-u-scaled">
-<span class="eqno">(6.3)<a class="headerlink" href="#equation-u-scaled" title="Link to this equation">#</a></span>\[\begin{split}\tilde u(x):=u(\tilde x(x))=\begin{cases}
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-u-scaled" title="Link to this equation">#</a></span>\[\begin{split}\tilde u(x):=u(\tilde x(x))=\begin{cases}
 \tilde c\exp(ikx),&amp;x&lt;a,\\
 \tilde c\exp(-\alpha k(x-a))\exp(ikx),&amp;x\geq a.
 \end{cases}\end{split}\]</div>
 <p>Note that the <em>unwanted</em> term <span class="math notranslate nohighlight">\(\exp(-ikx)\)</span> in the general solution <a class="reference internal" href="#equation-gen-sol">(6.2)</a> on the other hand increases exponentially along <span class="math notranslate nohighlight">\(\tilde x\)</span>.
 We have found a way to alter the solution of the original problem in a way that it remains unchanged in the interval of interest <span class="math notranslate nohighlight">\((0,a)\)</span> and the Sommerfeld radiation condition reduces to the condition that the altered solution is square integrable on the real axis. This condition fits nicely into the desired variational framework.</p>
-<p>To obtain a numerical method one now alters the Helmholtz equation such that <a class="reference internal" href="#equation-u-scaled">(6.3)</a> is the (unique) solution. Applying the chain rule one obtains easily:</p>
+<p>To obtain a numerical method one now alters the Helmholtz equation such that <a class="reference internal" href="#equation-u-scaled">(6.4)</a> is the (unique) solution. Applying the chain rule one obtains easily:</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 6.1 </span></p>
 <section class="theorem-content" id="proof-content">
-<p>The function <span class="math notranslate nohighlight">\(\tilde u\)</span> <a class="reference internal" href="#equation-u-scaled">(6.3)</a> is the (unique) solution to the problem to find <span class="math notranslate nohighlight">\(\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))\)</span> such that</p>
+<p>The function <span class="math notranslate nohighlight">\(\tilde u\)</span> <a class="reference internal" href="#equation-u-scaled">(6.4)</a> is the (unique) solution to the problem to find <span class="math notranslate nohighlight">\(\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 -\tilde u''-k^2 \tilde u &amp;= f,&amp;\text{in }(0,a),\\
@@ -476,10 +488,121 @@ We have found a way to alter the solution of the original problem in a way that 
 <span class="eqno">(6.5)<a class="headerlink" href="#equation-weak-scaled" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^\infty \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^\infty \tilde uv=\int_0^a fv\]</div>
 <p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,\infty))\)</span>.
 Note that the weak formulation (also known as <strong>complex scaled</strong> equation) <a class="reference internal" href="#equation-weak-scaled">(6.5)</a> is still posed on an unbounded domain and thus not feasible for a FEM discretization. Thus we truncate the domain to <span class="math notranslate nohighlight">\((0,T)\)</span> for some <span class="math notranslate nohighlight">\(T&gt;a\)</span> and impose homogeneous Dirichlet or Neumann boundary conditions at <span class="math notranslate nohighlight">\(x=T\)</span>: Namely we look for <span class="math notranslate nohighlight">\(\tilde u\in H^1_0((0,T))\)</span> such that</p>
-<div class="math notranslate nohighlight" id="equation-weak-scaled">
-<span class="eqno">(6.5)<a class="headerlink" href="#equation-weak-scaled" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^T \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^T \tilde uv=\int_0^a fv\]</div>
+<div class="math notranslate nohighlight" id="equation-weak-pml">
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-weak-pml" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^T \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^T \tilde uv=\int_0^a fv\]</div>
 <p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,T))\)</span>.
 Since the solution decays exponentially for <span class="math notranslate nohighlight">\(x\to\infty\)</span> we expect an exponentially small (with respect to the truncation <span class="math notranslate nohighlight">\(T\)</span>) error.</p>
+</section>
+<section id="pmls-for-waveguides">
+<h2>PMLs for waveguides<a class="headerlink" href="#pmls-for-waveguides" title="Link to this heading">#</a></h2>
+<section id="decomposition-into-modes-and-radiation-condition">
+<h3>Decomposition into modes and radiation condition<a class="headerlink" href="#decomposition-into-modes-and-radiation-condition" title="Link to this heading">#</a></h3>
+<p>The ideas from 1d can be easily carried over to waveguide geometries: Consider the Helmholtz equation on the semi infinite waveguide <span class="math notranslate nohighlight">\(\Omega=(0,\infty)\times (0,\pi)\)</span> with homogeneous Dirichlet boundary conditions.
+A decomposition of the solution <span class="math notranslate nohighlight">\(u(x,y)\)</span> into transversal modes yields</p>
+<div class="math notranslate nohighlight" id="equation-waveguide-modes">
+<span class="eqno">(6.7)<a class="headerlink" href="#equation-waveguide-modes" title="Link to this equation">#</a></span>\[u(x,y)=\sum_{n=1}^\infty \sin(ny) u_n(x),\quad f(x,y)=\sum_{n=1}^\infty \sin(ny)f_n(x),\]</div>
+<p>and the functions <span class="math notranslate nohighlight">\(u_n\)</span> have to solve</p>
+<div class="math notranslate nohighlight">
+\[-u_n''-(k^2-n^2)u_n = f_n.\]</div>
+<p>Again we assume that <span class="math notranslate nohighlight">\(f_n\)</span> vanishes for <span class="math notranslate nohighlight">\(x&gt;a\)</span> and <span class="math notranslate nohighlight">\(k\notin\mathbb N\)</span>. Then the family of general solutions <span class="math notranslate nohighlight">\(u_n\)</span> for <span class="math notranslate nohighlight">\(x&gt;a\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}u_n(x) = \begin{cases}
+c_+\exp(i\sqrt{k^2-n^2}x)+c_-\exp(-i\sqrt{k^2-n^2}x),&amp;n&lt;k\\
+c_+\exp(\sqrt{n^2-k^2}x)+c_-\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
+\end{cases}\end{split}\]</div>
+<p>The radiation condition is now formulated based on the decomposition above: A solution is called outgoing if it is of the form <a class="reference internal" href="#equation-waveguide-modes">(6.7)</a> with</p>
+<div class="math notranslate nohighlight" id="equation-rad-cond-waveguide">
+<span class="eqno">(6.8)<a class="headerlink" href="#equation-rad-cond-waveguide" title="Link to this equation">#</a></span>\[\begin{split} u_n(x) = \begin{cases}
+ c_n\exp(i\sqrt{k^2-n^2}x),&amp;n&lt;k\\
+ c_n\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
+ \end{cases}\end{split}\]</div>
+<p>Modes with <span class="math notranslate nohighlight">\(n&lt;k\)</span> are called <em>propagating</em> waves, while the ones with <span class="math notranslate nohighlight">\(n&gt;k\)</span> are called <em>evanescent</em>.</p>
+</section>
+<section id="complex-scaling">
+<h3>Complex scaling<a class="headerlink" href="#complex-scaling" title="Link to this heading">#</a></h3>
+<p>Propagating solutions as defined above allow again a holomorphic continuation in <span class="math notranslate nohighlight">\(x\)</span>-direction. Applying the change of coordinates <a class="reference internal" href="#equation-scaling-1d">(6.3)</a> to the outgoing modes <a class="reference internal" href="#equation-rad-cond-waveguide">(6.8)</a> leads to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \tilde u_n(x) = \begin{cases}
+ c_n\exp(i\sqrt{k^2-n^2}x)\exp(-\alpha\sqrt{k^2-n^2}x),&amp;n&lt;k\\
+ c_n\exp(-\sqrt{n^2-k^2}x)\exp(-i\alpha\sqrt{n^2-k^2}x),&amp;n&gt;k.
+ \end{cases}\end{split}\]</div>
+<p>which also decay exponentially for <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> and <span class="math notranslate nohighlight">\(x\to\infty\)</span>.
+Thus again we may truncate the domain to <span class="math notranslate nohighlight">\(\tilde\Omega = \Omega_{\mathrm {int}}\cup\Omega_{\mathrm{PML}}=(0,a)\times (0,\pi)\cup (a,T)\times(0,\pi)\)</span> to obtain the PML formulation to find <span class="math notranslate nohighlight">\(\tilde u\in H^1_0(\tilde\Omega)\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-weak-pml-waveguide">
+<span class="eqno">(6.9)<a class="headerlink" href="#equation-weak-pml-waveguide" title="Link to this equation">#</a></span>\[\int_{\Omega_{\mathrm{int}}} \tilde u' v'+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \tilde u'v'-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv\]</div>
+<p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,T))\)</span>.</p>
+<div class="proof remark admonition" id="remark-1">
+<p class="admonition-title"><span class="caption-number">Remark 6.1 </span></p>
+<section class="remark-content" id="proof-content">
+<p>Similar arguments can be applied for two-sided or three-dimensional waveguides.</p>
+</section>
+</div></section>
+</section>
+<section id="free-space">
+<h2>Free space<a class="headerlink" href="#free-space" title="Link to this heading">#</a></h2>
+<p>In free space <span class="math notranslate nohighlight">\(\Omega = \mathbb R^{2,3}\)</span> the situation is a bit more evolved, since there is no unique direction of propagation as in one dimension or waveguides. However we still may decompose the solution of the Helmholtz homogeneous equation into modes. This time we use polar coordinates to obtain for  <span class="math notranslate nohighlight">\(r\)</span> large enough such that no sources or obstacles are present</p>
+<div class="math notranslate nohighlight">
+\[u(r\hat x)=
+\sum_{n=-\infty}^\infty\left( c_{1,n} H_{|n|}^{(1)}(kr)+c_{2,n} H_{|n|}^{(2)}(kr)\right)\Phi_n(\hat x),\]</div>
+<p>where <span class="math notranslate nohighlight">\(H_m^{(1,2)}\)</span> are the (cylindrical) <a class="reference external" href="https://en.wikipedia.org/wiki/Bessel_function#Hankel_functions">Hankel functions</a> of the first and second kind and <span class="math notranslate nohighlight">\(\Phi_n\)</span> are the cylindrical harmonics.</p>
+<p>The Hankel functions in the decomposition above now play the role of the exponentials in one dimension and the waveguide case: The Hankel functions of the first kind are the sought outgoing waves and the ones of the second kind are the unwanted incoming waves.
+Thus, the radiation condition can again be stated as</p>
+<div class="math notranslate nohighlight">
+\[u(r\hat x)=
+\sum_{n=-\infty}^\infty c_{n} H_{|n|}^{(1)}(kr)\Phi_n(\hat x),\]</div>
+<p>for <span class="math notranslate nohighlight">\(r&gt;r_0\)</span> such that all sources and obstacles are contained in the ball <span class="math notranslate nohighlight">\(B_{r_0}(0)\)</span>.</p>
+<p>The Hankel functions also have a suitable asymptotic behavior for the idea of complex scaling to work, namely</p>
+<div class="math notranslate nohighlight">
+\[H_n^{(1,2)}(z)\approx \sqrt{\frac{2}{\pi u}}\exp\left(\pm i(z-(2n+1)\pi/4)\right),\quad -\pi&lt;\arg z &lt;\pi\]</div>
+<p>Thus, as long as the complex scaling <span class="math notranslate nohighlight">\(x\mapsto \tilde {\mathbf x}\)</span> has the property that <span class="math notranslate nohighlight">\(\Im\left(\tilde{\mathbf x}(\mathbf x)\right)\to \infty\)</span> for <span class="math notranslate nohighlight">\(|\mathbf x|\to\infty\)</span> we obtain that the (wanted) Hankel function of the first kind is exponentially damped, while the (unwanted) Hankel function of the second kind increases.</p>
+<p>Subsequently the complex scaled formulation is derived via the transformation rule:</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 6.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(J(\mathbf x)\)</span> denote the Jacobian matrix of the (piecewise smooth) scaling <span class="math notranslate nohighlight">\(\tilde {\mathbf x}(\mathbf x)\in\mathbb C^d\)</span> such that <span class="math notranslate nohighlight">\(\Im\left(\tilde{\mathbf x}(\mathbf x)\right)\to \infty\)</span> for <span class="math notranslate nohighlight">\(|\mathbf x|\to\infty\)</span> and let <span class="math notranslate nohighlight">\(\Omega_{\mathrm{int}}\)</span> be the interior domain where <span class="math notranslate nohighlight">\(\tilde{\mathbf x}=\mathbf x\)</span>. Then the complex scaled, radiating solution <span class="math notranslate nohighlight">\(\tilde u\in H^1(\mathbb R^d)\)</span> of the Helmholtz equation fulfills</p>
+<div class="math notranslate nohighlight">
+\[\int_{\Omega_{\mathrm{int}}}\nabla \tilde u\cdot \nabla v+
+\int_{\Omega_{\mathrm{ext}}}\left(J^{-\top}\nabla \tilde u\right)\cdot\left(J^{-\top}\nabla v\right)\det J
+-k^2\int_{\Omega_{\mathrm{int}}} \tilde u v 
+-k^2\int_{\Omega_{\mathrm{ext}}} \tilde u v \det J=\int_{\Omega_{\mathrm{int}}}f v\]</div>
+<p>for all <span class="math notranslate nohighlight">\(v\in H^1(\mathbb R^d)\)</span> for right hand sides <span class="math notranslate nohighlight">\(f\)</span> supported in <span class="math notranslate nohighlight">\(\Omega_{\mathrm{int}}\)</span>.</p>
+</section>
+</div><p>Subsequently the complex scaled equation is again truncated to a finite domain and homogeneous (Dirichlet) boundary conditions are imposed.</p>
+<p>There are several variants to choose the change of variables <span class="math notranslate nohighlight">\(\tilde {\mathbf x}\)</span>. Two of them are presented in the following.</p>
+<section id="cartesian-scalings">
+<h3>Cartesian scalings<a class="headerlink" href="#cartesian-scalings" title="Link to this heading">#</a></h3>
+<p>The simple idea of cartesian scalings is to superimpose scalings in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> directions to obtain the <span class="math notranslate nohighlight">\(\tilde x(x)\)</span>. For given values <span class="math notranslate nohighlight">\(a_0,a_1,b_0,b_1\)</span> such that all the sources and inhomogeneities are contained in the box <span class="math notranslate nohighlight">\(\Omega_{\mathrm{int}}=(a_0,a_1)\times(b_0,b_1)\)</span> we define the scaling</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\mathbf x}(\mathbf x)=
+\begin{pmatrix}
+\tilde x\\\tilde y
+\end{pmatrix}
+((x,y)^\top):=\begin{pmatrix}
+x\\y\end{pmatrix}
++i\alpha\begin{pmatrix}
+ (x-a_1) \chi_{x&gt;a_1}(x)+(x-a_0) \chi_{x&lt;a_0}(x)\\
+ (y-b_1) \chi_{y&gt;b_1}(y)+(y-b_0) \chi_{y&lt;a_0}(y)
+\end{pmatrix}\end{split}\]</div>
+<p>for some <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> and where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\chi_{x&gt;a}(x)=\begin{cases}1,&amp;x&gt;a\\0,&amp;x\leq a\end{cases}\end{split}\]</div>
+<p>and similar.</p>
+<p>To implement the PML formulation one needs to derive the Jacobian matrix of the mapping <span class="math notranslate nohighlight">\(\tilde{\mathbf x}\)</span> which is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}J((x,y)^\top) =\mathbf I+i\alpha\begin{pmatrix}\chi_{x&lt;a_0}(x)+\chi_{x&gt;a_1}(x)&amp;0\\0&amp;\chi_{y&lt;b_0}(y)+\chi_{y&gt;b_1}(y)\end{pmatrix},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf I\)</span> denotes the identity matrix.</p>
+<p>Cartesian scalings are very popular due to their easy implementation.</p>
+</section>
+<section id="radial-scalings">
+<h3>Radial scalings<a class="headerlink" href="#radial-scalings" title="Link to this heading">#</a></h3>
+<p>Another idea is to scale the variable in radial direction, i.e., to use</p>
+<div class="math notranslate nohighlight">
+\[\tilde{\mathbf x}(\mathbf x)=\left(r_0+i\alpha (\|\mathbf x\|-r_0)\right) \frac{\mathbf x}{\|\mathbf x\|}=r_0\left(1-i\alpha\right)\frac{\mathbf x}{\|\mathbf x\|}+i\alpha\mathbf x\]</div>
+<p>for <span class="math notranslate nohighlight">\(\|x\|&gt;r_0\)</span>.</p>
+<p>Again we may directly compute the Jacobian matrix by</p>
+<div class="math notranslate nohighlight">
+\[J(\mathbf x)=i\alpha \mathbf I-r_0(1-i\alpha)\frac{1}{\|\mathbf x\|^3}\mathbf x\mathbf x^\top\]</div>
+</section>
 </section>
 </section>
 
@@ -522,6 +645,15 @@ Since the solution decays exponentially for <span class="math notranslate nohigh
         <p class="prev-next-title"><span class="section-number">6. </span>Perfectly Matched Layers</p>
       </div>
     </a>
+    <a class="right-next"
+       href="pmls_ngsolve.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6.2. </span>Perfectly matched layers in NGSolve</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -539,6 +671,16 @@ Since the solution decays exponentially for <span class="math notranslate nohigh
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pmls-in-one-dimension">PMLs in one dimension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pmls-for-waveguides">PMLs for waveguides</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-into-modes-and-radiation-condition">Decomposition into modes and radiation condition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-scaling">Complex scaling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#free-space">Free space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cartesian-scalings">Cartesian scalings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radial-scalings">Radial scalings</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
