@@ -40,18 +40,17 @@ Now the crucial observation here is that $u$ for $x>a$ is an analytic function w
 we have that
 ```{math}
 :label: u_scaled
-\tilde u(x):=u(\tilde x(x))=\begin{cases}
-\tilde c\exp(ikx),&x<a,\\
-\tilde c\exp(-\alpha k(x-a))\exp(ikx),&x\geq a.
-\end{cases}
+\tilde u(x):=u(\tilde x(x))=
+\tilde c\exp(-\alpha k(x-a))\exp(ikx),\quad x\geq a.
 ```
 Note that the *unwanted* term $\exp(-ikx)$ in the general solution {eq}`gen_sol` on the other hand increases exponentially along $\tilde x$.
 We have found a way to alter the solution of the original problem in a way that it remains unchanged in the interval of interest $(0,a)$ and the Sommerfeld radiation condition reduces to the condition that the altered solution is square integrable on the real axis. This condition fits nicely into the desired variational framework.
 
 To obtain a numerical method one now alters the Helmholtz equation such that {eq}`u_scaled` is the (unique) solution. Applying the chain rule one obtains easily:
 ````{prf:Theorem}
-The function $\tilde u$ {eq}`u_scaled` is the (unique) solution to the problem to find $\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))$ such that
+For $k>0$ the function $\tilde u$ {eq}`u_scaled` is the (unique) solution to the problem to find $\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))$ such that
 ```{math}
+:label: cs_problem
 \begin{aligned}
 -\tilde u''-k^2 \tilde u &= f,&\text{in }(0,a),\\
 -\frac{1}{1+i\alpha}\tilde u''-(1+i\alpha)k^2 \tilde u &= 0,&\text{in }(a,\infty),\\

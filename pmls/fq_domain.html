@@ -217,7 +217,8 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../pmls.html">6. Perfectly Matched Layers</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pmls_ngsolve.html">6.2. Perfectly matched layers in NGSolve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exercises.html">6.3. Exercises for perfectly matched layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time-domain.html">6.3. Perfectly Matched Layers in the time domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">6.4. Exercises for perfectly matched layers</a></li>
 </ul>
 </li>
 </ul>
@@ -464,19 +465,17 @@ u(0) &amp;= 0,\\
 <span class="eqno">(6.3)<a class="headerlink" href="#equation-scaling-1d" title="Link to this equation">#</a></span>\[\begin{split}\tilde x(x):=\begin{cases}x,&amp;x&lt;a\\x+i\alpha(x-a),&amp;x\geq a\end{cases}\end{split}\]</div>
 <p>we have that</p>
 <div class="math notranslate nohighlight" id="equation-u-scaled">
-<span class="eqno">(6.4)<a class="headerlink" href="#equation-u-scaled" title="Link to this equation">#</a></span>\[\begin{split}\tilde u(x):=u(\tilde x(x))=\begin{cases}
-\tilde c\exp(ikx),&amp;x&lt;a,\\
-\tilde c\exp(-\alpha k(x-a))\exp(ikx),&amp;x\geq a.
-\end{cases}\end{split}\]</div>
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-u-scaled" title="Link to this equation">#</a></span>\[\tilde u(x):=u(\tilde x(x))=
+\tilde c\exp(-\alpha k(x-a))\exp(ikx),\quad x\geq a.\]</div>
 <p>Note that the <em>unwanted</em> term <span class="math notranslate nohighlight">\(\exp(-ikx)\)</span> in the general solution <a class="reference internal" href="#equation-gen-sol">(6.2)</a> on the other hand increases exponentially along <span class="math notranslate nohighlight">\(\tilde x\)</span>.
 We have found a way to alter the solution of the original problem in a way that it remains unchanged in the interval of interest <span class="math notranslate nohighlight">\((0,a)\)</span> and the Sommerfeld radiation condition reduces to the condition that the altered solution is square integrable on the real axis. This condition fits nicely into the desired variational framework.</p>
 <p>To obtain a numerical method one now alters the Helmholtz equation such that <a class="reference internal" href="#equation-u-scaled">(6.4)</a> is the (unique) solution. Applying the chain rule one obtains easily:</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 6.1 </span></p>
 <section class="theorem-content" id="proof-content">
-<p>The function <span class="math notranslate nohighlight">\(\tilde u\)</span> <a class="reference internal" href="#equation-u-scaled">(6.4)</a> is the (unique) solution to the problem to find <span class="math notranslate nohighlight">\(\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
+<p>For <span class="math notranslate nohighlight">\(k&gt;0\)</span> the function <span class="math notranslate nohighlight">\(\tilde u\)</span> <a class="reference internal" href="#equation-u-scaled">(6.4)</a> is the (unique) solution to the problem to find <span class="math notranslate nohighlight">\(\tilde u\in C^2([0,a)\cup (a,\infty))\cap L^2((0,\infty))\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-cs-problem">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-cs-problem" title="Link to this equation">#</a></span>\[\begin{split}\begin{aligned}
 -\tilde u''-k^2 \tilde u &amp;= f,&amp;\text{in }(0,a),\\
 -\frac{1}{1+i\alpha}\tilde u''-(1+i\alpha)k^2 \tilde u &amp;= 0,&amp;\text{in }(a,\infty),\\
 \tilde u(0) &amp;= 0,\\
@@ -486,11 +485,11 @@ We have found a way to alter the solution of the original problem in a way that 
 </section>
 </div><p>As usual we also may derive the weak formulation to find <span class="math notranslate nohighlight">\(\tilde u\in H^1_0((0,\infty))\)</span> s.t.</p>
 <div class="math notranslate nohighlight" id="equation-weak-scaled">
-<span class="eqno">(6.5)<a class="headerlink" href="#equation-weak-scaled" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^\infty \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^\infty \tilde uv=\int_0^a fv\]</div>
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-weak-scaled" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^\infty \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^\infty \tilde uv=\int_0^a fv\]</div>
 <p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,\infty))\)</span>.
-Note that the weak formulation (also known as <strong>complex scaled</strong> equation) <a class="reference internal" href="#equation-weak-scaled">(6.5)</a> is still posed on an unbounded domain and thus not feasible for a FEM discretization. Thus we truncate the domain to <span class="math notranslate nohighlight">\((0,T)\)</span> for some <span class="math notranslate nohighlight">\(T&gt;a\)</span> and impose homogeneous Dirichlet or Neumann boundary conditions at <span class="math notranslate nohighlight">\(x=T\)</span>: Namely we look for <span class="math notranslate nohighlight">\(\tilde u\in H^1_0((0,T))\)</span> such that</p>
+Note that the weak formulation (also known as <strong>complex scaled</strong> equation) <a class="reference internal" href="time-domain.html#equation-weak-scaled">(6.13)</a> is still posed on an unbounded domain and thus not feasible for a FEM discretization. Thus we truncate the domain to <span class="math notranslate nohighlight">\((0,T)\)</span> for some <span class="math notranslate nohighlight">\(T&gt;a\)</span> and impose homogeneous Dirichlet or Neumann boundary conditions at <span class="math notranslate nohighlight">\(x=T\)</span>: Namely we look for <span class="math notranslate nohighlight">\(\tilde u\in H^1_0((0,T))\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-weak-pml">
-<span class="eqno">(6.6)<a class="headerlink" href="#equation-weak-pml" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^T \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^T \tilde uv=\int_0^a fv\]</div>
+<span class="eqno">(6.7)<a class="headerlink" href="#equation-weak-pml" title="Link to this equation">#</a></span>\[\int_0^a \tilde u' v'+\frac{1}{1+i\alpha}\int_a^T \tilde u'v'-k^2\int_0^a \tilde uv - k^2(1+i\alpha)\int_a^T \tilde uv=\int_0^a fv\]</div>
 <p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,T))\)</span>.
 Since the solution decays exponentially for <span class="math notranslate nohighlight">\(x\to\infty\)</span> we expect an exponentially small (with respect to the truncation <span class="math notranslate nohighlight">\(T\)</span>) error.</p>
 </section>
@@ -501,7 +500,7 @@ Since the solution decays exponentially for <span class="math notranslate nohigh
 <p>The ideas from 1d can be easily carried over to waveguide geometries: Consider the Helmholtz equation on the semi infinite waveguide <span class="math notranslate nohighlight">\(\Omega=(0,\infty)\times (0,\pi)\)</span> with homogeneous Dirichlet boundary conditions.
 A decomposition of the solution <span class="math notranslate nohighlight">\(u(x,y)\)</span> into transversal modes yields</p>
 <div class="math notranslate nohighlight" id="equation-waveguide-modes">
-<span class="eqno">(6.7)<a class="headerlink" href="#equation-waveguide-modes" title="Link to this equation">#</a></span>\[u(x,y)=\sum_{n=1}^\infty \sin(ny) u_n(x),\quad f(x,y)=\sum_{n=1}^\infty \sin(ny)f_n(x),\]</div>
+<span class="eqno">(6.8)<a class="headerlink" href="#equation-waveguide-modes" title="Link to this equation">#</a></span>\[u(x,y)=\sum_{n=1}^\infty \sin(ny) u_n(x),\quad f(x,y)=\sum_{n=1}^\infty \sin(ny)f_n(x),\]</div>
 <p>and the functions <span class="math notranslate nohighlight">\(u_n\)</span> have to solve</p>
 <div class="math notranslate nohighlight">
 \[-u_n''-(k^2-n^2)u_n = f_n.\]</div>
@@ -511,9 +510,9 @@ A decomposition of the solution <span class="math notranslate nohighlight">\(u(x
 c_+\exp(i\sqrt{k^2-n^2}x)+c_-\exp(-i\sqrt{k^2-n^2}x),&amp;n&lt;k\\
 c_+\exp(\sqrt{n^2-k^2}x)+c_-\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
 \end{cases}\end{split}\]</div>
-<p>The radiation condition is now formulated based on the decomposition above: A solution is called outgoing if it is of the form <a class="reference internal" href="#equation-waveguide-modes">(6.7)</a> with</p>
+<p>The radiation condition is now formulated based on the decomposition above: A solution is called outgoing if it is of the form <a class="reference internal" href="#equation-waveguide-modes">(6.8)</a> with</p>
 <div class="math notranslate nohighlight" id="equation-rad-cond-waveguide">
-<span class="eqno">(6.8)<a class="headerlink" href="#equation-rad-cond-waveguide" title="Link to this equation">#</a></span>\[\begin{split} u_n(x) = \begin{cases}
+<span class="eqno">(6.9)<a class="headerlink" href="#equation-rad-cond-waveguide" title="Link to this equation">#</a></span>\[\begin{split} u_n(x) = \begin{cases}
  c_n\exp(i\sqrt{k^2-n^2}x),&amp;n&lt;k\\
  c_n\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
  \end{cases}\end{split}\]</div>
@@ -521,7 +520,7 @@ c_+\exp(\sqrt{n^2-k^2}x)+c_-\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
 </section>
 <section id="complex-scaling">
 <h3>Complex scaling<a class="headerlink" href="#complex-scaling" title="Link to this heading">#</a></h3>
-<p>Propagating solutions as defined above allow again a holomorphic continuation in <span class="math notranslate nohighlight">\(x\)</span>-direction. Applying the change of coordinates <a class="reference internal" href="#equation-scaling-1d">(6.3)</a> to the outgoing modes <a class="reference internal" href="#equation-rad-cond-waveguide">(6.8)</a> leads to</p>
+<p>Propagating solutions as defined above allow again a holomorphic continuation in <span class="math notranslate nohighlight">\(x\)</span>-direction. Applying the change of coordinates <a class="reference internal" href="#equation-scaling-1d">(6.3)</a> to the outgoing modes <a class="reference internal" href="#equation-rad-cond-waveguide">(6.9)</a> leads to</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} \tilde u_n(x) = \begin{cases}
  c_n\exp(i\sqrt{k^2-n^2}x)\exp(-\alpha\sqrt{k^2-n^2}x),&amp;n&lt;k\\
@@ -530,7 +529,7 @@ c_+\exp(\sqrt{n^2-k^2}x)+c_-\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
 <p>which also decay exponentially for <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> and <span class="math notranslate nohighlight">\(x\to\infty\)</span>.
 Thus again we may truncate the domain to <span class="math notranslate nohighlight">\(\tilde\Omega = \Omega_{\mathrm {int}}\cup\Omega_{\mathrm{PML}}=(0,a)\times (0,\pi)\cup (a,T)\times(0,\pi)\)</span> to obtain the PML formulation to find <span class="math notranslate nohighlight">\(\tilde u\in H^1_0(\tilde\Omega)\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-weak-pml-waveguide">
-<span class="eqno">(6.9)<a class="headerlink" href="#equation-weak-pml-waveguide" title="Link to this equation">#</a></span>\[\int_{\Omega_{\mathrm{int}}} \tilde u' v'+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \tilde u'v'-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv\]</div>
+<span class="eqno">(6.10)<a class="headerlink" href="#equation-weak-pml-waveguide" title="Link to this equation">#</a></span>\[\int_{\Omega_{\mathrm{int}}} \tilde u' v'+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \tilde u'v'-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv\]</div>
 <p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,T))\)</span>.</p>
 <div class="proof remark admonition" id="remark-1">
 <p class="admonition-title"><span class="caption-number">Remark 6.1 </span></p>

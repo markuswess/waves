@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>6.3. Exercises for perfectly matched layers &#8212; Numerical methods for wave-type equations</title>
+    <title>6.4. Exercises for perfectly matched layers &#8212; Numerical methods for wave-type equations</title>
   
   
   
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'pmls/exercises';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="6.2. Perfectly matched layers in NGSolve" href="pmls_ngsolve.html" />
+    <link rel="prev" title="6.3. Perfectly Matched Layers in the time domain" href="time-domain.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -216,7 +216,8 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../pmls.html">6. Perfectly Matched Layers</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="fq_domain.html">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pmls_ngsolve.html">6.2. Perfectly matched layers in NGSolve</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.3. Exercises for perfectly matched layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time-domain.html">6.3. Perfectly Matched Layers in the time domain</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.4. Exercises for perfectly matched layers</a></li>
 </ul>
 </li>
 </ul>
@@ -417,6 +418,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 </ul>
             </nav>
         </div>
@@ -429,10 +431,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises-for-perfectly-matched-layers">
-<span id="exercises-pmls"></span><h1><span class="section-number">6.3. </span>Exercises for perfectly matched layers<a class="headerlink" href="#exercises-for-perfectly-matched-layers" title="Link to this heading">#</a></h1>
+<span id="exercises-pmls"></span><h1><span class="section-number">6.4. </span>Exercises for perfectly matched layers<a class="headerlink" href="#exercises-for-perfectly-matched-layers" title="Link to this heading">#</a></h1>
 <section id="exercise-1">
 <h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h2>
-<p>Write down the necessary single steps for deriving and implementing a Perfectly Matched Layer for the Helmholtz equation. Indicate which of these steps are necessary for the implementation and which are purely theoretical. Which of this steps do you expect to introduce an error?</p>
+<p>Write down the necessary single steps for deriving and implementing a Perfectly Matched Layer for the Helmholtz equation. Indicate which of these steps are necessary for the implementation and which are purely theoretical. Which of the steps do you expect to introduce an error?</p>
 </section>
 <section id="exercise-2">
 <h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h2>
@@ -442,6 +444,10 @@ Use <code class="docutils literal notranslate"><span class="pre">pml.Compound</s
 <section id="exercise-3">
 <h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h2>
 <p>Implement a PML for the two dimensional waveguide problem with an initial Gaussian peak by manually setting the complex coefficients. As an alternative implement it using <code class="docutils literal notranslate"><span class="pre">pml.HalfSpace</span></code>.</p>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h2>
+<p>Solve the Helmholtz resonance problem on the geometry <a class="reference external" href="https://markuswess.github.io/waves/_sources/second_numerics/square_inf.ipynb">square_inf.ipynb</a> surrounded by a PML (radial or cartesian). Try to explain the resulting discrete spectrum.</p>
 </section>
 </section>
 
@@ -476,12 +482,12 @@ Use <code class="docutils literal notranslate"><span class="pre">pml.Compound</s
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="pmls_ngsolve.html"
+       href="time-domain.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">6.2. </span>Perfectly matched layers in NGSolve</p>
+        <p class="prev-next-title"><span class="section-number">6.3. </span>Perfectly Matched Layers in the time domain</p>
       </div>
     </a>
 </div>
@@ -503,6 +509,7 @@ Use <code class="docutils literal notranslate"><span class="pre">pml.Compound</s
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">Exercise 2</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
 </ul>
   </nav></div>
 

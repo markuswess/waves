@@ -3,7 +3,7 @@
 
 ## Exercise 1
 
-Write down the necessary single steps for deriving and implementing a Perfectly Matched Layer for the Helmholtz equation. Indicate which of these steps are necessary for the implementation and which are purely theoretical. Which of this steps do you expect to introduce an error?
+Write down the necessary single steps for deriving and implementing a Perfectly Matched Layer for the Helmholtz equation. Indicate which of these steps are necessary for the implementation and which are purely theoretical. Which of the steps do you expect to introduce an error?
 
 ## Exercise 2
 
@@ -13,3 +13,8 @@ Use `pml.Compound`  to combine suitable scalings to a cylindrical complex scalin
 ## Exercise 3
 
 Implement a PML for the two dimensional waveguide problem with an initial Gaussian peak by manually setting the complex coefficients. As an alternative implement it using `pml.HalfSpace`.
+
+
+## Exercise 4
+
+Solve the Helmholtz resonance problem on the geometry [square_inf.ipynb](https://markuswess.github.io/waves/_sources/second_numerics/square_inf.ipynb) surrounded by a PML (radial or cartesian). Try to explain the resulting discrete spectrum.
