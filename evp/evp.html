@@ -1,0 +1,769 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>7.1. Eigenvalue solvers in NGSolve &#8212; Numerical methods for wave-type equations</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'evp/evp';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="7. Eigenvalue Problems" href="../evp.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ASC_Logo_transparent_300ppi_RGB.png" class="logo__image only-light" alt="Numerical methods for wave-type equations - Home"/>
+    <script>document.write(`<img src="../_static/ASC_Logo_transparent_300ppi_RGB.png" class="logo__image only-dark" alt="Numerical methods for wave-type equations - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Numerical methods for wave-type equations
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling.html">1. Mathematical modeling of wave phenomena</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/acoustic_td.html">1.1. Acoustic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/elastic_td.html">1.2. Elastic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/electromagnetic_td.html">1.3. Electromagnetic waves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/frequency-domain.html">1.4. Time-harmonic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../first_numerics.html">2. Basic numerical methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/method_of_lines.html">2.2. Space-time methods vs. the method of lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/fem_for_waveeq.html">2.3. A basic FE method for the acoustic wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../first_numerics/exercises.html">2.4. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../second_numerics.html">3. Basic numerical methods for frequency domain wave problems</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/scattering_problems.html">3.1. FEM for scattering problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/resonance_problems.html">3.2. FEM for resonance problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../second_numerics/exercises.html">3.3. Exercises for time-harmonic waves</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../time_integration.html">4. Time-integration</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/second_order.html">4.1. Time-integration for the second order systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/mixed_methods.html">4.2. Mixed formulations for wave equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/first_order.html">4.3. Time-integration for the first order system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_integration/exercises.html">4.4. Exercises for time-stepping schemes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../explicit_methods.html">5. Explicit methods for time-domain waves</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/dg.html">5.1. Discontinuous Galerkin methods for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/dg_in_ngsolve.html">5.2. DG Operators in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/mass_lumping.html">5.3. Mass lumping for the wave equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/intrules.html">5.4. Integration rules in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../explicit_methods/exercises.html">5.5. Exercises for explicit methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pmls.html">6. Perfectly Matched Layers</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/fq_domain.html">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/pmls_ngsolve.html">6.2. Perfectly matched layers in NGSolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/time-domain.html">6.3. Perfectly Matched Layers in the time domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/td_pmls_ngsolve.html">6.4. Cartesian time-domain PMLs in ngsolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pmls/exercises.html">6.5. Exercises for perfectly matched layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../evp.html">7. Eigenvalue Problems</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.1. Eigenvalue solvers in NGSolve</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/markuswess/waves" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/markuswess/waves/issues/new?title=Issue%20on%20page%20%2Fevp/evp.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/evp/evp.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Eigenvalue solvers in NGSolve</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-and-invert">Shift-and-invert</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arnoldi-algorithm">Arnoldi algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-and-invert-arnoldi-algorithm">Shift-and-invert Arnoldi algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explicit-methods">Explicit methods</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="eigenvalue-solvers-in-ngsolve">
+<h1><span class="section-number">7.1. </span>Eigenvalue solvers in NGSolve<a class="headerlink" href="#eigenvalue-solvers-in-ngsolve" title="Link to this heading">#</a></h1>
+<p>The goal of this section is to solve (generalized) matrix eigenvalue problems to find <span class="math notranslate nohighlight">\(u\in\mathbb C^N\)</span>, <span class="math notranslate nohighlight">\(\lambda\in\mathbb C\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+A u = \lambda M u
+\]</div>
+<p>for given matrices <span class="math notranslate nohighlight">\(A,M\in\mathbb C^{N\times N}\)</span></p>
+<section id="shift-and-invert">
+<h2>Shift-and-invert<a class="headerlink" href="#shift-and-invert" title="Link to this heading">#</a></h2>
+<p>Algorithms like the power iteration or the Arnoldi method approximate eigenvectors corresponding to the largest magnitude eigenvalues. However in wave applications typically the smallest magnitude eigenvalues or ones in a specific region are sought.</p>
+<p>The following observation transforms the generalized eigenvalue problem into a problem with the same eigenvectors but eigenvalues sorted by closeness to a given shift:</p>
+<p>Let <span class="math notranslate nohighlight">\(\lambda_0\in \mathbb C\)</span> be not an eigenvalue. Then the problem to find <span class="math notranslate nohighlight">\(u\in \mathbb C^N\)</span>, <span class="math notranslate nohighlight">\(\tilde\lambda\in\mathbb C\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+(A-\lambda_0M)^{-1}Mu = \tilde\lambda u
+\]</div>
+<p>has the same eigenvectors as the original problem with the eigenvalues given by
+$<span class="math notranslate nohighlight">\(
+\tilde \lambda = \frac{1}{\lambda-\lambda_0}.
+\)</span>$</p>
+<p>Thus the largest magnitude eigenvalues <span class="math notranslate nohighlight">\(\tilde \lambda\)</span> of the shifted problem correspond to the ones of the original problem closest to the shift <span class="math notranslate nohighlight">\(\lambda_0\)</span>.</p>
+</section>
+<section id="arnoldi-algorithm">
+<h2>Arnoldi algorithm<a class="headerlink" href="#arnoldi-algorithm" title="Link to this heading">#</a></h2>
+<p>The idea of the arnoldi algorithm is similiar to the one of the power iteration: for a given starting vector <span class="math notranslate nohighlight">\(v_0\)</span> the Krylow space of order <span class="math notranslate nohighlight">\(k\)</span> is defined by
+$<span class="math notranslate nohighlight">\(V_k:=\mathrm{span}\{v_0,v_1=M^{-1}A v_0,\ldots,v_k=(M^{-1}A)^kv_0\}\)</span>$</p>
+<p>After a given number of steps the problem (i.e., the large matrices) is projected onto the (small) Krylow space and the small eigenvalue problem is solved. The resulting approximations are approximations to the largest magnitude eigenvalues.</p>
+</section>
+<section id="shift-and-invert-arnoldi-algorithm">
+<h2>Shift-and-invert Arnoldi algorithm<a class="headerlink" href="#shift-and-invert-arnoldi-algorithm" title="Link to this heading">#</a></h2>
+<p>It is common to combine these two ideas.
+Suppose we want to compute the eigenvalues of the Laplacian on the <code class="docutils literal notranslate"><span class="pre">unit_square</span></code>. Then the matrices in <code class="docutils literal notranslate"><span class="pre">NGSolve</span></code> are assembled as usual</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ngsolve</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ngsolve.webgui</span> <span class="kn">import</span> <span class="n">Draw</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">unit_square</span><span class="o">.</span><span class="n">GenerateMesh</span><span class="p">(</span><span class="n">maxh</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+
+<span class="n">fes</span> <span class="o">=</span> <span class="n">H1</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span><span class="n">order</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="nb">complex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">fes</span><span class="o">.</span><span class="n">TnT</span><span class="p">()</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">BilinearForm</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">*</span><span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span><span class="o">.</span><span class="n">Assemble</span><span class="p">()</span><span class="o">.</span><span class="n">mat</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">BilinearForm</span><span class="p">(</span><span class="n">u</span><span class="o">*</span><span class="n">v</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span><span class="o">.</span><span class="n">Assemble</span><span class="p">()</span><span class="o">.</span><span class="n">mat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To use <code class="docutils literal notranslate"><span class="pre">ArnoldiSolver</span></code> we have to supply a <code class="docutils literal notranslate"><span class="pre">multidim</span></code> <code class="docutils literal notranslate"><span class="pre">GridFunction</span></code> to store the eigenvectors.
+The actual Krylow space is twice as large as the dimension of the <code class="docutils literal notranslate"><span class="pre">GridFunction</span></code>, however half of the approximated eigenvalues are thrown away (rule of thumb)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gfu</span> <span class="o">=</span> <span class="n">GridFunction</span><span class="p">(</span><span class="n">fes</span><span class="p">,</span><span class="n">multidim</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">shift</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">lam</span> <span class="o">=</span> <span class="n">ArnoldiSolver</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">M</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">shift</span><span class="p">,</span> <span class="n">vecs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">gfu</span><span class="o">.</span><span class="n">vecs</span><span class="p">),</span><span class="n">freedofs</span><span class="o">=</span><span class="n">fes</span><span class="o">.</span><span class="n">FreeDofs</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-6.74934666e-16-8.78821179e-20j  1.00000000e+00-6.08403476e-16j
+  1.00000000e+00+8.05443239e-16j  2.00000000e+00+5.20489798e-16j
+  4.00000000e+00+2.01681759e-15j  4.00000000e+00-1.30117264e-15j
+  5.00000001e+00+8.01484341e-16j  5.00000001e+00+6.46410877e-16j
+  8.00000006e+00-2.47620708e-14j  9.00000016e+00+1.52618897e-15j
+  9.00000009e+00-1.10193340e-16j  1.00000002e+01+1.15520533e-14j
+  1.00000002e+01-1.08967891e-15j  1.30000007e+01+1.11715711e-14j
+  1.30000009e+01+1.88158637e-14j  1.60000028e+01-4.32291758e-13j
+  1.60000015e+01+5.12239111e-14j  1.80000042e+01+3.73278413e-13j
+  1.70000035e+01-1.92334169e-13j  1.70000021e+01-1.24099531e-15j
+  2.00000073e+01-3.71454602e-15j  2.00000056e+01-7.93094869e-14j
+  2.60000162e+01-1.65079680e-14j  2.60000288e+01+1.27398572e-14j
+  2.50000277e+01+4.62916153e-13j  2.50000142e+01-8.14723057e-15j
+  2.50000220e+01+3.73688515e-13j  2.50000187e+01+4.26481558e-14j
+  2.90000474e+01-3.28919139e-13j  2.90000339e+01-9.75418779e-14j
+  3.20000788e+01+8.60500533e-14j  3.40000783e+01+6.17382516e-14j
+  3.40001126e+01+4.86709431e-14j  3.60000803e+01-1.52990145e-13j
+  3.60001502e+01+1.10338670e-14j  3.70001838e+01+2.72452232e-13j
+  3.70000935e+01+1.20941288e-13j  4.00001506e+01+6.88834080e-14j
+  4.00002180e+01-9.75347516e-14j  4.10002660e+01+7.79875926e-15j
+  4.10002006e+01+2.63619619e-15j  4.50003008e+01+1.82009881e-13j
+  4.50003802e+01-3.21046569e-14j  4.90004482e+01-3.34645685e-14j
+  4.90008512e+01-2.61089528e-14j  5.00004637e+01+2.45789066e-13j
+  5.00009064e+01+1.23895874e-13j  5.00006775e+01-1.46127832e-13j
+  5.20006175e+01+3.89780986e-14j  5.20009507e+01+1.78267542e-13j
+  5.30006263e+01-3.36937613e-13j  5.30011080e+01+1.19616276e-13j
+  5.80013329e+01-4.42517799e-13j  5.80009120e+01+5.05880085e-13j
+  6.10014716e+01-4.78070899e-13j  6.10016770e+01+1.30385657e-13j
+  6.40027880e+01+7.43520634e-14j  6.40016106e+01+2.03544840e-13j
+  6.80032402e+01+2.86235584e-14j  6.80020988e+01-3.85101131e-13j
+  6.50033885e+01-6.86418175e-15j  6.50020873e+01+1.79386381e-13j
+  6.50017260e+01+2.21141052e-13j  6.50018360e+01-1.08542399e-13j
+  7.20040556e+01-4.11383105e-13j  7.30042300e+01-4.10773212e-15j
+  7.30028447e+01-4.15033689e-13j  7.40035331e+01+9.78191276e-14j
+  7.40052227e+01-2.27287059e-13j  8.00064645e+01+6.73536110e-13j
+  8.00044111e+01+3.78685690e-13j  8.10092967e+01-1.18899667e-12j
+  8.10046709e+01-7.65123230e-14j  8.20053210e+01+2.10845626e-13j
+  8.20099275e+01+7.33332118e-13j  8.90099731e+01+8.68987104e-13j
+  8.90068408e+01-1.73751869e-13j  9.00077004e+01+1.63789643e-12j
+  9.00133902e+01-5.97674248e-13j  8.50110027e+01+6.10089734e-13j
+  8.50060808e+01+2.03110687e-12j  8.50077161e+01-3.80393249e-11j
+  8.50077806e+01+3.08080810e-12j  9.70109077e+01-1.05184791e-09j
+  9.70154319e+01-2.74004793e-09j  9.80150627e+01+6.89073404e-11j
+  1.01025450e+02-3.13008097e-06j  1.01014447e+02+5.64661220e-06j
+  1.04016863e+02+7.27162850e-06j  1.04027639e+02+4.83998586e-06j
+  1.00025792e+02+4.20671505e-04j  1.00020378e+02+2.03286777e-04j
+  1.00014558e+02-2.74822442e-04j  1.06016864e+02+9.98479517e-05j
+  1.06024000e+02+1.04940924e-04j  1.09034108e+02-3.36169721e-05j
+  1.09019233e+02+1.02890581e-04j  1.13030593e+02-2.67955914e-03j
+  1.13035965e+02+3.42096879e-04j  1.37066144e+02-5.94184599e-03j]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Draw</span><span class="p">(</span><span class="n">gfu</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "bddbf54eefa548329d506099b880dc21"}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BaseWebGuiScene
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="explicit-methods">
+<h2>Explicit methods<a class="headerlink" href="#explicit-methods" title="Link to this heading">#</a></h2>
+<p>Explicit eigenvalue solvers in <code class="docutils literal notranslate"><span class="pre">NGSolve</span></code> include <code class="docutils literal notranslate"><span class="pre">PINVIT</span></code> and <code class="docutils literal notranslate"><span class="pre">LOBPCG</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ngsolve.solvers</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">PINVIT</span><span class="p">)</span>
+<span class="n">help</span><span class="p">(</span><span class="n">LOBPCG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function PINVIT in module ngsolve.eigenvalues:
+
+PINVIT(mata, matm, pre, num=1, maxit=20, printrates=True, GramSchmidt=True)
+    preconditioned inverse iteration
+
+Help on function LOBPCG in module ngsolve.eigenvalues:
+
+LOBPCG(mata, matm, pre, num=1, maxit=20, initial=None, printrates=True, largest=False)
+    Knyazev&#39;s cg-like extension of PINVIT
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lam</span><span class="p">,</span><span class="n">vecs</span> <span class="o">=</span> <span class="n">PINVIT</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">Inverse</span><span class="p">(),</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">maxit</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">printrates</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lam</span><span class="p">,</span><span class="n">vecs</span> <span class="o">=</span> <span class="n">PINVIT</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">Inverse</span><span class="p">(),</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">maxit</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">printrates</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nn">File ~/bin/ngsolve/lib/python3.10/dist-packages/ngsolve/eigenvalues.py:95,</span> in <span class="ni">PINVIT</span><span class="nt">(mata, matm, pre, num, maxit, printrates, GramSchmidt)</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span> <span class="n">vecs</span><span class="p">[</span><span class="n">num</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">pre</span> <span class="o">*</span> <span class="n">vecs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span> <span class="n">vecs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">uvecs</span>
+<span class="ne">---&gt; </span><span class="mi">95</span> <span class="n">vecs</span><span class="o">.</span><span class="n">Orthogonalize</span><span class="p">(</span><span class="n">matm</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="c1"># hv[:] = mata * vecs</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="c1"># asmall = InnerProduct (vecs, hv)</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span> <span class="c1"># hv[:] = matm * vecs</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span> <span class="c1"># msmall = InnerProduct (vecs, hv)</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="n">asmall</span> <span class="o">=</span> <span class="n">InnerProduct</span> <span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">mata</span> <span class="o">*</span> <span class="n">vecs</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lam</span><span class="p">,</span><span class="n">vecs</span> <span class="o">=</span> <span class="n">LOBPCG</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">M</span><span class="o">.</span><span class="n">Inverse</span><span class="p">(),</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">maxit</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">printrates</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.58926725e-16  1.00000000e+00  1.00000000e+00  2.00000000e+00]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./evp"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../evp.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Eigenvalue Problems</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-and-invert">Shift-and-invert</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arnoldi-algorithm">Arnoldi algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-and-invert-arnoldi-algorithm">Shift-and-invert Arnoldi algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explicit-methods">Explicit methods</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Wess
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

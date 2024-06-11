@@ -218,7 +218,12 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1. Perfectly Matched Layers in the Frequency Domain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pmls_ngsolve.html">6.2. Perfectly matched layers in NGSolve</a></li>
 <li class="toctree-l2"><a class="reference internal" href="time-domain.html">6.3. Perfectly Matched Layers in the time domain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exercises.html">6.4. Exercises for perfectly matched layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="td_pmls_ngsolve.html">6.4. Cartesian time-domain PMLs in ngsolve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exercises.html">6.5. Exercises for perfectly matched layers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../evp.html">7. Eigenvalue Problems</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evp/evp.html">7.1. Eigenvalue solvers in NGSolve</a></li>
 </ul>
 </li>
 </ul>
@@ -529,7 +534,7 @@ c_+\exp(\sqrt{n^2-k^2}x)+c_-\exp(-\sqrt{n^2-k^2}x),&amp;n&gt;k.
 <p>which also decay exponentially for <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span> and <span class="math notranslate nohighlight">\(x\to\infty\)</span>.
 Thus again we may truncate the domain to <span class="math notranslate nohighlight">\(\tilde\Omega = \Omega_{\mathrm {int}}\cup\Omega_{\mathrm{PML}}=(0,a)\times (0,\pi)\cup (a,T)\times(0,\pi)\)</span> to obtain the PML formulation to find <span class="math notranslate nohighlight">\(\tilde u\in H^1_0(\tilde\Omega)\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-weak-pml-waveguide">
-<span class="eqno">(6.10)<a class="headerlink" href="#equation-weak-pml-waveguide" title="Link to this equation">#</a></span>\[\int_{\Omega_{\mathrm{int}}} \tilde u' v'+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \tilde u'v'-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv\]</div>
+<span class="eqno">(6.10)<a class="headerlink" href="#equation-weak-pml-waveguide" title="Link to this equation">#</a></span>\[\int_{\Omega_{\mathrm{int}}} \nabla\tilde u\cdot \nabla v+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \partial_x\tilde u \partial_xv+(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \partial_y\tilde u \partial_yv-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv\]</div>
 <p>for all <span class="math notranslate nohighlight">\(v\in H^1_0((0,T))\)</span>.</p>
 <div class="proof remark admonition" id="remark-1">
 <p class="admonition-title"><span class="caption-number">Remark 6.1 </span></p>
@@ -597,11 +602,11 @@ x\\y\end{pmatrix}
 <h3>Radial scalings<a class="headerlink" href="#radial-scalings" title="Link to this heading">#</a></h3>
 <p>Another idea is to scale the variable in radial direction, i.e., to use</p>
 <div class="math notranslate nohighlight">
-\[\tilde{\mathbf x}(\mathbf x)=\left(r_0+i\alpha (\|\mathbf x\|-r_0)\right) \frac{\mathbf x}{\|\mathbf x\|}=r_0\left(1-i\alpha\right)\frac{\mathbf x}{\|\mathbf x\|}+i\alpha\mathbf x\]</div>
+\[\tilde{\mathbf x}(\mathbf x)=\left(\|\mathbf x\|+i\alpha (\|\mathbf x\|-r_0)\right) \frac{\mathbf x}{\|\mathbf x\|}=(1+i\alpha)\mathbf x -i\alpha r_0\frac{\mathbf x}{\|\mathbf x\|}\]</div>
 <p>for <span class="math notranslate nohighlight">\(\|x\|&gt;r_0\)</span>.</p>
 <p>Again we may directly compute the Jacobian matrix by</p>
 <div class="math notranslate nohighlight">
-\[J(\mathbf x)=i\alpha \mathbf I-r_0(1-i\alpha)\frac{1}{\|\mathbf x\|^3}\mathbf x\mathbf x^\top\]</div>
+\[J(\mathbf x)=(1+i\alpha)\mathbf I-r_0i\alpha D_{\mathbf x}\frac{\mathbf x}{\|\mathbf x\|}=(1+i\alpha)\mathbf I-\frac{r_0i\alpha}{\|\mathbf x\|}\left(\mathbf I-\frac{1}{\|\mathbf x\|^2}\mathbf x\mathbf x^\top\right)\]</div>
 </section>
 </section>
 </section>

@@ -123,7 +123,7 @@ Thus again we may truncate the domain to $\tilde\Omega = \Omega_{\mathrm {int}}\
 
 ```{math}
 :label: weak_pml_waveguide
-\int_{\Omega_{\mathrm{int}}} \tilde u' v'+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \tilde u'v'-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv
+\int_{\Omega_{\mathrm{int}}} \nabla\tilde u\cdot \nabla v+\frac{1}{1+i\alpha}\int_{\Omega_{\mathrm{PML}}} \partial_x\tilde u \partial_xv+(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \partial_y\tilde u \partial_yv-k^2\int_{\Omega_{\mathrm{int}}} \tilde uv - k^2(1+i\alpha)\int_{\Omega_{\mathrm{PML}}} \tilde uv=\int_{\Omega_{\mathrm{int}}} fv
 ```
 for all $v\in H^1_0((0,T))$.
 
@@ -214,13 +214,13 @@ Cartesian scalings are very popular due to their easy implementation.
 Another idea is to scale the variable in radial direction, i.e., to use 
 
 ```{math}
-\tilde{\mathbf x}(\mathbf x)=\left(r_0+i\alpha (\|\mathbf x\|-r_0)\right) \frac{\mathbf x}{\|\mathbf x\|}=r_0\left(1-i\alpha\right)\frac{\mathbf x}{\|\mathbf x\|}+i\alpha\mathbf x
+\tilde{\mathbf x}(\mathbf x)=\left(\|\mathbf x\|+i\alpha (\|\mathbf x\|-r_0)\right) \frac{\mathbf x}{\|\mathbf x\|}=(1+i\alpha)\mathbf x -i\alpha r_0\frac{\mathbf x}{\|\mathbf x\|}
 ```
 for $\|x\|>r_0$.
 
 Again we may directly compute the Jacobian matrix by
 
 ```{math}
-J(\mathbf x)=i\alpha \mathbf I-r_0(1-i\alpha)\frac{1}{\|\mathbf x\|^3}\mathbf x\mathbf x^\top
+J(\mathbf x)=(1+i\alpha)\mathbf I-r_0i\alpha D_{\mathbf x}\frac{\mathbf x}{\|\mathbf x\|}=(1+i\alpha)\mathbf I-\frac{r_0i\alpha}{\|\mathbf x\|}\left(\mathbf I-\frac{1}{\|\mathbf x\|^2}\mathbf x\mathbf x^\top\right)
 ```
 
