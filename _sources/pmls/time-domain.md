@@ -114,7 +114,7 @@ To obtain a suitable time-domain equation we have to look at the expressions $\f
 -ik\det\mathbf J(\mathbf x)=\begin{cases}
 -ik,&\mathbf x\in\Omega_{\mathrm{int}},\\
 -ik+\alpha,&\mathbf x\in\Omega_{lr}\cup\Omega_{tb},\\
--ik+2\alpha-\frac{\alpha^2}{ik}&\mathbf x\in\Omega_c,\\
+-ik+2\alpha+\frac{\alpha^2}{-ik}&\mathbf x\in\Omega_c,\\
 \end{cases}
 ```
  and
@@ -132,8 +132,8 @@ where we used
 We introduce new unknowns $\hat p, \hat v$ by
 
 ```{math}
--ik\int_{\Omega_c}\hat p\hat q &= \alpha \int_{\Omega_c}p\hat q\\
--ik\int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot (\mathbf I-nn^\top)\hat w &= -\alpha \int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot (\mathbf I-nn^\top)\hat w+\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot (\mathbf I-nn^\top)\hat w
+-ik\int_{\Omega_c}\hat p\hat q &= -\alpha \int_{\Omega_c}p\hat q\\
+-ik\int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot \hat w &= -\alpha \int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot \hat w-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot \hat w
 ```
 where 
 ```{math}
@@ -147,10 +147,10 @@ A transformation back to time domain leads to the system
 
 ```{math}
 \begin{aligned}
-\partial_t \int_\Omega \tilde v\cdot \tilde w &= -\int_\Omega \nabla p\cdot \tilde w-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot n n^\top \tilde w+\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot(\mathbf I-n n^\top)\tilde w-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot\left(\mathbf I- nn^\top\right)\tilde w +\int_{\Omega_{\mathrm{int}}}f\tilde w\\
-\partial_t \int_\Omega pq &= \int_\Omega \tilde v\cdot \nabla q-2\alpha\int_{\Omega_c}pq+\alpha\int_{\Omega_c}\hat p q\\
-\partial_t \int_\Omega \hat p\hat q &=\alpha\int_{\Omega_c}p\hat q\\
-\partial_t \int_\Omega \hat v\cdot \hat w &=-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot\left(\mathbf I- nn^\top\right)\hat w+\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot\left(\mathbf I- nn^\top\right)\hat w
+\partial_t \int_\Omega \tilde v\cdot \tilde w &= -\int_\Omega \nabla p\cdot \tilde w-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot n n^\top \tilde w+\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot(\mathbf I-n n^\top)\tilde w+\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot\left(\mathbf I- nn^\top\right)\tilde w +\int_{\Omega_{\mathrm{int}}}f\tilde w\\
+\partial_t \int_\Omega pq &= \int_\Omega \tilde v\cdot \nabla q-\alpha\int_{\Omega_{lr}\cup\Omega_{tb}}pq-2\alpha\int_{\Omega_c}pq+\alpha\int_{\Omega_c}\hat p q\\
+\partial_t \int_\Omega \hat p\hat q &=-\alpha\int_{\Omega_c}p\hat q\\
+\partial_t \int_\Omega \hat v\cdot \hat w &=-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\hat v\cdot\hat w-\alpha\int_{\Omega_{tb}\cup\Omega_{lr}}\tilde v\cdot\hat w
 \end{aligned}
 ```
-which is of the usual form of damped time-domain wave equations an may be approximated appropriate time-stepping methods
+which is of the usual form of damped time-domain wave equations an may be approximated appropriate time-stepping methods.
